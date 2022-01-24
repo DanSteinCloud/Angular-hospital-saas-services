@@ -1,0 +1,1622 @@
+<div class="" *ngIf="loaddetailprenatal">
+  <div class="container-fluid p-0 m-0">
+    <div class="text-center">
+      <a routerLink="/patients" class="float-right btn bleu">Retour</a>
+    </div>
+  </div>
+  <br />
+  <br />
+  <div class="iq-card">
+    <div class="iq-card-header d-flex justify-content-between">
+      <div class="iq-header-title">
+        <h4 class="card-title">Voir détails du patient</h4>
+      </div>
+    </div>
+    <div class="iq-card-body">
+      <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+        <li class="nav-item" style="background-color:#f4f0ec;border-radius: 10%;border-color: black;">
+          <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">Dossier Prénatal</a>
+        </li>&nbsp;
+        <li class="nav-item" style="background-color:#f4f0ec;border-radius: 10%;border-color: black;">
+          <a class="nav-link" id="pills-suivi-tab-fill" data-toggle="pill" href="#pills-suivi-fill" role="tab" aria-controls="pills-suivi" aria-selected="false" (click)="SuiviLoad()">Suivi médical</a>
+        </li>&nbsp;
+        <li class="nav-item" style="background-color:#f4f0ec;border-radius: 10%;">
+          <a class="nav-link" id="pills-convention-tab-fill" data-toggle="pill" href="#pills-convention-fill" role="tab" aria-controls="pills-convention" aria-selected="false" (click)="GrossesseLoad()">Grossesse</a>
+        </li>&nbsp;
+        <li class="nav-item" style="background-color:#f4f0ec;border-radius: 10%;">
+          <a class="nav-link" id="pills-planning-tab-fill" data-toggle="pill" href="#pills-planning-fill" role="tab" aria-controls="pills-convention" aria-selected="false" (click)="AntecedentLoad()">Antécédent</a>
+        </li>&nbsp;
+        <li class="nav-item" style="background-color:#f4f0ec;border-radius: 10%;">
+          <a class="nav-link" id="pills-bilan-tab-fill" data-toggle="pill" href="#pills-bilan-fill" role="tab" aria-controls="pills-convention" aria-selected="false" (click)="BilanLoad()">Bilans</a>
+        </li>&nbsp;
+        <li class="nav-item" style="background-color:#f4f0ec;border-radius: 10%;">
+          <a class="nav-link" id="pills-vaccination-tab-fill" data-toggle="pill" href="#pills-vaccination-fill" role="tab" aria-controls="pills-convention" aria-selected="false" (click)="VaccinationLoad()">Vaccinations</a>
+        </li>&nbsp;
+        <li class="nav-item" style="background-color:#f4f0ec;border-radius: 10%;">
+          <a class="nav-link" id="pills-echo-tab-fill" data-toggle="pill" href="#pills-echo-fill" role="tab" aria-controls="pills-convention" aria-selected="false" (click)="EchographieLoad()">Echographie</a>
+        </li>&nbsp;
+        <li class="nav-item" style="background-color:#f4f0ec;border-radius: 10%;">
+          <a class="nav-link" id="pills-consultation-tab-fill" data-toggle="pill" href="#pills-consultation-fill" role="tab" aria-controls="pills-convention" aria-selected="false" (click)="ConsultationLoad()">Consultations</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="pills-tabContent-1">
+        <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
+          <br />
+          <br />
+          <div class="float-right mb-3" style="margin-right: 150px;">
+          <button  class="btn btn-primary" (click)="activateForm(1)" >Activer le formulaire</button></div>
+          <form [formGroup]="updateFormPrenatal" (ngSubmit)="onUpdatePrenatal()">
+
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                 <div class="modal-header">
+                    <h5 class="modal-title">Dossier prénatal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                 </div>
+                 <div class="modal-body">
+
+                        <div *ngIf="rMessage==='bUpdate'" class="alert alert-success">
+                            Le dossier prénatal a été mis à jour
+                       </div>
+                       <div *ngIf="rMessage==='bError'" class="alert alert-danger">
+                        Erreur lors de la mise à jour du dossier prenatal
+                      </div>
+                        <div class="form-row">
+                          <input type="hidden" formControlName="patientId" id="patientId" name="patientId">
+                          <input type="hidden" formControlName="id" id="id" name="id">
+                           <div class="col-md-6 mb-3">
+                              <label for="validationDefault01">Numéro d'accouchement</label>
+                              <input type="text" class="form-control" formControlName="numeroAccouchement" id="numeroAccouchement" name="numeroAccouchement">
+                           </div>
+                           <div class="col-md-6 mb-3">
+                            <label for="validationDefault01">Date d'accouchement prévue <span style="color: red;">*</span></label>
+                            <input type="date" class="form-control" formControlName="datePrevuAccoucchment" id='datePrevuAccoucchment' name="datePrevuAccoucchment">
+                          </div>
+                           <div class="col-md-6 mb-3">
+                              <label for="validationDefault01">Groupe sanguin<span style="color: red;">*</span></label>
+                              <select class="form-control" id="groupSanguin" name="groupSanguin" formControlName="groupSanguin" >
+                                <option disabled>Choisir le groupe sanguin</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="AB">AB</option>
+                                <option value="O">O</option>
+                              </select>
+                           </div>
+                           <div class="col-md-6 mb-3">
+                              <label for="validationDefault01">Rhésius</label>
+                              <select class="form-control" id="rhesus" name="rhesus" formControlName="rhesus" >
+                                <option disabled>Choisir le rhésius</option>
+                                <option value="POSITIF">POSITIF</option>
+                                <option value="NEGATIF">NEGATIF</option>
+                              </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <label for="validationDefault01">RHOPHYLAC DATE:</label>
+                              <input type="date" class="form-control" formControlName="rhophylacDate" id='rhophylacDate' name="rhophylacDate">
+                            </div>
+                           <div class="col-md-6 mb-3">
+                              <label for="validationDefault01">RHOPHYLAC DOSE:</label>
+                              <input type="text" class="form-control" formControlName='rhophylac' id='rhophylac'  name="rhophylac">
+                            </div>
+                           <div class="col-md-6 mb-3">
+                              <label for="validationDefault02">Profession </label>
+                              <input type="text" class="form-control" formControlName='profession' id='profession'  name="profession">
+
+                            </div>
+
+
+                           <div class="col-md-6 mb-3">
+                              <label for="validationDefault02">Congés maternité </label>
+                              <input type="date" class="form-control" formControlName="congeMaternite" id='congeMaternite' name='congeMaternite'>
+                           </div>
+                           <div class="col-md-6 mb-3">
+                              <label for="validationDefault02">Situation matrimoniale </label>
+                              <select class="form-control" id="situationMatrimoniale" name="situationMatrimoniale" formControlName="situationMatrimoniale" >
+                                <option disabled>Choisir la situation matrimoniale</option>
+                                <option value="1">Célibataire</option>
+                                <option value="2">Marié</option>
+                              </select>
+                           </div>
+                           <div class="col-md-6 mb-3">
+                            <label for="validationDefault02">Age </label>
+                            <input type="text" class="form-control" formControlName="age" id='age' name='age'>
+                         </div>
+
+                        </div>
+                  </div>
+                  <div class="modal-footer">
+
+                    <button  class="btn btn-primary" disabled="{{disabled}}">Modifdier
+                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    </button>
+                 </div>
+              </div>
+
+
+          </div>
+          </form>
+        </div>
+        <div class="tab-pane fade" id="pills-suivi-fill" role="tabpanel" aria-labelledby="pills-suivi-tab-fill">
+          <br />
+          <br />
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="iq-card">
+                <div class="iq-card-body">
+                  <div class="float-right mb-3" style="margin-right: 50px;">
+                    <button  class="btn btn-primary" (click)="activateForm(2)" >Activer le formulaire</button>
+                  </div>
+
+                    <form [formGroup]="addorUpdateSuiviMedical" (ngSubmit)="onSubmitSuiviMedical()">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Suivi Médical</h5>
+                          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+
+                        <div class="modal-body">
+                          <div *ngIf="rMessage==='bSaveSuivi'" class="alert alert-success">
+                            Le suivi médical a été ajouté avec succès
+                          </div>
+                          <div *ngIf="rMessage==='bUpdateSuivi'" class="alert alert-success">
+                            Le suivi médical a été mis à jour avec succès
+                          </div>
+                          <div *ngIf="rMessage==='bErrorSuivi'" class="alert alert-danger">
+                            Erreur lors de la mise à jour lors du suivi médical
+                          </div>
+                          <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                              <input type="hidden" id="id" name="id" formControlName="id">
+                              <input type="hidden" id="patientId" name="patientId" formControlName="patientId">
+                              <input type="hidden" id="dossierPrenatalId" name="dossierPrenatalId" formControlName="dossierPrenatalId">
+                              <label for="validationDefault01">Gynécologue-obstétricien :</label>
+                              <input type="text" class="form-control" formControlName="obstGyneco" id='obstGyneco' name='obstGyneco'>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <label for="validationDefault01">Sage-Femme :</label>
+                              <input type="text" class="form-control" formControlName="sageFemme" id='sageFemme' name='sageFemme'>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <label for="validationDefault01">Pédiatre :</label>
+                              <input type="text" class="form-control" formControlName="pediatre" id='pediatre' name='pediatre'>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <label for="validationDefault01">Anesthésiste :</label>
+                              <input type="text" class="form-control" formControlName="anesthesiste" id='anesthesiste' name='anesthesiste'>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button class="btn btn-primary" *ngIf="this.addorUpdateSuiviMedical.value.id==null" disabled="{{disabled}}"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                          </button>
+                          <button class="btn btn-primary" *ngIf="this.addorUpdateSuiviMedical.value.id!=null" disabled="{{disabled}}"> Modifier <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+
+                  <!-- <pagination-controls
+                     previousLabel="Précédent"
+                     nextLabel="Suivant"
+                     (pageChange)="pageChanged($event)"
+                        ></pagination-controls> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="pills-convention-fill" role="tabpanel" aria-labelledby="pills-convention-tab-fill">
+          <div class="iq-card">
+            <div class="iq-card-body">
+
+              <div class="float-right mb-3" style="margin-right: 50px;">
+                <button  class="btn btn-primary" (click)="activateForm(3)" >Activer le formulaire</button>
+              </div>
+                <form [formGroup]="addOrUpdateGrossesseForm" (ngSubmit)="onSubmitGrossesse()">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Grossesse</h5>
+                    </div>
+                    <div class="modal-body">
+                      <div *ngIf="rMessage==='bSaveGrossesse'" class="alert alert-success">
+                        La grossesse a été enregistré avec succès
+                      </div>
+                      <div *ngIf="rMessage==='bUpdateGrossesse'" class="alert alert-success">
+                        La grossesse a été mis à jour
+                      </div>
+                      <div *ngIf="rMessage==='bErrorGrossesse'" class="alert alert-danger">
+                        Erreur lors de la mise à jour de la grossesse
+                      </div>
+                      <div class="form-row">
+                        <input type="hidden" id="id" name="id" formControlName="id">
+                        <input type="hidden" id="patientId" name="patientId" formControlName="patientId">
+                        <input type="hidden" id="dossierPrenatalId" name="dossierPrenatalId" formControlName="dossierPrenatalId">
+                        <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Choisir le type :</label>
+                          <select class="form-control" id="typeGrossesse" name="typeGrossesse" formControlName="typeGrossesse" (change)="onChange($event.target.value)">
+                            <option disabled>Choisir le type</option>
+                            <option value="Simple">Simple</option>
+                            <option value="Gémellaire">Gémellaire</option>
+                            <option value="Autres">Autres</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Précisions:</label>
+                          <input type="text" class="form-control" width="20px" [readonly]="this.isEditable" formControlName="precisionGrossesse" id="precisionGrossesse" name="precisionGrossesse" />
+                        </div>
+                        <div class="col-md-6 mb-3"> P : <input type="text" class="form-control" width="20px" formControlName="p" id="p" name="p" />
+                        </div>
+                        <div class="col-md-6 mb-3"> G : <input type="text" class="form-control" width="20px" formControlName="g" id="g" name="g" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Type utérus :</label>
+                          <select class="form-control" id="caractereCicatriciel" name="caractereCicatriciel" formControlName="scaractereCicatricielex">
+                            <option disabled>Choisir le type d'utérus</option>
+                            <option value="Utérus cicatriciel">Utérus cicatriciel</option>
+                            <option value="Utérus non cicatriciel">Utérus non cicatriciel</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Date des Dernières Règles :</label>
+                          <input type="date" class="form-control" width="20px" formControlName="ddr" id="ddr" name="ddr" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">TP :</label>
+                          <input type="text" class="form-control" width="20px" formControlName="tp" id="tp" name="tp" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Grossesse :</label>
+                          <input type="text" class="form-control" width="20px" formControlName="grossesse" id="grossesse" name="grossesse" />
+                        </div>
+                        <div class="col-md-12 mb-3">
+                          <label for="validationDefault01">Voie d'accouchement :</label>
+                          <select class="form-control" id="pronosticVoieAccouchement" name="pronosticVoieAccouchement" formControlName="pronosticVoieAccouchement">
+                            <option disabled>Choisir l'anesthésiste</option>
+                            <option value="1">AVB</option>
+                            <option value="2">Épreuve utérine</option>
+                            <option value="3">Césarienne programmée</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Pronostic Dr :</label>
+                          <select class="form-control" id="medecin" name="medecin" formControlName="medecin">
+                            <option disabled>Choisir le docteur</option>
+                            <option value="1">Eric Kabore</option>
+                            <option value="2">Dieynaba Dia</option>
+                            <option value="3">Bintou Sakho</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Pronostic le :</label>
+                          <input type="date" class="form-control" width="20px" formControlName="le" id="le" name="le" />
+                        </div>
+                        <div class="col-md-12 mb-3">
+                          <label for="validationDefault01">Observations :</label>
+                          <input type="text" class="form-control" width="20px" formControlName="observations" id="observations" name="observations" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-primary" *ngIf="this.addOrUpdateGrossesseForm.value.id==null" disabled="{{disabled}}"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                      </button>
+                      <button class="btn btn-primary" *ngIf="this.addOrUpdateGrossesseForm.value.id!=null" disabled="{{disabled}}"> Modifier <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                      </button>
+
+                    </div>
+                  </div>
+                </form>
+
+              <!-- <pagination-controls
+                 previousLabel="Précédent"
+                 nextLabel="Suivant"
+                 (pageChange)="pageChanged($event)"
+                    ></pagination-controls> -->
+            </div>
+          </div>
+        </div>
+        <!-- pris en charge -->
+        <div class="tab-pane fade" id="pills-planning-fill" role="tabpanel" aria-labelledby="pills-planning-tab-fill">
+          <div class="iq-card">
+              <div class="accordion" id="accordionExample">
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <h3>Antécédent Conjoint</h3>
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="float-right mb-3" style="margin-right: 50px;">
+                        <button  class="btn btn-primary" (click)="activateForm(4)" >Activer le formulaire</button>
+                      </div>
+                      <form [formGroup]="addOrUpdateAntecedentConjointForm" (ngSubmit)="onSubmitAntecedentConjoint()">
+                        <input type="hidden" class="form-control"  formControlName="dossierPrenatalId" id="dossierPrenatalId" name="dossierPrenatalId" />
+                        <input type="hidden" class="form-control"  formControlName="patientId" id="patientId" name="patientId" />
+                        <input type="hidden" class="form-control"  formControlName="id" id="id" name="id" />
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Antécédent conjoint</h5>
+                          </div>
+                          <div class="modal-body">
+                            <div *ngIf="rMessage==='bSaveAntecedent'" class="alert alert-success">
+                              L'antécédent du conjoint a été enregistré avec succès
+                            </div>
+                            <div *ngIf="rMessage==='bUpdateAntecedent'" class="alert alert-success">
+                              L'antécédent du conjoint a été mis à jour
+                            </div>
+                            <div *ngIf="rMessage==='bErrorAntecedent'" class="alert alert-danger">
+                              Erreur lors de la mise de l'antécédent du conjoint
+                            </div>
+                            <div class="form-row">
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Age :</label>
+                                <input type="text" class="form-control" width="20px" formControlName="age" id="age" name="age" />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Poids :</label>
+                                <input type="text" class="form-control" width="20px" formControlName="poids" id="poids" name="poids" />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Taille :</label>
+                                <input type="text" class="form-control" width="20px" formControlName="taille" id="taille" name="taille" />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Nationalité :</label>
+                                <select class="form-control" id="nationalite" name="nationalite" formControlName="nationalite">
+                                  <option [ngValue]="null" selected>Choisir la nationalité</option>
+                                  <option value="1">Sénégalaise</option>
+                                  <option value="2">Burkinabé</option>
+                                  <option value="3">Ivoirienne</option>
+                              </select>
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Profession :</label>
+                                <input type="text" class="form-control" width="20px" formControlName="profession" id="profession" name="profession" />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Nombre d'épouses :</label>
+                                <input type="text" class="form-control" width="20px" formControlName="nombreEpouses" id="nombreEpouses" name="nombreEpouses" />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Groupe sanguin :</label>
+                                <select class="form-control" id="groupeSanguin" name="groupeSanguin" formControlName="groupeSanguin">
+                                  <option disabled>Choisir le groupe sanguin</option>
+                                  <option value="A">A</option>
+                                  <option value="B">B</option>
+                                  <option value="AB">AB</option>
+                                  <option value="O">O</option>
+                                </select>
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Rhésus :</label>
+                                <select class="form-control" id="rhesus" name="rhesus" formControlName="rhesus">
+                                  <option disabled>Choisir le rhésus</option>
+                                  <option value="Positif">Positif</option>
+                                  <option value="Négatif">Négatif</option>
+                                </select>
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Pathologie :</label>
+                                <input type="text" class="form-control" width="20px" formControlName="pathologie" id="pathologie" name="pathologie" />
+                              </div>
+
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="modal-footer">
+                          <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentConjointForm.value.id==null"  disabled="{{disabled}}"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                          </button>
+                          <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentConjointForm.value.id!=null" disabled="this.addOrUpdateAntecedentConjointForm.value.id=!null"> Modifier <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header" id="headingTwo">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <h3 >Antécédent Familiaux</h3>
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="float-right mb-3" style="margin-right: 50px;">
+                        <button  class="btn btn-primary" (click)="activateForm(5)" >Activer le formulaire</button>
+                      </div>
+                      <form [formGroup]="addOrUpdateAntecedentFamiliauxForm" (ngSubmit)="onSubmitAntecedentFamiliaux()">
+                        <input type="hidden" class="form-control"  formControlName="dossierPrenatalId" id="dossierPrenatalId" name="dossierPrenatalId" />
+                        <input type="hidden" class="form-control"  formControlName="patientId" id="patientId" name="patientId" />
+                        <input type="hidden" class="form-control"  formControlName="id" id="id" name="id" />
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              <h5>Antécédent familliaux</h5>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div *ngIf="rMessage==='bSaveAntecedentFamiliaux'" class="alert alert-success">
+                              L'antécédent des parents a été enregistré avec succès
+                            </div>
+                            <div *ngIf="rMessage==='bUpdateAntecedentFamiliaux'" class="alert alert-success">
+                              L'antécédent des parents a été mis à jour
+                            </div>
+                            <div *ngIf="rMessage==='bErrorAntecedentFamiliaux'" class="alert alert-danger">
+                              Erreur lors de la mise de l'antécédent des parents
+                            </div>
+                            <div class="form-row">
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Père :</label>
+                                <input type="text" class="form-control" width="20px" formControlName="pere" id="pere" name="pere" />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Mère :</label>
+                                <input type="text" class="form-control" width="20px" formControlName="mere" id="mere" name="mere" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentFamiliauxForm.value.id==null"  disabled="{{disabled}}"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            </button>
+                            <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentFamiliauxForm.value.id!=null" disabled="{{disabled}}"> Modifier <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header" id="headingThree">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <h3>Antécédent  Mère</h3>
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <br>
+                    <div class="float-right mb-3" style="margin-right: 50px;">
+                      <button  class="btn btn-primary" (click)="activateForm(6)" >Activer le formulaire</button>
+                    </div>
+                    <div class="card-body">
+                      <form [formGroup]="addOrUpdateAntecedentMedMereForm" (ngSubmit)="onSubmitAntecedentMedicauxMere()">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Médicaux</h5>
+                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="form-row">
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Poids:</label>
+                                <input type="text" class="form-control"  formControlName="poids" id="poids" name="poids" />
+                                <input type="hidden" class="form-control"  formControlName="id" id="id" name="id" />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Tailes:</label>
+                                <input type="text" class="form-control" formControlName="taille" id="taille" name="taille" />
+                              </div>
+                            </div>
+
+                            <div class="col-md-12 mb-3">
+                              <label for="validationDefault01">IMC:</label>
+                              <input type="text" class="form-control" width="20px" value="{{poids/taille*taille}}"formControlName="imc" id="imc" name="imc" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <label class="form-check-label" for="defaultCheck1">
+                                <input class="form-check-input" type="checkbox" value="Allergies" [disabled]="checkbox==true" [checked]="allergies==true"  formArrayName="maladies" (change)="onCheckboxChange($event)"/> Allergies: </label>
+                              <input type="text" style="display: inline-table !important; width: 80%" class="form-control" formControlName="allergies" id="allergies" name="allergies" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" value="Hypertension artérielle"  [checked]="hyperTension==true" formArrayName="maladies" (change)="onCheckboxChange($event)"/>
+                              <label class="form-check-label" for="defaultCheck1"> Hypertension artérielle </label>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <input class="form-check-input" type="checkbox" value="Cardiopathie" [disabled]="checkbox==true" [checked]="cardiopathie==true" formArrayName="maladies" (change)="onCheckboxChange($event)"/>
+                              <label class="form-check-label" for="defaultCheck1"> Cardiopathie </label>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="insuffisanceRenale==true"  value="Insuffisance rénale chronique" formArrayName="maladies" (change)="onCheckboxChange($event)"/>
+                              <label class="form-check-label" for="defaultCheck1"> Insuffisance rénale chronique </label>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="asthme"  value="Asthme" formArrayName="maladies" (change)="onCheckboxChange($event)"/>
+                              <label class="form-check-label" for="defaultCheck1"> Asthme </label>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="tuberculose" value="Tuberculose" formArrayName="maladies" (change)="onCheckboxChange($event)"/>
+                              <label class="form-check-label" for="defaultCheck1"> Tuberculose </label>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="hepatite" value="Hépatite B" formArrayName="maladies" (change)="onCheckboxChange($event)"/>
+                              <label class="form-check-label" for="defaultCheck1"> Hépatite B </label>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="diabete" value="Diabète" formArrayName="maladies" (change)="onCheckboxChange($event)"/>
+                              <label class="form-check-label" for="defaultCheck1"> Diabète </label>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="drepanocytose" value="Drépanocytose" formArrayName="maladies" (change)="onCheckboxChange($event)" />
+                              <label class="form-check-label" for="defaultCheck1"> Drépanocytose </label>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="arv" value="ARV" formArrayName="maladies" (change)="onCheckboxChange($event)"/>
+                              <label class="form-check-label" for="defaultCheck1"> ARV </label>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="anemie"  value="Anémie traitée" formArrayName="maladies"
+                              (change)="onCheckboxChange($event)"/>
+                              <label class="form-check-label" for="defaultCheck1"> Anémie traitée </label>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <label class="form-check-label" for="defaultCheck1">
+                                <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="autres" value="Autres" formArrayName="maladies" (change)="onCheckboxChange($event)"/> Autres: </label>
+                              <input type="text" style="display: inline-table !important; width: 80%" class="form-control" formControlName="autres" id="autres" name="autres" />
+                            </div>
+                            <br />
+                            <div class="form-row">
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Tabac:</label>
+                                <input type="text" class="form-control"  formControlName="tabac" id="tabac" name="tabac" />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Toxicomanie / Conduites à risque:</label>
+                                <input type="text" class="form-control" formControlName="toxicomanie" id="toxicomanie" name="toxicomanie" />
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentMedMereForm.value.id==null"  [disabled]="disabled=='disabled'"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            </button>
+                            <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentMedMereForm.value.id!=null" [disabled]="disabled=='disabled'"> Modifier <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+
+                      <br>
+                      <br>
+                      <div class="float-right mb-3" style="margin-right: 50px;">
+                        <button  class="btn btn-primary" (click)="activateForm(7)" >Activer le formulaire</button>
+                      </div>
+                      <form [formGroup]="addOrUpdateAntecedentMereChirurgicauxForm" (ngSubmit)="onSubmitAntecedentMereChirurgicaux()">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Antécédents chirugicaux</h5>
+
+                          </div>
+                          <div class="modal-body">
+                            <div *ngIf="rMessage==='bSaveAntecedentMereChirurgie'" class="alert alert-success">
+                              Les antécédents chirurgicaux ont été enregistré avec succès
+                            </div>
+                            <div *ngIf="rMessage==='bUpdateAntecedentMereChirurgie'" class="alert alert-success">
+                              Les antécédents chirurgicaux ont été mis à jour
+                            </div>
+                            <div *ngIf="rMessage==='bErrorAntecedentMereChirurgie'" class="alert alert-danger">
+                              Erreur lors de la mise des antécédents chirurgicaux ont
+                            </div>
+                            <div class="form-row">
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Gynécologiques:</label>
+                                <input type="hidden" class="form-control" width="20px" formControlName="id" id="id" name="id" />
+                                <input type="text" class="form-control" width="20px" formControlName="chirurGyneco" id="chirurGyneco" name="chirurGyneco" />
+                              </div>
+                              <div class="col-md-6 mb-3">
+                                <label for="validationDefault01">Autres:</label>
+                                <input type="text" class="form-control" width="20px" formControlName="chirurAutres" id="chirurAutres" name="chirurAutres" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentMereChirurgicauxForm.value.id==null"  [disabled]="disabled=='disabled'"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            </button>
+                            <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentMereChirurgicauxForm.value.id!=null" [disabled]="disabled=='disabled'"> Modifier <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                      <br>
+                      <br>
+                      <div class="float-right mb-3" style="margin-right: 50px;">
+                        <button  class="btn btn-primary" (click)="activateForm(8)" >Activer le formulaire</button>
+                      </div>
+                      <form [formGroup]="addOrUpdateAntecedentGynecologique" (ngSubmit)="onSubmitAntecedentGynecologique()">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Gynécologiques</h5>
+
+                          </div>
+                          <div class="modal-body">
+                            <div *ngIf="rMessage==='bSaveAntecedentGynécologiques'" class="alert alert-success">
+                              Les antécédents gynécologiques ont été enregistré avec succès
+                            </div>
+                            <div *ngIf="rMessage==='bUpdateAntecedentGynécologiques'" class="alert alert-success">
+                              Les antécédents gynécologiques ont été mis à jour
+                            </div>
+                            <div *ngIf="rMessage==='bErrorAntecedentGynécologiques'" class="alert alert-danger">
+                              Erreur lors de la mise des antécédents gynécologiques ont
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <label class="form-check-label" for="defaultCheck1">
+                                <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="autreGyneco" value="Autres" formArrayName="maladies" (change)="onCheckboxChangeGyneco($event)" /> Autres: </label>
+                              <input type="text" style="display: inline-table !important; width: 80%" class="form-control" formControlName="gynecoAutres" id="gynecoAutres" name="gynecoAutres" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="infertilite" value="Infertilité" formArrayName="maladies" (change)="onCheckboxChangeGyneco($event)" />
+                              <label class="form-check-label" for="defaultCheck1"> Infertilité </label>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="contraception" value="Contraception" formArrayName="maladies" (change)="onCheckboxChangeGyneco($event)" />
+                              <label class="form-check-label" for="defaultCheck1"> Contraception </label>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentGynecologique.value.id==null"  [disabled]="disabled=='disabled'"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            </button>
+                            <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentGynecologique.value.id!=null" [disabled]="disabled=='disabled'"> Modifier <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+
+                      <br><br>
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Obsétricaux</h5>
+
+                        </div>
+                        <div class="modal-body">
+                          <div id="table" class="table-editable">
+                            <div class="float-right mb-3" style="margin-right: 50px;">
+                              <button  class="btn btn-primary" data-toggle="modal" data-target=".bd-obstetrical-modal-lg" >Ajouter</button>
+                            </div>
+                            <table class="table table-bordered table-responsive-md table-striped text-center">
+                              <thead>
+                                <tr>
+                                  <th>Année</th>
+                                  <th>Issue</th>
+                                  <th>Terme</th>
+                                  <th>Déroulement</th>
+                                  <th>Délivrance</th>
+                                  <th>Allaitement</th>
+                                  <th>Sexe</th>
+                                  <th>Poids</th>
+                                  <th>Evolution</th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <!-- <tr *ngIf="lstObstetricaux==null">
+                                  <td colspan="11">Aucun enregistrement</td>
+
+                                </tr> -->
+                                <tr *ngFor="let item of lstObstetricaux | paginate: {
+                                  itemsPerPage: config.itemsPerPage,
+                                  currentPage: config.currentPage,
+                                  totalItems: config.totalItems
+                                }">
+                                  <td>{{item.annee}}</td>
+                                  <td>{{item.issue}}</td>
+                                  <td>{{item.terme}}</td>
+                                  <td>{{item.deroulementGrossesse}}</td>
+                                  <td>{{item.accouchement}}</td>
+                                  <td>{{item.allaitement}}</td>
+                                  <td>{{item.sexeNne}}</td>
+                                  <td>{{item.poidsNne}}</td>
+                                  <td>{{item.evolution}}</td>
+                                  <td>
+                                    <div class="btn-group">
+                                      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                         Action
+                                      </button>
+                                      <div class="dropdown-menu">
+                                        <a class="dropdown-item" (click)="seeObstetricals(item.id)">Voir</a>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-bilan-fill" role="tabpanel" aria-labelledby="pills-bilan-tab-fill">
+          <div class="iq-card">
+            <h3 style="color: red">BILAN PRÉNATAL</h3>
+            <div class="iq-card-body">
+              <div id="table" class="table-editable">
+                <span class="table-add float-right mb-3 mr-2">
+                  <button class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
+                    <i class="ri-add-fill">
+                      <span class="pl-1">Ajouter bilan prenatal</span>
+                    </i>
+                  </button>
+                </span>
+                <table class="table table-bordered table-responsive-md table-striped text-center">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Résultats</th>
+                      <th>Date</th>
+                      <th>4°mois</th>
+                      <th>5°mois</th>
+                      <th>6°mois</th>
+                      <th>7°mois</th>
+                      <th>8°mois</th>
+                      <th>9°mois</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Groupe Sanguin</td>
+                      <td></td>
+                      <td></td>
+                      <td>Si non fait</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" routerLink="['/prenataldetails',1]">Details</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- <pagination-controls
+                    previousLabel="Précédent"
+                    nextLabel="Suivant"
+                    (pageChange)="pageChanged($event)"
+                        ></pagination-controls> -->
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="pills-vaccination-fill" role="tabpanel" aria-labelledby="pills-vaccination-tab-fill">
+          <h3 style="color: red">VACCINATION ANTI-TÉTANOS</h3>
+          <div class="iq-card-body">
+            <div id="table" class="table-editable">
+              <span class="table-add float-right mb-3 mr-2">
+                <button class="btn btn-sm btn-primary" (click)="open(vaccintetanos)">
+                  <i class="ri-add-fill">
+                    <span class="pl-1">Ajouter vaccin tétanos</span>
+                  </i>
+                </button>
+              </span>
+              <table class="table table-bordered table-responsive-md table-striped text-center">
+                <thead>
+                  <tr>
+                    <th>Libelle</th>
+                    <th>Date</th>
+                    <th>Lot</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>VAT 1 – M0</td>
+                    <td>04/12/2021</td>
+                    <td></td>
+                    <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" routerLink="['/prenataldetails',1]">Details</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <pagination-controls
+                  previousLabel="Précédent"
+                  nextLabel="Suivant"
+                  (pageChange)="pageChanged($event)"
+                      ></pagination-controls> -->
+          </div>
+          <br />
+          <h3 style="color: red">Si patiente de Rhésus négatif - RHOPHYLAC</h3>
+          <div class="iq-card-body">
+            <div id="table" class="table-editable">
+              <span class="table-add float-right mb-3 mr-2">
+                <button class="btn btn-sm btn-primary" (click)="open(rhophylac)">
+                  <i class="ri-add-fill">
+                    <span class="pl-1">Ajouter vaccin rhophylac</span>
+                  </i>
+                </button>
+              </span>
+              <table class="table table-bordered table-responsive-md table-striped text-center">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Terme</th>
+                    <th>Dose</th>
+                    <th>Numéro</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>04/12/2021</td>
+                    <td>ipsum lipsum</td>
+                    <td>500</td>
+                    <td>Dose 1</td>
+                    <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" routerLink="['/prenataldetails',1]">Details</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <pagination-controls
+                  previousLabel="Précédent"
+                  nextLabel="Suivant"
+                  (pageChange)="pageChanged($event)"
+                      ></pagination-controls> -->
+          </div>
+          <br />
+          <h3 style="color: red">TPI</h3>
+          <div class="iq-card-body">
+            <div id="table" class="table-editable">
+              <span class="table-add float-right mb-3 mr-2">
+                <button class="btn btn-sm btn-primary" (click)="open(tpi)">
+                  <i class="ri-add-fill">
+                    <span class="pl-1">Ajouter vaccin TPI</span>
+                  </i>
+                </button>
+              </span>
+              <table class="table table-bordered table-responsive-md table-striped text-center">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Date</th>
+                    <th>Terme</th>
+                    <th>3cp de 500mg/25mg SP</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1ère dose TPI/SP</td>
+                    <td>16SA</td>
+                    <td>01/12/2021</td>
+                    <td>termm</td>
+                    <td>3cp de 500mg</td>
+                    <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" routerLink="['/prenataldetails',1]">Details</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <pagination-controls
+                  previousLabel="Précédent"
+                  nextLabel="Suivant"
+                  (pageChange)="pageChanged($event)"
+                      ></pagination-controls> -->
+          </div>
+        </div>
+        <div class="tab-pane fade" id="pills-echo-fill" role="tabpanel" aria-labelledby="pills-echo-tab-fill">
+          <h2 style="color: red">ECHOGRAPHIE</h2>
+          <div class="iq-card-body">
+            <div id="table" class="table-editable">
+              <span class="table-add float-right mb-3 mr-2">
+                <button class="btn btn-sm btn-primary" (click)="open(echographie)">
+                  <i class="ri-add-fill">
+                    <span class="pl-1">Ajouter échographie</span>
+                  </i>
+                </button>
+              </span>
+              <table class="table table-bordered table-responsive-md table-striped text-center">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Docteur</th>
+                    <th>Date</th>
+                    <th>T</th>
+                    <th>EPF</th>
+                    <th>Morphologie</th>
+                    <th>Placenta</th>
+                    <th>LA</th>
+                    <th>Col</th>
+                    <th>Conclusion</th>
+                    <th>Suivi CS SF</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Echographie T1</td>
+                    <td>Docteur BA Assane</td>
+                    <td>04/12/2021</td>
+                    <td></td>
+                    <td></td>
+                    <td>Normale</td>
+                    <td>Normale</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Oui</td>
+                    <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" routerLink="['/prenataldetails',1]">Details</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <pagination-controls
+                  previousLabel="Précédent"
+                  nextLabel="Suivant"
+                  (pageChange)="pageChanged($event)"
+                      ></pagination-controls> -->
+          </div>
+          <br />
+        </div>
+        <div class="tab-pane fade" id="pills-consultation-fill" role="tabpanel" aria-labelledby="pills-consultation-tab-fill">
+          <h2 style="color: red">CONSULTATION</h2>
+          <div class="iq-card-body">
+            <div id="table" class="table-editable">
+              <span class="table-add float-right mb-3 mr-2">
+                <button class="btn btn-sm btn-primary" (click)="open(consultation)">
+                  <i class="ri-add-fill">
+                    <span class="pl-1">Ajouter consultation</span>
+                  </i>
+                </button>
+              </span>
+              <table class="table table-bordered table-responsive-md table-striped text-center">
+                <thead>
+                  <tr>
+                    <th>Urgence</th>
+                    <th>Date</th>
+                    <th>Terme SA</th>
+                    <th>Consultant</th>
+                    <th>Qualification</th>
+                    <th>Signes</th>
+                    <th>MAF</th>
+                    <th>Contractions</th>
+                    <th>Métrorragies</th>
+                    <th>Troubles urinaires</th>
+                    <th>Poids</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Oui</td>
+                    <td>04/12/2021</td>
+                    <td>Terme SA</td>
+                    <td>Jean PAUl</td>
+                    <td>Infirmier</td>
+                    <td>Saignement</td>
+                    <td>Oui</td>
+                    <td>Oui</td>
+                    <td>Non</td>
+                    <td>NON</td>
+                    <td>55</td>
+                    <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"> Action </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" routerLink="['/prenataldetails',1]">Details</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <pagination-controls
+                  previousLabel="Précédent"
+                  nextLabel="Suivant"
+                  (pageChange)="pageChanged($event)"
+                      ></pagination-controls> -->
+          </div>
+          <br />
+        </div>
+
+  </div>
+</div>
+</div></div>
+<div class="" *ngIf="patient"><app-patient></app-patient></div>
+
+<div class="modal fade bd-obstetrical-modal-lg" id="formObstetrical" tabindex="-1" role="dialog"  aria-hidden="true">
+  <form [formGroup]="addOrUpdateAntecedentObstetricals" id="FormAntecedentObstetricaux" (ngSubmit)="onSubmitAntecedentObstetricaux()">
+
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Antécédents obstetricaux</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+
+                <div *ngIf="rMessage==='bSaveObstetrical'" class="alert alert-success">
+                    Le patient a été bien enregistré
+               </div>
+               <div *ngIf="rMessage==='bUpdateObstetrical'" class="alert alert-danger">
+                Erreur lors de l'enregistrement
+              </div>
+               <div *ngIf="rMessage==='bErrorObstetrical'" class="alert alert-danger">
+                Erreur lors de l'enregistrement
+              </div>
+                <div class="form-row">
+                  <input type="hidden" formControlName="patientId" id="patientId" name="patientId">
+                  <input type="hidden" formControlName="id" id="id" name="id">
+                   <div class="col-md-6 mb-3">
+                      <label for="validationDefault01">Année :</label>
+                      <input type="text" class="form-control" formControlName="annee" id="annee" name="annee">
+                   </div>
+                   <div class="col-md-6 mb-3">
+                    <label for="validationDefault01">Issue :<span style="color: red;">*</span></label>
+                    <input type="text" class="form-control" formControlName="issue" id='issue' name="issue">
+                  </div>
+                   <div class="col-md-6 mb-3">
+                      <label for="validationDefault01">Terme :<span style="color: red;">*</span></label>
+                      <input type="text" class="form-control" formControlName="terme" id='terme' name="terme">
+                   </div>
+                   <div class="col-md-6 mb-3">
+                      <label for="validationDefault01">Déroulement :</label>
+                      <input type="text" class="form-control" formControlName="deroulementGrossesse" id='deroulementGrossesse' name="deroulementGrossesse">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="validationDefault01">Délivrance :</label>
+                      <input type="text" class="form-control" formControlName="accouchement" id='accouchement' name="accouchement">
+                    </div>
+                   <div class="col-md-6 mb-3">
+                      <label for="validationDefault01">Allaitement :</label>
+                      <input type="text" class="form-control" formControlName='allaitement' id='allaitement'  name="allaitement">
+                    </div>
+                   <div class="col-md-6 mb-3">
+                      <label for="validationDefault02">Sexe :</label>
+                      <select class="form-control" id="sexeNne" name="sexeNne" formControlName="sexeNne">
+                        <option disabled>Choisir le sexe</option>
+                        <option value="Féminin">Féminin</option>
+                        <option value="Masculin">Masculin</option>
+                      </select>
+
+                    </div>
+
+
+                   <div class="col-md-6 mb-3">
+                      <label for="validationDefault02">Poids :</label>
+                      <input type="text" class="form-control" formControlName="poidsNne" id='poidsNne' name='poidsNne'>
+                   </div>
+
+                   <div class="col-md-6 mb-3">
+                    <label for="validationDefault02">Evolution :</label>
+                    <input type="text" class="form-control" formControlName="evolution" id='evolution' name='evolution'>
+                 </div>
+
+                </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentObstetricals.value.id==null"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            </button>
+            <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentObstetricals.value.id!=null"> Modifier <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            </button>
+         </div>
+      </div>
+
+
+  </div>
+  </form>
+</div>
+
+<ng-template #suivi let-modal><form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Créer un dossier prénatal</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Gynécologue-obstétricien :</label>
+            <select class="form-control" id="sex" name="sex" formControlName="sex">
+              <option disabled>Choisir le gynécologue</option>
+              <option value="1">Dr Eric KABORE</option>
+              <option value="2">Dr Nogaye BADIANE</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Sage-Femme :</label>
+            <select class="form-control" id="sex" name="sex" formControlName="sex">
+              <option disabled>Choisir la sage femme</option>
+              <option value="1">Mame Binta DABO</option>
+              <option value="2">Nogaye BADIANE</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Pédiatre :</label>
+            <select class="form-control" id="sex" name="sex" formControlName="sex">
+              <option disabled>Choisir le pédiatre</option>
+              <option value="1">Dr Eric KABORE</option>
+              <option value="2">Dr Nogaye BADIANE</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Anesthésiste :</label>
+            <select class="form-control" id="sex" name="sex" formControlName="sex">
+              <option disabled>Choisir l'anesthésiste</option>
+              <option value="1">Dr Eric KABORE</option>
+              <option value="2">Dr Nogaye BADIANE</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal" (click)="modal.close('Close click')"> Fermer </button>
+        <button class="btn btn-primary"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-template>
+  <ng-template #grossesse let-modal><form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Nouvelle grossesse</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label for="validationDefault01">Choisir le type :</label>
+            <select class="form-control" id="sex" name="sex" formControlName="sex">
+              <option disabled>Choisir le type</option>
+              <option value="1">Simple</option>
+              <option value="2">Gémellaire</option>
+              <option value="3">Autres</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3"> P: <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3"> G: <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Type utérus :</label>
+            <select class="form-control" id="sex" name="sex" formControlName="sex">
+              <option disabled>Choisir le type d'utérus</option>
+              <option value="1">Utérus cicatriciel</option>
+              <option value="2">Utérus non cicatriciel</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">DDR :</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">TP :</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Grossesse :</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="validationDefault01">Voie d'accouchement :</label>
+            <select class="form-control" id="sex" name="sex" formControlName="sex">
+              <option disabled>Choisir l'anesthésiste</option>
+              <option value="1">AVB</option>
+              <option value="2">Épreuve utérine</option>
+              <option value="3">Césarienne programmée</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Pronostic Dr :</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Pronostic le :</label>
+            <input type="date" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="validationDefault01">Observations :</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal" (click)="modal.close('Close click')"> Fermer </button>
+        <button class="btn btn-primary"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        </button>
+      </div>
+    </div>
+  </form></ng-template>
+  <ng-template #gynecologique let-modal></ng-template>
+  <ng-template #vaccintetanos let-modal><form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter vaccins anti-Tétanos</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">VACCINATION ANTI-TÉTANOS</label>
+            <select class="form-control" id="sex" name="sex" formControlName="sex">
+              <option disabled>Choisir le vaccins</option>
+              <option value="1">VAT 1 – M0</option>
+              <option value="2">VAT 2 – M1</option>
+              <option value="3">VAT 3 – M6</option>
+              <option value="4">VAT 4 – M12</option>
+              <option value="5">VAT 5</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Date:</label>
+            <input type="date" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Lot:</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal" (click)="modal.close('Close click')"> Fermer </button>
+        <button class="btn btn-primary"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        </button>
+      </div>
+    </div>
+  </form></ng-template>
+  <ng-template #rhophylac let-modal><form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter RHOPHYLAC</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Date:</label>
+            <input type="date" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Terme:</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Dose:</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Numéro:</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal" (click)="modal.close('Close click')"> Fermer </button>
+        <button class="btn btn-primary"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        </button>
+      </div>
+    </div>
+  </form></ng-template>
+  <ng-template #tpi let-modal><form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter TPI</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">TPI:</label>
+            <select class="form-control" id="sex" name="sex" formControlName="sex">
+              <option disabled>Choisir la dose</option>
+              <option value="1">1ère dose TPI/SP</option>
+              <option value="2">2ème dose TPI/SP</option>
+              <option value="3">3ème dose TPI/SP</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Contact:</label>
+            <input type="text" class="form-control" width="20px" placeholder="13-16SA, 20SA, 26SA, 30 SA, 34SA" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Date:</label>
+            <input type="date" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Terme:</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Dose:</label>
+            <select class="form-control" id="sex" name="sex" formControlName="sex">
+              <option disabled>Choisir la dose</option>
+              <option value="1">3cp de 500mg</option>
+              <option value="2">25mg SP</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal" (click)="modal.close('Close click')"> Fermer </button>
+        <button class="btn btn-primary"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        </button>
+      </div>
+    </div>
+  </form></ng-template>
+
+  <ng-template #echographie let-modal><form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter une echographie</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Type échographie</label>
+            <select class="form-control" id="sex" name="sex" formControlName="sex">
+              <option disabled>Choisir le type</option>
+              <option value="1">Echographie T1</option>
+              <option value="2">Echographie T2</option>
+              <option value="3">Echographie T3</option>
+              <option value="4">Echographie T4</option>
+              <option value="5">Echographie T5</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Dr </label>
+            <input type="date" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Date </label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Nombre d’embryons</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">LCC</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">CN</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">DDR</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Terme</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="validationDefault01">BIP/CA/LF/OPN</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">LA</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Col</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">EPF</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Présentation</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Morphologie</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Conclusion</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="validationDefault01">Voie d'accouchement</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3"> Suivi CS SF: <br>
+            <input class="form-check-input" type="checkbox" style="margin-left: 5px;" value="" id="defaultCheck1" />
+            <label style="margin-left: 25px;" class="form-check-label" for="defaultCheck1"> Oui: </label>
+            <br>
+            <input class="form-check-input" type="checkbox" style="margin-left: 5px;" value="" id="defaultCheck1" />
+            <label style="margin-left: 25px;" class="form-check-label" for="defaultCheck1"> Non: </label>
+          </div>
+          <div class="col-md-6 mb-3"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal" (click)="modal.close('Close click')"> Fermer </button>
+        <button class="btn btn-primary"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-template>
+<ng-template #consultation let-modal>
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter une consultation</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Urgence</label>
+            <select class="form-control" id="sex" name="sex" formControlName="sex">
+              <option disabled>Choisir</option>
+              <option value="1">Oui</option>
+              <option value="2">NON</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Date </label>
+            <input type="date" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Terme SA </label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Consultant</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Qualification</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Signes particuliers </label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3"> MAF: <br>
+            <input class="form-check-input" type="checkbox" style="margin-left: 5px;" value="" id="defaultCheck1" />
+            <label style="margin-left: 25px;" class="form-check-label" for="defaultCheck1"> Oui: </label>
+            <br>
+            <input class="form-check-input" type="checkbox" style="margin-left: 5px;" value="" id="defaultCheck1" />
+            <label style="margin-left: 25px;" class="form-check-label" for="defaultCheck1"> Non: </label>
+          </div>
+          <div class="col-md-6 mb-3"> Contractions anormales : <br>
+            <input class="form-check-input" type="checkbox" style="margin-left: 5px;" value="" id="defaultCheck1" />
+            <label style="margin-left: 25px;" class="form-check-label" for="defaultCheck1"> Oui: </label>
+            <br>
+            <input class="form-check-input" type="checkbox" style="margin-left: 5px;" value="" id="defaultCheck1" />
+            <label style="margin-left: 25px;" class="form-check-label" for="defaultCheck1"> Non: </label>
+          </div>
+          <div class="col-md-6 mb-3"> Métrorragies : <br>
+            <input class="form-check-input" type="checkbox" style="margin-left: 5px;" value="" id="defaultCheck1" />
+            <label style="margin-left: 25px;" class="form-check-label" for="defaultCheck1"> Oui: </label>
+            <br>
+            <input class="form-check-input" type="checkbox" style="margin-left: 5px;" value="" id="defaultCheck1" />
+            <label style="margin-left: 25px;" class="form-check-label" for="defaultCheck1"> Non: </label>
+          </div>
+          <div class="col-md-6 mb-3"> Troubles urinaires : <br>
+            <input class="form-check-input" type="checkbox" style="margin-left: 5px;" value="" id="defaultCheck1" />
+            <label style="margin-left: 25px;" class="form-check-label" for="defaultCheck1"> Oui: </label>
+            <br>
+            <input class="form-check-input" type="checkbox" style="margin-left: 5px;" value="" id="defaultCheck1" />
+            <label style="margin-left: 25px;" class="form-check-label" for="defaultCheck1"> Non: </label>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">DDR</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Terme</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="validationDefault01">BIP/CA/LF/OPN</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">LA</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Col</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">EPF</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Présentation</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Morphologie</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationDefault01">Conclusion</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="validationDefault01">Voie d'accouchement</label>
+            <input type="text" class="form-control" width="20px" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier" />
+          </div>
+          <div class="col-md-6 mb-3"> Suivi CS SF: <br>
+            <input class="form-check-input" type="checkbox" style="margin-left: 5px;" value="" id="defaultCheck1" />
+            <label style="margin-left: 25px;" class="form-check-label" for="defaultCheck1"> Oui: </label>
+            <br>
+            <input class="form-check-input" type="checkbox" style="margin-left: 5px;" value="" id="defaultCheck1" />
+            <label style="margin-left: 25px;" class="form-check-label" for="defaultCheck1"> Non: </label>
+          </div>
+          <div class="col-md-6 mb-3"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal" (click)="modal.close('Close click')"> Fermer </button>
+        <button class="btn btn-primary"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</ng-template>

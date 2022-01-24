@@ -1,0 +1,108 @@
+<div class="" *ngIf="conventions">
+
+    <div class="container-fluid p-0 m-0">
+        <div class="text-center">
+            <button class=" float-right btn bleu">Retour</button>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="jumbotron jumbotron-fluid jaune">
+
+        <form class="form-inline" [formGroup]="searchFormConventions">
+            <div class="form-group">
+                <label for="id2">Nom Organisme</label>
+                <input type="text" class="form-control" id="organisme">
+            </div>
+
+            <div class="form-group">
+                <label for="nom2">Structure</label>
+                <select id="structure" class="form-control">
+                    <option value=""></option>
+                    <option value="1">IPM</option>
+                    <option value="2">Assurance</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="nom2">Statut</label>
+                <select id="statut" class="form-control">
+                    <option value=""></option>
+                    <option value="1">Accepté</option>
+                    <option value="2">Refusé</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn">Recherche</button>
+            </div>
+        </form>
+
+
+
+    </div>
+    <div class="card">
+        <div class="header_perso bleu">
+          <p class="txtcolorwhite" style="font-weight: bold;">Conventions garants          <a  class="btn btn-vert btn-sm float-right">Filtrer </a></p>
+ 
+        </div>
+        <div class="card-body jaune">
+            <div class="row margintop20px paddingtopbottom15px">
+                <div class="col-xs-12">
+                    <!-- <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th data-field="id" >ID Médecin</th>
+                      <th data-field="nom" data-sortable="true">Nom</th>
+                      <th data-field="statut" data-sortable="true">Statut</th>
+                      <th data-field="telephone" data-sortable="true">Téléphone</th>
+          
+                    </tr>
+                  </thead>
+          
+                  <tbody> -->
+                    <div class="table-responsive">
+                        <div class="table-wrapper">
+                            <div class="table-title">
+                                <div class="row">
+                                    <!-- <div class="col-sm-8">
+                          <h2>Liste des médecins partenaires</h2>
+                        </div> -->
+                                    <!-- <div class="col-sm-4">
+                          <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+                        </div> -->
+                                </div>
+                            </div>
+                            <table class="table table-bordered">
+                                <thead class="orange">
+                                    <tr>
+                                        <th>Garant</th>
+                                        <th>Structure</th>
+                                        <th>Depuis le</th>
+                                        <th>Statut</th>
+        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let convention of conventionlist; let i = index;"
+                                        [ngClass]="i%2 == 0 ? 'tblcolorfirst':'tblcolorsecond'">
+        
+                                        <td>{{convention.garant}}</td>
+                                        <td>{{convention.structure}}</td>
+                                        <td>{{convention.date_debut}}</td>
+                                        <td>{{convention.statut}}</td>
+                                    </tr>
+                                </tbody>
+        
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        
+                <br>
+                <br>
+            </div>
+        </div>
+      </div>
+    
+</div>

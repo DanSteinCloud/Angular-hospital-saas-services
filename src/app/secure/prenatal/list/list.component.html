@@ -1,0 +1,192 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="iq-card">
+      <div class="iq-card-header d-flex justify-content-between">
+        <div class="iq-header-title">
+          <h4 class="card-title">Liste des patients </h4>
+        </div>
+      </div>
+      <div class="iq-card-body">
+        <div id="table" class="table-editable">
+          <span class="table-add float-right mb-3 mr-2">
+            <button class="btn btn-sm btn-primary" data-toggle="modal"
+              data-target=".bd-example-modal-lg"><i class="ri-add-fill"><span class="pl-1">Créer un nouveau
+                  patient</span></i>
+            </button>
+          </span>
+          <table class="table table-bordered table-responsive-md table-striped text-center">
+            <thead>
+              <tr>
+
+                <th>N° Dossier</th>
+                <th>N° Accouchement</th>
+                <th>Prénom</th>
+                <th>Nom jeune fille</th>
+                <th>Nom Marital</th>
+                <th>Date de naissance</th>
+                <th>Téléphone</th>
+                <th>Date d'accouchement</th>
+                <th></th>
+              </tr>
+            </thead>
+
+
+            <tbody>
+              <tr>
+
+                <td><span>NEST001234</span>
+                </td>
+                <td>00123</td>
+                <td>ABSATOU</td>
+                <td>SY</td>
+                <td>DIALLO</td>
+                <td>09/10/1987</td>
+                <td>77 123 45 67</td>
+                <td>31/12/2021</td>
+
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                      Action
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" routerLink="['/prenataldetails',1]">Details</a>
+                      <a class="dropdown-item" routerLink="['/suivi',1]" (click)="displaySuivi()">Suivi médical</a>
+                      <a class="dropdown-item" routerLink="['/grossesse',1]">Grossesse</a>
+                      <a class="dropdown-item" routerLink="['/antecedent',1]">Antécédent</a>
+                      <a class="dropdown-item" routerLink="['/bilan',1]">Bilan</a>
+                      <a class="dropdown-item" routerLink="['/vaccination',1]">Vaccinations</a>
+                      <a class="dropdown-item" routerLink="['/echographie',1]">Echographies</a>
+                      <a class="dropdown-item" routerLink="['/consultation',1]">Consultations</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <!-- <pagination-controls
+           previousLabel="Précédent"
+           nextLabel="Suivant"
+           (pageChange)="pageChanged($event)"
+              ></pagination-controls> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id='formPatient' aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Créer un nouveau patient</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault01">Numéro dossier</label>
+              <input type="text" class="form-control" formControlName="patientIdentifier" id="patientIdentifier"
+                name="patientIdentifier">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault01">Date d'accouchement<span style="color: red;">*</span></label>
+              <input type="date" class="form-control" formControlName="dAccouchement" id='dAccouchement'
+                name="dAccouchement" ngClass="{ 'is-invalid': submitted && f.doB.errors }">
+            </div>
+
+
+
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault01">Groupe Sanguin</label>
+              <select class="form-control" id="sanguin" name="sanguin" formControlName="sanguin">
+                <option ngValue="null" disabled>Choisir le groupe</option>
+                <option value="A">A</option>
+                <option value="AB">AB</option>
+                <option value="B">B</option>
+                <option value="O">O</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault01">Rhésius</label>
+              <select class="form-control" id="rhesius" name="rhesius" formControlName="rhesius"
+                ngClass="{ 'is-invalid': submitted && f.sex.errors }">
+                <option ngValue="null" disabled>Choisir le rhésius</option>
+                <option value="0">Positif</option>
+                <option value="1">Négatif</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault01">RHOPHYLAC (dose / date) :<span style="color: red;">*</span></label>
+              <input type="date" class="form-control" formControlName="dRophylac" id='dRophylac' name="dRophylac">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault01">Numéro d'accouchement<span style="color: red;">*</span></label>
+              <input type="text" class="form-control" formControlName="num_accouchement" id='num_accouchement'
+                name="dRophylac">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault02">Nom marital<span style="color: red;">*</span></label>
+              <input type="text" class="form-control" formControlName='lastName' id='lastName' name="lastName">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault02">Nom jeune fille<span style="color: red;">*</span></label>
+              <input type="text" class="form-control" formControlName='secondName' id='secondName' name="secondName">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault01">Prénom<span style="color: red;">*</span></label>
+              <input type="text" class="form-control" formControlName='firstName' id='firstName' name="firstName">
+            </div>
+
+
+             <div class="col-md-6 mb-3">
+              <label for="validationDefault01">Date de naissance <span style="color: red;">*</span></label>
+              <input type="date" class="form-control" formControlName="doB" id='doB' name="doB"
+                ngClass="{ 'is-invalid': submitted && f.doB.errors }">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault02">Age <span style="color: red;">*</span></label>
+              <input type="number" class="form-control" formControlName="age" id='age' name='age'>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault02">Adresse</label>
+              <input type="number" class="form-control" formControlName="adresse" id='adresse' name='adresse'>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault02">Téléphone <span style="color: red;">*</span></label>
+              <input type="tel" class="form-control" formControlName="Telephone1" id='Telephone1' name='Telephone1'
+                ngClass="{ 'is-invalid': submitted && f.Telephone1.errors }">
+
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault02">Profession </label>
+              <input type="number" class="form-control" formControlName="profession" id='profession' name='profession'>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault02">Congés de maternité </label>
+              <input type="number" class="form-control" formControlName="adresse" id='adresse' name='adresse'>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault02">Situation matrimoniale </label>
+              <input type="number" class="form-control" formControlName="sMatrimoniale" id='sMatrimoniale' name='sMatrimoniale'>
+            </div>
+
+            <div class="col-md-6 mb-12">
+              <label for="validationDefaultUsername">Personne à contacter</label>
+              <input type="text" class="form-control" formControlName="pContact" id="pContact" name="pContact">
+            </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+

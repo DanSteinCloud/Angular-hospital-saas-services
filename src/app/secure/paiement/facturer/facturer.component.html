@@ -1,0 +1,692 @@
+<app-patient-search></app-patient-search>
+<div class="iq-card">
+  <div class="iq-card-header d-flex justify-content-between">
+     <div class="iq-header-title">
+        <h4 class="card-title">Information patients</h4>
+     </div>
+  </div>
+  <div class="iq-card-body">
+    <table class="table table-bordered table-responsive-md table-striped text-center">
+      <thead>
+          <tr>
+            <th></th>
+              <th>ID</th>
+              <th>Prenom</th>
+              <th>Nom</th>
+              <th>Téléphone</th>
+              <th>Assurance</th>
+              <th>Taux de Prise en Charge</th>
+              <th></th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td><input type='radio' name="001" id="001"
+                [checked]="line_id==001 ? 'checked':''"></td>
+              <td>001</td>
+              <td>Ibrahima</td>
+              <td>DIOP</td>
+              <td>776152604</td>
+              <td>ASCOMA</td>
+              <td>80%</td>
+              <td> <button class="btn btn-sm btn-primary"  (click)="handleChange(001)"><i
+                ><span class="pl-1">Selectionner</span></i>
+               </button></td>
+
+          </tr>
+          <tr>
+            <td><input type='radio' name="002" id="002"
+              [checked]="line_id==002 ? 'checked':''"></td>
+            <td>002</td>
+            <td>Mamadou</td>
+            <td>DIALLO</td>
+            <td>776152604</td>
+            <td>AXA assurance</td>
+            <td>20%</td>
+            <td> <button class="btn btn-sm btn-primary"
+               (click)="handleChange(002)"><i
+              ><span class="pl-1">Selectionner</span></i>
+             </button></td>
+
+        </tr>
+      </tbody>
+  </table>
+
+</div>
+
+
+
+<div class="iq-card">
+  <div class="iq-card-header d-flex justify-content-between">
+     <div class="iq-header-title">
+        <h4 class="card-title">Créer les données de la visite</h4>
+     </div>
+  </div>
+  <div class="iq-card-body">
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+          <label for="validationDefault01">Date d'entrée</label>
+          <input type="date" class="form-control"  id="patientIdentifier" name="patientIdentifier">
+
+
+
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="validationDefault01">Heure d'entrée</label>
+          <input type="time" class="form-control"  id="heurEntree" name="heurEntree">
+     </div>
+     <div class="col-md-6 mb-3">
+      <label for="validationDefault01">Date de sortie</label>
+      <input type="date" class="form-control" id="patientIdentifier" name="patientIdentifier" disabled>
+     </div>
+     <div class="col-md-6 mb-3">
+      <label for="validationDefault01">Heure de sortie</label>
+        <input type="time" class="form-control"  id="heureSortie" name="heureSortie">
+   </div>
+     <div class="col-md-6 mb-3">
+      <label for="validationDefault01">Medecin en charge<span style="color: red;">*</span></label>
+      <select class="form-control" id="sex" name="sex" >
+        <option [ngValue]="null" disabled>Selectionner le medecin</option>
+        <option value="1">Docteur A</option>
+        <option value="2">Docteur B</option>
+        <option value="3">Docteur C</option>
+      </select>
+   </div>
+    <div class="col-md-6 mb-3">
+        <label for="validationDefault01">Medecin en charge<span style="color: red;">*</span></label>
+        <select class="form-control" id="sex" name="sex">
+          <option [ngValue]="null" disabled>Selectionner le service</option>
+          <option value="1">Service A</option>
+          <option value="2">Service B</option>
+          <option value="3">Service C</option>
+        </select>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="validationDefault01">Description<span style="color: red;">*</span></label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+
+    </div>
+  </div>
+  <div class="modal-footer" style="display:flex;justify-content: center;">
+    <button  class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+    <button  class="btn btn-primary" (click)="displayTab()">Enregistrer</button>
+ </div>
+</div>
+
+<div *ngIf="tabdisplays">
+<div class="iq-card" >
+    <div class="iq-card-header d-flex justify-content-between">
+       <div class="iq-header-title">
+          <h4 class="card-title">Facture de la prestation ambulatoire {{listePrestations[selectedPrestationIndex].id}} </h4>
+       </div>
+    </div>
+    <div class="iq-card-body">
+        <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="pills-contact-tab-fill" data-toggle="pill" href="#Actes" role="tab" aria-controls="Actes" aria-selected="true">Actes</a>
+         </li>
+            <li class="nav-item">
+              <a class="nav-link" id="pills-contact-tab-fill" data-toggle="pill" href="#Pharmacie" role="tab" aria-controls="Pharmacie" aria-selected="false">Pharmacies</a>
+           </li>
+           <li class="nav-item">
+            <a class="nav-link" id="pills-facturation-tab-fill" data-toggle="pill" href="#Facturations" role="tab" aria-controls="Facturations" aria-selected="false">Facturations</a>
+         </li>
+
+
+        </ul>
+        <div class="tab-content" id="pills-tabContent-1">
+
+            <br>
+
+            <div class="tab-pane fade show active" id="Actes" role="tabpanel" aria-labelledby="Actes-tab">
+              <!--Début de la partie Actes-->
+              <div class="iq-card">
+                  <div class="iq-card-body">
+                      <br>
+                      <span class="table-add float-right mb-3 mr-2">
+                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target=".zone-Ajout-Acte"><i
+                            class="ri-add-fill"><span class="pl-1">Ajouter un acte</span></i>
+                        </button>
+                        </span>
+                        <br>
+                      <!-- Fin du tableau de la partie Actes-->
+                          <table class="table table-bordered table-responsive-md table-striped text-center">
+                              <thead>
+                                  <tr>
+                                      <th>Acte</th>
+                                      <th>Médecin</th>
+                                      <th>Tarif</th>
+                                      <th>Prix (Automatique)</th>
+                                      <th></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+
+                                      <td>Chirurgie</td>
+                                      <td>Dr Diouf Sarr</td>
+                                      <td>
+                                          <div class="form-row">
+                                              <div class="col">
+                                                  Jour
+                                              </div>
+                                              <div class="col btn-group">
+                                                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                      Modifier
+                                                  </button>
+                                                  <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Jour</a>
+                                                    <a class="dropdown-item" href="#">Nuit</a>
+                                                    <a class="dropdown-item" href="#">Week-End et jours Ferié</a>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </td>
+                                      <td>
+                                          50
+                                      </td>
+                                      <td><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".delete-actes"><i
+                                        class="ri-fill"><span class="pl-1">Supprimer</span></i>
+                                      </button></td>
+                                  </tr>
+                                  <tr>
+
+                                    <td>Consultation</td>
+                                    <td>Dr Diop Mar</td>
+                                    <td>
+                                        <div class="form-row">
+                                            <div class="col">
+                                                Jour
+                                            </div>
+                                            <div class="col btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Modifier
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                  <a class="dropdown-item" href="#">Jour</a>
+                                                  <a class="dropdown-item" href="#">Nuit</a>
+                                                  <a class="dropdown-item" href="#">Week-End et jours Ferié</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        50
+                                    </td>
+                                    <td><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".delete-actes"><i
+                                      class="ri-fill"><span class="pl-1">Supprimer</span></i>
+                                    </button></td>
+                                </tr>
+                                  <tr>
+                                      <td><h3><b>TOTAL</b></h3></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td><h3><b>200 FCFA</b></h3></td>
+                                  </tr>
+
+                              </tbody>
+                          </table>
+                      <!--Fin du tableau de la partie Actes-->
+                      <br>
+                  </div>
+              </div>
+              <!--Fin de la partie Actes-->
+          </div>
+          <div class="tab-pane fade" id="Pharmacie" role="tabpanel" aria-labelledby="Pharmacie-tab">
+              <!--Début de la partie Actes-->
+              <div class="iq-card">
+                  <div class="iq-card-body">
+                    <span class="table-add float-right mb-3 mr-2">
+                      <button class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-pharmacie-modal-lg"><i
+                         class="ri-add-fill"><span class="pl-1">Ajouter un médicament</span></i>
+                      </button>
+                      </span>
+                      <br>
+                      <!-- Fin du tableau de la partie Actes-->
+                          <table class="table table-bordered table-responsive-md table-striped text-center">
+                              <thead>
+                                  <tr>
+                                      <th>Type</th>
+                                      <th>Medicament</th>
+                                      <th>Tarif</th>
+                                      <th></th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Comprimé</td>
+                                  <td>Doliprane</td>
+                                  <td>20 FCFA</td>
+                                  <td><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".delete-actes"><i
+                                    class="ri-fill"><span class="pl-1">Supprimer</span></i>
+                                 </button></td>
+                                </tr>
+                                <tr>
+                                  <td>Comprimé</td>
+                                  <td>UPSA C</td>
+                                  <td>10 FCFA</td>
+                                  <td><button class="btn btn-sm btn-danger" data-toggle="modal" data-target=".delete-actes"><i
+                                    class="ri-fill"><span class="pl-1">Supprimer</span></i>
+                                 </button></td>
+                                </tr>
+                                <tr>
+                                    <td><h2><b>TOTAL:</b></h2></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><h2><b>30 FCFA</b></h2></td>
+                                </tr>
+                              </tbody>
+                          </table>
+                      <!--Fin du tableau de la partie Actes-->
+                      <br>
+                  </div>
+              </div>
+              <!--Fin de la partie Actes-->
+          </div>
+          <div class="tab-pane fade" id="Facturations" role="tabpanel" aria-labelledby="Facturations-tab">
+            <!--Début de la partie Actes-->
+            <div class="iq-card">
+                <div class="iq-card-body">
+
+                  <br>
+                <label><h3>Information patient</h3></label>
+                <div class="form-row">
+                    <div class="col">
+                        <h5>
+                            <label>
+                                <b>ID Patient:  </b>{{listePrestations[selectedPrestationIndex].patient.id}}
+                            </label>
+                        </h5>
+                    </div>
+                    <div class="col">
+                        <h5>
+                            <label>
+                                <b>Numéro de dossier:  </b>{{listePrestations[selectedPrestationIndex].folderNumber}}
+                            </label>
+                        </h5>
+                    </div>
+                    <div class="col">
+                        <h5>
+                            <label>
+                                <b> Date de Naissance :  </b>{{listePrestations[selectedPrestationIndex].patient.doB}}
+                            </label>
+                        </h5>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <h5>
+                            <label>
+                                <b>Nom :  </b>{{listePrestations[selectedPrestationIndex].patient.firstName}}
+                            </label>
+                        </h5>
+                    </div>
+                    <div class="col">
+                        <h5>
+                            <label>
+                                <b>Prénom :  </b>{{listePrestations[selectedPrestationIndex].patient.lastName}}
+                            </label>
+                        </h5>
+                    </div>
+                    <div class="col">
+                        <h5>
+                            <label>
+                                <b>Téléphone :  </b>{{listePrestations[selectedPrestationIndex].phone.phone}}
+                            </label>
+                        </h5>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <h5>
+                            <label>
+                                <b>Assurance :  </b>{{listePrestations[selectedPrestationIndex].assurance}}
+                            </label>
+                        </h5>
+                    </div>
+                    <div class="col">
+                        <h5>
+                            <label>
+                                <b>Taux de Prise en Charge :  </b>{{listePrestations[selectedPrestationIndex].rates}}%
+                            </label>
+                        </h5>
+                    </div>
+                    <div class="col">
+                    </div>
+
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                      <h5>
+                          <label>
+                              <b>Id de la prestation :  </b>{{listePrestations[selectedPrestationIndex].id}}
+                          </label>
+                      </h5>
+                  </div>
+                  <div class="col">
+                      <h5>
+                          <label>
+                              <b>Date :  </b>{{listePrestations[selectedPrestationIndex].Date}}
+                          </label>
+                      </h5>
+                  </div>
+                  <div class="col">
+                      <h5>
+                          <label>
+                              <b>Heure :  </b>{{listePrestations[selectedPrestationIndex].Time}}
+                          </label>
+                      </h5>
+                  </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <h5>
+                            <label>
+                                <b>Médecin principal :  </b>Dr {{listePrestations[selectedPrestationIndex].doctor.lastName}} {{listePrestations[selectedPrestationIndex].doctor.firstName}}
+                            </label>
+                        </h5>
+                    </div>
+                    <div class="col">
+                        <h5>
+                            <label>
+                                <b>Type de prestation :  </b>{{listePrestations[selectedPrestationIndex].type}}
+                            </label>
+                        </h5>
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+                <br>
+                <div class="form-row">
+                </div>
+                  <br>
+
+
+                     <label><h3>Pharmacie</h3></label>
+                    <table class="table table-bordered table-responsive-md table-striped text-center">
+                      <thead>
+                          <tr>
+                              <th>Type</th>
+                              <th>Medicament</th>
+                              <th>Tarif</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Comprimé</td>
+                          <td>Doliprane</td>
+                          <td>20 FCFA</td>
+                        </tr>
+                        <tr>
+                          <td>Comprimé</td>
+                          <td>UPSA C</td>
+                          <td>10 FCFA</td>
+                        </tr>
+                        <tr>
+                          <td><h3><b>Total</b></h3></td>
+                          <td></td>
+                          <td><h3><b>30 FCFA</b></h3></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- fin du tableau  pharmarcie-->
+                    <!-- debut du tableau de la partie Actes-->
+                    <label><h3>Actes</h3></label>
+                      <table class="table table-bordered table-responsive-md table-striped text-center">
+                          <thead>
+                              <tr>
+                                  <th>Acte</th>
+                                  <th>Médecin</th>
+                                  <th>Tarif</th>
+                                  <th>Prix (Automatique)</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr >
+
+                                  <td>Acte 1</td>
+                                  <td>Dr Diouf Sarr</td>
+                                  <td>
+                                      <div class="form-row">
+                                          <div class="col">
+                                              Jour
+                                          </div>
+                                      </div>
+                                  </td>
+                                  <td>
+                                      70
+                                  </td>
+                              </tr>
+                              <tr >
+
+                                <td>Acte 2</td>
+                                <td>Dr Diop Mar</td>
+                                <td>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            Jour
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    70
+                                </td>
+                            </tr>
+                              <tr>
+                                  <td><h4><b>TOTAL</b></h4></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td><h4><b>200 FCFA</b></h4></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                    <!--Fin du tableau de la partie Actes-->
+                    <!-- tableau des totaux -->
+                    <table class="table table-bordered table-responsive-md table-striped text-center">
+                      <tr align="right">
+                        <td></td>
+                        <td><h4><b>Quote-part Patient: 40 FCFA</b></h4></td>
+                        <td><h4><b>Quote-part Garant : 160 FCFA</b></h4></td>
+                      </tr>
+                      <tr>
+                        <td><h4><b>TOTAL</b>: </h4></td>
+                        <td></td>
+                        <td><h4><b>230 FCFA</b></h4></td>
+                      </tr>
+                      <tr>
+                        <td colspan="3">
+                          <button class="btn btn-sm btn-primary" data-toggle="modal" data-target=".validation-facture"><i
+                            class="ri-fill"><span class="pl-1">&nbsp;&nbsp;&nbsp;&nbsp;Valider&nbsp;&nbsp;&nbsp;&nbsp;</span></i>
+                         </button>
+                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                         <button class="btn btn-sm btn-danger"><i
+                          class="ri-fill"><span class="pl-1">&nbsp;&nbsp;&nbsp;&nbsp;Imprimer&nbsp;&nbsp;&nbsp;&nbsp;</span></i></button>
+                       </td>
+
+                      </tr>
+                    </table>
+                    <div class="form-row">
+
+
+                    </div>
+                    <!-- fin des totaux -->
+                    <br>
+                </div>
+            </div>
+            <!--Fin de la partie Actes-->
+          </div>
+
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal fade validation-facture" tabindex="-1" role="dialog"  aria-hidden="true" id="formValidationFacture">
+  <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title">Validation facture</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+           <h3>
+            Vous allez valider la facturation de 200 FCFA répartis :
+            <br>
+            Quote-part Fatou sora : 40 FCFA
+            <br>
+            Quote-part Willis Towers Watson : 160 FCFA
+            <br>
+            Souhaitez-vous confirmer ?
+          </h3>
+
+
+
+          </div>
+          <div class="modal-footer">
+             <button  class="btn btn-secondary" data-dismiss="modal">Non</button>
+             <button  class="btn btn-primary">Oui</button>
+          </div>
+       </div>
+    </div>
+  <!-- </form> -->
+</div>
+
+<!-- formulaire pharmacie bd-pharmacie-modal-lg -->
+<div class="modal fade bd-pharmacie-modal-lg" tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Ajouter un médicament</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <!-- <form> -->
+
+            <div class="form-row">
+                <label for="medecin">Type de medicament : </label>
+                <div class="input-group">
+                    <select class="form-control" formControlName="typemedoc" id="typemedoc"  aria-describedby="inputGroupPrepend2" data-live-search="true">
+                      <option value="0" selected> Choisir un médicament</option>
+                      <option value="1" data-tokens="Comprimé">Comprimé</option>
+                      <option value="2" data-tokens="Sirop">Sirop</option>
+                      <option value="3" data-tokens="Perfusion">Perfusion</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="acteType">Choisir un medicament </label>
+                <div class="input-group">
+                  <select class="form-control" formControlName="typemedoc" id="typemedoc"  aria-describedby="inputGroupPrepend2" data-live-search="true">
+                    <option value="0" selected> Choisir un médicament</option>
+                    <option value="1" data-tokens="Doliprane">Doliprane</option>
+                    <option value="2" data-tokens="Effralgan">Effralgan</option>
+                    <option value="3" data-tokens="CAC1000">CAC1000</option>
+                  </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <label for="actePrice">Prix</label>
+                <input type="number" class="form-control" formControlName="prix" id="prix" required>
+            </div>
+
+          <!-- </form> -->
+      </div>
+      <div class="modal-footer">
+          <button type="submit" data-dismiss="modal" class="btn btn-primary">Ajouter</button>
+      </div>
+      </div>
+  </div>
+</div>
+<!-- fin formulaire pharmacie -->
+
+ <!-- Début du formulaire du bouton "Ajouter un acte"-->
+ <div class="modal fade zone-Ajout-Acte" tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Ajout nouveau Acte</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <!-- <form> -->
+            <form [formGroup]="addActeFormFacturer">
+              <div class="form-row">
+                <label for="acteType">Type d'acte </label>
+                <div class="input-group">
+                    <select class="form-control" formControlName="acteType"  id="acteType">
+                        <option selected disabled value="">Choisir le type...</option>
+                        <option value="1">Type acte 1</option>
+                        <option value="2">Type acte 2</option>
+                        <option value="3">Type acte 3</option>
+                    </select>
+                </div>
+            </div>
+              <div class="form-row">
+                <label for="acteType">Actes </label>
+                  <select class="form-control" formControlName="acteType"  id="acteType">
+                    <option selected disabled value="">Choisir un acte...</option>
+                    <option value="1">Acte 1</option>
+                    <option value="2">Acte 2</option>
+                    <option value="3">Acte 3</option>
+                </select>
+              </div>
+              <div class="form-row">
+                  <label for="medecin">Médecin : </label>
+                  <div class="input-group">
+                      <select class="form-control" formControlName="medecin" id="medecin"  aria-describedby="inputGroupPrepend2" required>
+                          <option value="0">Choisir un médécin</option>
+                          <option value="1">Docteur A</option>
+                          <option value="2">Docteur B</option>
+                          <option value="3">Docteur C</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="form-row">
+                  <label for="actePrice">Prix de l'acte :</label>
+                  <input type="number" class="form-control" formControlName="actePrice" id="actePrice" required>
+              </div>
+
+          </form>
+      </div>
+      <div class="modal-footer">
+          <button type="submit" data-dismiss="modal" class="btn btn-primary">Ajouter</button>
+      </div>
+      </div>
+  </div>
+</div>
+<!--Fin du formulaire du bouton "Ajouter un acte"-->
+
+<!-- form suppresssion -->
+<div class="modal fade delete-actes" tabindex="-1" role="dialog"  aria-hidden="true">
+  <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title">Suppression</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+           <h3>
+            Etes-vous sûr de vouloir supprimer?
+           </h3>
+          </div>
+          <div class="modal-footer">
+             <button  class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+             <button  class="btn btn-primary">Supprimer</button>
+          </div>
+       </div>
+    </div>
+  <!-- </form> -->
+</div>
+<!-- fin form suppression -->

@@ -1,0 +1,200 @@
+<app-caisse></app-caisse>
+<div class="col-sm-12">
+  <div class="iq-card">
+     <div class="iq-card-header d-flex justify-content-between">
+          <div class="iq-header-title">
+              <h4 class="card-title">Liste des relevés </h4>
+          </div>
+     </div>
+      <div class="iq-card-body">
+          <div id="table" class="table-editable">
+
+            <table class="table table-bordered table-responsive-md table-striped text-center">
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>ID</th>
+                      <th>ID FACTURE</th>
+                      <th>CAISSE</th>
+
+                      <th>Date</th>
+                      <th>ID prest.</th>
+                      <th>Patient</th>
+                      <th>Montant</th>
+                      <th>Assurance</th>
+                      <th>Mode trans.</th>
+                      <th>Caution</th>
+                      <th>Statut</th>
+                  </tr>
+              </thead>
+              <tbody>
+                 <tr>
+                   <td><input type="checkbox" name="DEC[]" id="DEC001"></td>
+                    <td>DEC001</td>
+                    <td>FAC001</td>
+                    <td>CAISSE A</td>
+                    <td>28/11/2019</td>
+                    <td>PR00150</td>
+                    <td>Fatou SENE</td>
+                    <td>2500 FCFA</td>
+                    <td>ASCOMA</td>
+                    <td>Espèce</td>
+                    <td>OUI</td>
+                    <td>Décaissé</td>
+                 </tr>
+                 <tr>
+                  <td><input type="checkbox" name="DEC[]" id="DEC001"></td>
+                  <td>ENC0020</td>
+                  <td>FAC002</td>
+                  <td>CAISSE A</td>
+                  <td>28/11/2019</td>
+                  <td>PR00015</td>
+                  <td>EVA BASSENE</td>
+                  <td>2500 FCFA</td>
+                  <td>ASCOMA</td>
+                  <td>Lettre de garantie</td>
+                  <td>NON</td>
+                  <td>Non versé</td>
+               </tr>
+               <tr>
+                <td><input type="checkbox" name="DEC[]" id="DEC001"></td>
+                <td>ENC0023</td>
+                <td>FAC005</td>
+                <td>CAISSE A</td>
+                <td>28/11/2019</td>
+                <td>PR00013</td>
+                <td>Ibrahima DIOP</td>
+                <td>2500 FCFA</td>
+                <td></td>
+                <td>Espèce</td>
+                <td>NON</td>
+                <td>Non versé</td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" name="DEC[]" id="DEC001"></td>
+                <td>ENC0024</td>
+                <td>FAC008</td>
+                <td>CAISSE A</td>
+                <td>28/11/2019</td>
+                <td>PR00014</td>
+                <td>Maimouna SY</td>
+                <td>2500 FCFA</td>
+                <td></td>
+                <td>Espèce</td>
+                <td>NON</td>
+                <td>Non versé</td>
+              </tr>
+              </tbody>
+          </table>
+          <div class="form-row">
+            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target=".fermer-caisse">  Fermer la caisse  </button> &nbsp;&nbsp;
+           </div>
+              <br>
+
+
+          </div>
+      </div>
+  </div>
+</div>
+<div class="modal fade confirmation-versement" tabindex="-1" role="dialog"  aria-hidden="true" id="confirmer">
+  <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title">Validation versement</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+
+            <h4 class="card-title">Confirmez-vous avoir reçu la somme de <b>24 1000 FCFA</b>:
+            <ul>
+              <li>22 500 FCFA en espèces</li>
+              <li>1 600 FCFA en Orange money</li>
+            </ul>
+          </h4>
+
+
+          </div>
+          <div class="modal-footer">
+             <button  class="btn btn-secondary" data-dismiss="modal">Non</button>
+             <button  class="btn btn-primary" data-toggle="modal" (click)="confirmer()">Oui</button>
+          </div>
+       </div>
+    </div>
+  <!-- </form> -->
+</div>
+
+ <div class="modal fade confirmation-impression" tabindex="-1" role="dialog"  aria-hidden="true" id="imprimer">
+  <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title">Impression</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+            <h4 class="card-title">Voulez-vous imprimez la fiche versement correspondante?</h4>
+          </div>
+          <div class="modal-footer">
+             <button  class="btn btn-secondary" data-dismiss="modal">Non</button>
+             <button  class="btn btn-primary" (click)="valider()">Oui</button>
+          </div>
+       </div>
+    </div>
+  <!-- </form> -->
+ </div>
+
+ <div class="modal fade confirmation" tabindex="-1" role="dialog"  aria-hidden="true" id="valider">
+  <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title">Validation</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+
+            <h4 class="card-title">Le versement est bien sauvegardé.</h4>
+
+
+          </div>
+          <div class="modal-footer">
+             <button  class="btn btn-secondary" data-dismiss="modal">Non</button>
+             <button  class="btn btn-primary">OK</button>
+          </div>
+       </div>
+    </div>
+  <!-- </form> -->
+ </div>
+
+ <div class="modal fade fermer-caisse" tabindex="-1" role="dialog"  aria-hidden="true" id="confirmer">
+  <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title">Fermer caisse</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+
+            <h4 class="card-title">Le versement est bien sauvegardé. Il n'a plus rien dans la caisse à verser sur la période du 28/11/2019 au 30/11/2019. Souhaitez-vous fermer la caisse?</h4>
+
+
+          </div>
+          <div class="modal-footer">
+             <button  class="btn btn-secondary" data-dismiss="modal">Non</button>
+             <button  class="btn btn-primary" data-toggle="modal" (click)="confirmer()">Oui</button>
+          </div>
+       </div>
+    </div>
+  <!-- </form> -->
+</div>
+

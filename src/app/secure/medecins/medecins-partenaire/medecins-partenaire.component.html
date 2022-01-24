@@ -1,0 +1,408 @@
+<div class="" *ngIf="partenaire">
+
+
+
+  <div class="container-fluid p-0 m-0">
+    <div class="text-center">
+      <button class=" float-right btn bleu">Retour</button>
+    </div>
+  </div>
+  <br>
+  <br>
+<app-medecins-search></app-medecins-search>
+
+  <!-- <div class="jumbotron jumbotron-fluid jaune">
+
+    <form class="form-inline" [formGroup]="searchFormMpart" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+
+      </div>
+      <div class="form-group">
+
+      </div>
+      <div class="form-group">
+
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn">Recherche</button>
+      </div>
+    </form>
+
+
+
+  </div> -->
+
+
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="iq-card">
+            <div class="iq-card-header d-flex justify-content-between">
+               <div class="iq-header-title">
+                  <h4 class="card-title">Liste des médécins partenaires</h4>
+               </div>
+            </div>
+            <div class="iq-card-body">
+               <div id="table" class="table-editable">
+                  <span class="table-add float-right mb-3 mr-2">
+                  <button class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-ajouter-medecin-modal-xl"><i
+                     class="ri-add-fill"><span class="pl-1">Ajouter un médécin</span></i>
+                  </button>
+                  </span>
+                  <table class="table table-bordered table-responsive-md table-striped text-center">
+                     <thead>
+                        <tr>
+                          <th>ID Médecin</th>
+                          <th>Nom</th>
+                          <th>Statut</th>
+                          <th>Téléphone</th>
+                          <th>Spécialité</th>
+                          <th></th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                      <tr *ngFor="let user of userlist; let i = index;" [ngClass]="i%2 == 0 ? 'tblcolorfirst':'tblcolorsecond'">
+
+                        <!-- <td>{{user.id}}</td>
+                        <td>{{user.nom}}</td>
+                        <td>{{user.statut}}</td>
+                        <td>{{user.telephone}}</td>
+                        <td>{{user.specialite}}</td> -->
+                        <td>MED001</td>
+                        <td>Dr A</td>
+                        <td>Interne</td>
+                        <td>771110102</td>
+                        <td>Pédiatrie</td>
+                        <td>
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                               Actions
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="/medecinDetails">Voir</a>
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target=".bd-modifier-medecin-modal-xl">Modifier</a>
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target=".bd-supprimer-medecin-modal-xl">Supprimer</a>
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target=".zone-Ajout-Acte">Ajouter un acte</a>
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target=".bd-exception-modal-xl">Ajouter une convention</a>
+                            </div>
+                          </div>
+                          <!-- <button type="button" class="btn btn-primary btn-sm"
+                            (click)="mPartenaireDetails(user.id)">&nbsp;&nbsp;&nbsp;Voir &nbsp;&nbsp;&nbsp;</button> -->
+                          </td>
+                      </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+<!-- .bd-ajouter-medecin-modal-xl -->
+<div class="modal fade bd-ajouter-medecin-modal-xl" tabindex="-1" role="dialog"   aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title">Ajouter un médécin</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-body">
+            <!-- <form> -->
+
+               <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                  <label for="validationDefault01">Statut</label>
+                  <select class="form-control" id="msexe">
+                     <option selected="" disabled="">Choisir le statut</option>
+                     <option value="1">Interne</option>
+                     <option value="2">Externe</option>
+                  </select>
+
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="validationDefault01">Spécialité</label>
+                    <select class="form-control" id="msexe">
+                       <option selected="" disabled="">Choisir la spécialité</option>
+                       <option value="1">Généraliste</option>
+                       <option value="2">Chirurgie</option>
+                       <option value="2">Pédiatrie</option>
+                    </select>
+
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                     <label for="validationDefault01">Prénom</label>
+                     <input type="text" class="form-control" id='mfirstName'  required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                     <label for="validationDefault02">Nom</label>
+                     <input type="text" class="form-control"id='mlastName'  required>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                     <label for="validationDefault01">Date de naissance</label>
+                     <input type="date" class="form-control" id='mfirstName'  required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                     <label for="validationDefault02">Téléphone </label>
+                     <input type="tel" class="form-control"id='mTelephone1'  required>
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="validationDefault01">Sexe</label>
+                    <select class="form-control" id="msexe">
+                       <option selected="" disabled="">Choisir le sexe</option>
+                       <option value="1">Féminin</option>
+                       <option value="2">Masculin</option>
+                    </select>
+
+                 </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="validationDefaultUsername">Adresse</label>
+                    <div class="input-group">
+                       <input type="text" class="form-control" id="maddress"  aria-describedby="inputGroupPrepend2" required>
+                    </div>
+                 </div>
+
+                 <div class="col-md-6 mb-3">
+                  <label for="validationDefault01">Email</label>
+                  <input type="text" class="form-control" id='memail'  required>
+               </div>
+               <div class="col-md-6 mb-3">
+                  <label for="validationDefault02">Tarif de consultation</label>
+                  <input type="text" class="form-control"id='mtarif'  required>
+               </div>
+
+
+               </div>
+
+
+
+            <!-- </form> -->
+         </div>
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+           <button type="button" class="btn btn-primary">Enregistrer</button>
+        </div>
+     </div>
+  </div>
+</div>
+
+<!-- .bd-ajouter-medecin-modal-xl -->
+<div class="modal fade bd-modifier-medecin-modal-xl" tabindex="-1" role="dialog"   aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title">Modifier un médécin</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-body">
+            <!-- <form> -->
+
+               <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                  <label for="validationDefault01">Statut</label>
+                  <select class="form-control" id="msexe">
+                     <option selected="" disabled="">Choisir le statut</option>
+                     <option value="1" selected>Interne</option>
+                     <option value="2">Externe</option>
+                  </select>
+
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="validationDefault01">Spécialité</label>
+                    <select class="form-control" id="msexe">
+                       <option selected="" disabled="">Choisir la spécialité</option>
+                       <option value="1" selected>Généraliste</option>
+                       <option value="2">Chirurgie</option>
+                       <option value="2">Pédiatrie</option>
+                    </select>
+
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                     <label for="validationDefault01">Prénom</label>
+                     <input type="text" class="form-control" id='mfirstName'  value="Mamadou">
+                  </div>
+                  <div class="col-md-6 mb-3">
+                     <label for="validationDefault02">Nom</label>
+                     <input type="text" class="form-control"id='mlastName'  value="DIA">
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                     <label for="validationDefault01">Date de naissance</label>
+                     <input type="date" class="form-control" id='mfirstName'  value="05-08-1982">
+                  </div>
+                  <div class="col-md-6 mb-3">
+                     <label for="validationDefault02">Téléphone </label>
+                     <input type="tel" class="form-control"id='mTelephone1'  value="776000000">
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="validationDefault01">Sexe</label>
+                    <select class="form-control" id="msexe">
+                       <option selected="" disabled="">Choisir le sexe</option>
+                       <option value="1">Féminin</option>
+                       <option value="2" selected>Masculin</option>
+                    </select>
+
+                 </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="validationDefaultUsername">Adresse</label>
+                    <div class="input-group">
+                       <input type="text" class="form-control" id="maddress"  aria-describedby="inputGroupPrepend2" value="Medina rue 6 angle 23">
+                    </div>
+                 </div>
+
+                 <div class="col-md-6 mb-3">
+                  <label for="validationDefault01">Email</label>
+                  <input type="text" class="form-control" id='memail'  value="mamadou.dia@gmail.com">
+               </div>
+               <div class="col-md-6 mb-3">
+                  <label for="validationDefault02">Tarif de consultation</label>
+                  <input type="text" class="form-control"id='mtarif'  value="250000">
+               </div>
+
+
+               </div>
+
+
+
+            <!-- </form> -->
+         </div>
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+           <button type="button" class="btn btn-primary">Enregistrer</button>
+        </div>
+     </div>
+  </div>
+</div>
+
+ <!-- form ajouter exception -->
+ <div class="modal fade bd-exception-modal-xl" tabindex="-1" role="dialog"   aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title">Ajouter une convention</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+              <div class="col-md-6 mb-3">
+              <select class="form-control" id="msexe">
+                 <option selected="" disabled="">Assureur</option>
+                 <option value="1">Axa</option>
+                 <option value="2">SDE</option>
+                 <option value="3">WILLIS TOWER</option>
+                 <option value="4">SUNU ASSURANCE</option>
+              </select>
+
+              </div>
+              <div class="col-md-6 mb-3">
+                <select class="form-control" id="msexe">
+                  <option selected="" disabled="">Souscripteur</option>
+                  <option value="1">MICROCRED</option>
+                  <option value="2">BUREAU VERITAS</option>
+                  <option value="3">ECOBANK</option>
+               </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="validationDefault01">Date accpetion</label>
+                <input type="date" class="form-control" id='mfirstName'  required>
+             </div>
+             <div class="col-md-6 mb-3">
+              <label for="validationDefault01">Statut</label>
+              <select class="form-control" id="msexe">
+                <option value="1">Refusé</option>
+                <option value="2">Accepté</option>
+             </select>
+             </div>
+
+
+          </div>
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+           <button type="button" class="btn btn-primary">Enregistrer</button>
+        </div>
+     </div>
+  </div>
+</div>
+
+<div class="modal fade zone-Ajout-Acte" tabindex="-1" role="dialog"  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Ajouter un acte</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <!-- <form> -->
+
+
+
+              <div class="form-row">
+                  <label for="acteType">Type d'acte </label>
+                  <div class="input-group">
+                      <select class="form-control" formControlName="acteType"  id="acteType" required>
+                          <option selected disabled value="">Choisir le type...</option>
+                          <option value="1">Imagerie</option>
+                          <option value="2">Consultation</option>
+                          <option value="3">Pédiatrie</option>
+                      </select>
+                  </div>
+              </div>
+
+              <div class="form-row">
+                <label for="acteType">Choisir un aacte </label>
+                  <div class="input-group">
+                    <select class="form-control" formControlName="acteType"  id="acteType" required>
+                        <option selected disabled value="">Choisir l'actes...</option>
+                        <option value="1">Acte 1</option>
+                        <option value="2">Actes 2</option>
+                        <option value="3">Actes 3</option>
+                    </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <label for="actePrice">Tarif jour :</label>
+                <input type="number" class="form-control" formControlName="actePrice" id="actePrice" required>
+              </div>
+              <div class="form-row">
+                <label for="actePrice">Tarif nuit :</label>
+                <input type="number" class="form-control" formControlName="actePrice" id="actePrice" required>
+              </div>
+              <div class="form-row">
+                <label for="actePrice">Tarif week end  & jour férié:</label>
+                <input type="number" class="form-control" formControlName="actePrice" id="actePrice" required>
+              </div>
+
+          <!-- </form> -->
+      </div>
+      <div class="modal-footer">
+          <button type="submit" data-dismiss="modal"  class="btn btn-primary">Ajouter</button>
+      </div>
+      </div>
+  </div>
+</div>
+    <br>
+    <br>
+
+</div>
+
+<div class="" *ngIf="loaddetails">
+  <app-medecins-partenaire-detail></app-medecins-partenaire-detail>
+</div>

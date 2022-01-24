@@ -1,0 +1,287 @@
+
+  <app-patient-search></app-patient-search>
+
+
+
+  <div class="row">
+     <div class="col-sm-12">
+        <div class="iq-card">
+           <div class="iq-card-header d-flex justify-content-between">
+              <div class="iq-header-title">
+                 <h4 class="card-title">Liste des patients en hospitalisation</h4>
+              </div>
+           </div>
+           <div class="iq-card-body">
+              <div id="table" class="table-editable">
+                 <span class="table-add float-right mb-3 mr-2">
+                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i
+                    class="ri-add-fill"><span class="pl-1">Créer un nouveau patient</span></i>
+                 </button>
+                 </span>
+                 <table class="table table-bordered table-responsive-md table-striped text-center">
+                    <thead>
+                       <tr>
+
+                         <th>N° Dossier</th>
+                         <th>Nom</th>
+                         <th>Prénom</th>
+                         <th>Date de naissance</th>
+                         <th>Téléphone</th>
+                         <th>Assurance</th>
+                         <th>Date de création</th>
+                         <th></th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                     <tr *ngFor="let patient of filteredPatients; let i = index;">
+
+
+                       <td>{{patient.doB}}</td>
+                       <td>{{patient.lastName}}</td>
+                       <td>{{patient.firstName}}</td>
+                       <td>{{patient.date_naissance}}</td>
+                       <td>{{patient.telephone}}</td>
+                       <td>{{patient.aussurance}}</td>
+                       <td>{{patient.date_creation}}</td>
+                       <td>
+                         <div class="btn-group">
+                           <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                              Action
+                           </button>
+                           <div class="dropdown-menu">
+                             <a class="dropdown-item" href="#" >Voir</a>
+                             <a class="dropdown-item" (click)="facture()">Facture</a>
+                           </div>
+                         </div>
+                         <!-- <button type="button" class="btn btn-primary btn-sm"
+                           (click)="mPatientDetails(patient.id)">&nbsp;&nbsp;&nbsp;Voir &nbsp;&nbsp;&nbsp;</button> -->
+                         </td>
+                     </tr>
+                    </tbody>
+                 </table>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+
+    <!-- form hospitalisation de patient -->
+    <div class="modal fade bd-personne-hospitalisation" tabindex="-1" role="dialog"  aria-hidden="true">
+     <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+       <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title">Hospitalisation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+             </div>
+             <div class="modal-body">
+                 Etes-vous sur de vouloir envoyer ce patient en hospitalisation?
+             </div>
+             <div class="modal-footer">
+                <button  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button  class="btn btn-primary">Valider</button>
+             </div>
+          </div>
+       </div>
+     <!-- </form> -->
+    </div>
+    <!-- fin hospitalisation de patient -->
+   <!-- form soins ambulatoire de patient -->
+   <div class="modal fade bd-personne-ambulatoire" tabindex="-1" role="dialog"  aria-hidden="true">
+     <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+       <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title">Soins ambulatoire</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+             </div>
+             <div class="modal-body">
+                 Etes-vous sur de vouloir envoyer ce patient en soins ambulatoire?
+             </div>
+             <div class="modal-footer">
+                <button  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button  class="btn btn-primary">Valider</button>
+             </div>
+          </div>
+       </div>
+     <!-- </form> -->
+    </div>
+    <!-- fin soins ambulatoire de patient -->
+
+   <!-- form supprimer de patient -->
+   <div class="modal fade bd-personne-supprimer" tabindex="-1" role="dialog"  aria-hidden="true">
+     <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+       <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title">Supprimer patient</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+             </div>
+             <div class="modal-body">
+
+                 Etes-vous sur de vouloir supprimer ce patient?
+
+
+
+
+             </div>
+             <div class="modal-footer">
+                <button  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button  class="btn btn-primary">Supprimer</button>
+             </div>
+          </div>
+       </div>
+     <!-- </form> -->
+    </div>
+    <!-- fin form supprimer de patient -->
+  <!-- form update de patient -->
+  <div class="modal fade bd-personne-modifier" tabindex="-1" role="dialog"  aria-hidden="true">
+   <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+     <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h5 class="modal-title">Modifier patient</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body">
+
+                 <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                       <label for="validationDefault01">Numéro dossier</label>
+                       <input type="text" class="form-control"  id="mpatientIdentifier" name="mpatientIdentifier">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                       <label for="validationDefault01">Sexe</label>
+                       <select class="form-control" id="msex" name="msex" >
+                          <option selected="" disabled="">Choisir le sexe</option>
+                          <option value="1">Féminin</option>
+                          <option value="2">Masculin</option>
+                       </select>
+
+                    </div>
+                    <div class="col-md-6 mb-3">
+                       <label for="validationDefault01">Prénom</label>
+                       <input type="text" class="form-control"  id='mfirstName'  name="mfirstName" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                       <label for="validationDefault02">Nom</label>
+                       <input type="text" class="form-control"  id='mlastName'  name="mlastName"  required>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                       <label for="validationDefault01">Date de naissance</label>
+                       <input type="date" class="form-control"  id='mdoB' name="mdoB" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                       <label for="validationDefault02">Téléphone 1</label>
+                       <input type="tel" class="form-control"  id='mmTelephone1' name='mmTelephone1'  required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                       <label for="validationDefault02">Téléphone 2</label>
+                       <input type="tel" class="form-control"  id='mmTelephone2' name='mmTelephone2' required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                       <label for="validationDefaultUsername">Adresse</label>
+                       <div class="input-group">
+                          <input type="text" class="form-control"  id="mmaddress" name="mmaddress"  aria-describedby="inputGroupPrepend2" required>
+                       </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                       <label for="validationDefaultUsername">Pays</label>
+                       <div class="input-group">
+
+                          <select class="form-control" id="mpays" name="mpays"  >
+                             <option selected disabled value="">Choisir un pays...</option>
+                             <option value="1">Sénégal</option>
+                             <option value="2">Côte d'ivoire</option>
+                             <option value="3">Guinée</option>
+                          </select>
+                       </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                       <label for="validationDefaultUsername">Région</label>
+                       <div class="input-group">
+
+                          <select class="form-control" id="mmregion" name="mmregion" >
+                             <option selected disabled>Choisir une région...</option>
+                             <option value="1">Dakar</option>
+                             <option value="2">Kolda</option>
+                             <option value="3">Saint louis</option>
+                          </select>
+                       </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                       <label for="validationDefaultUsername">Ville</label>
+                       <div class="input-group">
+                         <select class="form-control" id="mmville" name="mmville">
+                         <option selected disabled>Choisir une ville...</option>
+                         <option value="1">Dakar</option>
+                         <option value="2">Kolda</option>
+                         <option value="3">Saint louis</option>
+                       </select>
+                       </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                       <label for="validationDefaultUsername">Rue</label>
+                       <div class="input-group">
+
+                          <input type="text" class="form-control" id="mmrue" name="mmrue" aria-describedby="inputGroupPrepend2">
+                       </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                       <label for="validationDefaultUsername">Nationallité</label>
+                       <div class="input-group">
+
+                          <select class="form-control" id="mmnationalite" name="mmnationalite">
+                             <option selected disabled value="">Choisir une nationalité...</option>
+                             <option>Sénégalaise</option>
+                             <option>Guinéenne</option>
+                             <option>Saint louis</option>
+                          </select>
+                       </div>
+                    </div>
+
+
+
+                 </div>
+
+
+
+
+           </div>
+           <div class="modal-footer">
+              <button  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              <button  class="btn btn-primary">Modifier</button>
+           </div>
+        </div>
+     </div>
+   <!-- </form> -->
+  </div>
+  <!-- fin form update de patient -->
+  <!-- form creation de patient -->
+
+   <!-- fin form patient -->
+
+   <!-- form creation de personne à contacter -->
+
+  <!-- fin form patient -->
+
+   <!-- form ajouter exception -->
+
+   <!-- fin form à contacter -->
+   <br>
+   <br>
+
+
+
+
+

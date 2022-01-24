@@ -1,0 +1,317 @@
+iiciciiiiii
+<div class="iq-card">
+    <div class="iq-card-header d-flex justify-content-between">
+            <h4 class="iq-header-title ">Nouvelle Prestation Ambulatoire </h4>
+            <button type="button" class="btn btn-primary btn-sm mr-2 mt-1 mb-1" (click)="facture()"> Facturer </button>
+    </div>
+
+    <div class="iq-card-body">
+
+       <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
+          <li class="nav-item">
+             <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">Patient</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="pills-convention-tab-fill" data-toggle="pill" href="#pills-convention-fill" role="tab" aria-controls="pills-convention" aria-selected="false">Informations Générales</a>
+         </li>
+         <li class="nav-item">
+          <a class="nav-link" id="pills-planning-tab-fill" data-toggle="pill" href="#pills-planning-fill" role="tab" aria-controls="pills-convention" aria-selected="false">Actes</a>
+       </li>
+       </ul>
+       <div class="tab-content" id="pills-tabContent-1">
+          <div class="tab-pane fade show active" id="pills-home-fill" role="tabpanel" aria-labelledby="pills-home-tab-fill">
+                <!--Ajout de la partie Patient-->
+                <div class="iq-card">
+                    <div class="iq-card-body">
+                        <form novalidate
+                        [formGroup]="NouvPrestaPatientGroup">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="text" class="form-control"  formControlName="IdPrest" placeholder="Id prestation">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" formControlName="NumDos" placeholder="Numéro de dossier">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" formControlName="Nom" placeholder="Nom">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" formControlName="Prenom" placeholder="Prénom">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" formControlName="Assur" placeholder="Assurance">
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" min="1" max="100" step="0.01" class="form-control" formControlName="Taux" placeholder="Taux de prise en charge">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label for="tel-input" class="col-2 col-form-label">Telephone</label>
+                                        <input class="form-control" formControlName="Tel" type="tel" value="+225-08-42-27-03" id="tel-input">
+                                    </div>
+                                    <div class="col">
+                                        <label for="birth" class="col-form-label">Date de Naissance  </label>
+                                        <input class="form-control" formControlName="BirthDate" type="date" value="2000-01-01" id="birth">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <button  class="btn btn-primary btn-lg">  Rechercher dans la base patient </button>
+                                    </div>
+                                    <div class="col" data-toggle="modal" data-target=".zone-Création-Nouveau-Patient" >
+                                        <button  class="btn btn-primary  btn-lg" ><i class="ri-add-fill">  Créer un nouveau patient </i> </button>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Implémentation du bouton 'Créer Nouveau Patient' -->
+                    <div class="modal fade zone-Création-Nouveau-Patient" tabindex="-1" role="dialog"  aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Créer un nouveau patient</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- <form> -->
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="NumDossier">Numéro dossier</label>
+                                        <input type="text" class="form-control"  id="NumDossier" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="msexe">Sexe</label>
+                                        <select class="form-control" id="msexe">
+                                            <option selected="" disabled="">Choisir le sexe</option>
+                                            <option value="1">Féminin</option>
+                                            <option value="2">Masculin</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="mfirstName">Prénom</label>
+                                        <input type="text" class="form-control" id='mfirstName'  required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="mlastName">Nom</label>
+                                        <input type="text" class="form-control"id='mlastName'  required>
+                                    </div>
+
+                                    <div class="col-md-12 mb-3">
+                                        <label for="DateNaissance">Date de naissance</label>
+                                        <input type="date" class="form-control" id='DateNaissance'  required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="mTelephone1">Téléphone 1</label>
+                                        <input type="tel" class="form-control"id='mTelephone1'  required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="mTelephone2">Téléphone 2</label>
+                                        <input type="tel" class="form-control"id='mTelephone2'  required>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="validationDefaultUsername">Adresse</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="maddress"  aria-describedby="inputGroupPrepend2" required>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="validationDefaultUsername">Pays</label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="mpays" required>
+                                            <option selected disabled value="">Choisir un pays...</option>
+                                            <option>Sénégal</option>
+                                            <option>Côte d'ivoire</option>
+                                            <option>Guinée</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="validationDefaultUsername">Région</label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="mregion" required>
+                                            <option selected disabled value="">Choisir une région...</option>
+                                            <option>Dakar</option>
+                                            <option>Kolda</option>
+                                            <option>Saint louis</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="validationDefaultUsername">Ville</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="mville"  aria-describedby="inputGroupPrepend2" required>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="validationDefaultUsername">Rue</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="mrue"  aria-describedby="inputGroupPrepend2" required>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="mNationnalite">Nationallité</label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="mNationnalite" required>
+                                            <option selected disabled value="">Choisir une nationalité...</option>
+                                            <option>Sénégalaise</option>
+                                            <option>Guinéenne</option>
+                                            <option>Saint louis</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                </div>
+                            <!-- </form> -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin de la partie 'Créer Nouveau Patient'-->
+                <!--Fin de la partie de Patient-->
+            </div>
+
+          <div class="tab-pane fade" id="pills-convention-fill" role="tabpanel" aria-labelledby="pills-convention-tab-fill">
+                <!--Début de la partie Information générales -->
+                <div class="iq-card">
+                    <div class="iq-card-body">
+                        <form novalidate
+                        [formGroup]="NouvPrestaInfosGenGroup">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" formControlName="IdPrest" placeholder="Id prestation">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" formControlName="TypePrest" placeholder="Type de prestation">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" formControlName="MedPrinc" placeholder="Médecin principal">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label for="time-input" class="col-2 col-form-label">Heure</label>
+                                        <input class="form-control" formControlName="Time" type="time" value="13:45:00" id="time-input">
+                                    </div>
+                                    <div class="col">
+                                        <label for="current-date" class="col-form-label">Date du jour  </label>
+                                        <input class="form-control" formControlName="Date"  type="date" value="" id="current-date">
+                                    </div>
+                                </div>
+                                <div class="form-row ">
+                                    <div class="col text-center">
+                                        <br><br>
+                                        <button type="button" class="btn btn-primary btn-sm mr-2 mt-1 mb-1">
+                                            Modifier
+                                        </button>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+                <!--Fin de la partie Information générales -->
+            </div>
+
+            <div class="tab-pane fade" id="pills-planning-fill" role="tabpanel" aria-labelledby="pills-planning-tab-fill">
+                <!--Début de la partie Actes-->
+                <div class="iq-card">
+                    <div class="iq-card-body">
+                        <div class="form-row">
+                            <h5 >
+
+
+                                <!--
+                                <ol >
+                                    <li >
+                                        Les actes seront lister ici
+                                    </li>
+                                </ol>
+                                -->
+                            </h5>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <div class="col" data-toggle="modal" data-target=".zone-Ajout-Acte">
+                                <button type="button" class="btn btn-primary btn-sm mr-2 mt-1 mb-1">
+                                    <i class="ri-add-fill"></i>Ajouter un acte
+                                </button>
+                            </div>
+                            <div>
+                                <!-- Début du formulaire du bouton "Ajouter un acte"-->
+                                <div class="modal fade zone-Ajout-Acte" tabindex="-1" role="dialog"  aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Ajout nouveau Acte</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- <form> -->
+                                            <form [formGroup]="addActeForm">
+                                                <div class="form-row">
+                                                    <label for="acteName">Acte :</label>
+                                                    <select class="form-control" formControlName="acteName" id="acteName" required>
+                                                        <option *ngFor="let prest of Prestations"><!--La liste des actes doit être gérer ici--></option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-row">
+                                                    <label for="medecin">Médecin : </label>
+                                                    <div class="input-group">
+                                                        <select class="form-control" formControlName="medecin" id="medecin"  required>
+                                                            <option *ngFor="let prest of Prestations">{{prest.doctor.firstName}} {{prest.doctor.lastName}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <label for="acteType">Type d'acte </label>
+                                                    <div class="input-group">
+                                                        <select class="form-control" formControlName="acteType"  id="acteType" required>
+                                                            <option selected disabled value="">Choisir le type...</option>
+                                                            <option *ngFor="let acte of ActesListe">{{acte}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- </form> -->
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary">Ajouter</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fin du formulaire du bouton "Ajouter un acte"-->
+                            </div>
+                            <div class="col" *ngIf="afficherBoutonSupprimer">
+                                <button type="button" class="btn btn-danger">
+                                    Supprimer un acte
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Fin de la partie Actes-->
+
+            </div>
+       </div>
+    </div>
+</div>
