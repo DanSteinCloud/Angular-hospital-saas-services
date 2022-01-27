@@ -144,7 +144,9 @@ export class PrenataldetailsComponent implements OnInit {
       nationaliteConjoint: new FormControl(),
       professionConjoint: new FormControl(),
       patientId: new FormControl(),
-      nombreEpousesConjoint: new FormControl()
+      nombreEpousesConjoint: new FormControl(),
+      g:new FormControl(),
+      p:new FormControl()
     });
 
     this.addorUpdateSuiviMedical = new FormGroup({
@@ -227,7 +229,9 @@ export class PrenataldetailsComponent implements OnInit {
           professionConjoint:    this.dossier.professionConjoint,
           rhesus:                this.dossier.rhesus,
           situationMatrimoniale: this.dossier.situationMatrimoniale,
-          patientId: this.getPatientId()
+          patientId: this.getPatientId(),
+          g:this.dossier.g,
+          p:this.dossier.p
         });
 
 
@@ -335,8 +339,8 @@ export class PrenataldetailsComponent implements OnInit {
   }
 
   seeObstetricals(id){
-    let patientId =localStorage.getItem("patientId");
-    let dossierId = localStorage.getItem("dossierId");
+    let patientId =this.getPatientId();;
+    let dossierId = this.dossier.id;
     this.patientService.findGeneric(this.patientId,this.dossierId,9).subscribe(responses => {
       if (responses["code"]==200){
         this.populateFormAntecedentObstetricaux(this.addOrUpdateAntecedentObstetricals,responses["result"][0]);
@@ -372,8 +376,8 @@ export class PrenataldetailsComponent implements OnInit {
             observations: data.observations,
             dateDerniereRegle:(data.dateDerniereRegle>0)?new Date(data.dateDerniereRegle * 1000)
               .toISOString().substring(0, 10):new Date().toISOString().substring(0, 10),
-            g: this.dossier.g,
-            p: this.dossier.p,
+            g:data.g>0?data.g:this.dossier.g,
+            p: data.g>0?data.p:this.dossier.p,
             tp: dpFInal,
             typeUterus: data.typeUterus
           });
@@ -423,7 +427,7 @@ export class PrenataldetailsComponent implements OnInit {
 
   onSubmitForm(f:FormGroup,mess1,mess2,mess3,typeId){
     let patientId =this.getPatientId();
-    let dossierId =  localStorage.getItem("dossierId");
+    let dossierId =  this.dossier.id;
 
     this.rMessage="";
 
@@ -517,12 +521,10 @@ export class PrenataldetailsComponent implements OnInit {
 
 
   onSubmitAntecedentObstetricaux(){
-    let patientId =localStorage.getItem("patientId");
-    let dossierId = localStorage.getItem("dossierId");
+    let patientId =this.getPatientId();;
+    let dossierId = this.dossier.id;
 
     this.rMessage="";
-
-
 
     if (this.addOrUpdateAntecedentObstetricals.invalid) {
       return;
@@ -530,7 +532,7 @@ export class PrenataldetailsComponent implements OnInit {
 
     if (this.addOrUpdateAntecedentObstetricals.value.id!=null){
       let grossesseId =this.addOrUpdateAntecedentObstetricals.value.id;
-      this.patientService.updateForm(patientId,localStorage.getItem("dossierId"),grossesseId,this.addOrUpdateAntecedentObstetricals.getRawValue(),9).subscribe((data) => {
+      this.patientService.updateForm(patientId,this.dossier.id,grossesseId,this.addOrUpdateAntecedentObstetricals.getRawValue(),9).subscribe((data) => {
         if (data.code === 200) {
           this.submitted = false;
           this.rMessage = " bUpdateAntecedentMereChirurgie";
@@ -555,8 +557,8 @@ export class PrenataldetailsComponent implements OnInit {
   }
 
   onSubmitAntecedentGynecologique(){
-    let patientId =localStorage.getItem("patientId");
-    let dossierId = localStorage.getItem("dossierId");
+    let patientId =this.getPatientId();;
+    let dossierId = this.dossier.id;
 
     this.rMessage="";
 
@@ -570,7 +572,7 @@ export class PrenataldetailsComponent implements OnInit {
 
     if (this.addOrUpdateAntecedentGynecologique.value.id!=null){
       let grossesseId =this.addOrUpdateAntecedentGynecologique.value.id;
-      this.patientService.updateForm(patientId,localStorage.getItem("dossierId"),grossesseId,this.addOrUpdateAntecedentGynecologique.getRawValue(),8).subscribe((data) => {
+      this.patientService.updateForm(patientId,this.dossier.id,grossesseId,this.addOrUpdateAntecedentGynecologique.getRawValue(),8).subscribe((data) => {
         if (data.code === 200) {
           this.submitted = false;
           this.rMessage = " bUpdateAntecedentGynécologiques";
@@ -596,8 +598,8 @@ export class PrenataldetailsComponent implements OnInit {
   }
 
   onSubmitAntecedentMereChirurgicaux(){
-    let patientId =localStorage.getItem("patientId");
-    let dossierId = localStorage.getItem("dossierId");
+    let patientId =this.getPatientId();;
+    let dossierId = this.dossier.id;
     let aMaladie =this.addOrUpdateAntecedentMereChirurgicauxForm.value.maladies ;
 
     this.rMessage="";
@@ -612,7 +614,7 @@ export class PrenataldetailsComponent implements OnInit {
 
     if (this.addOrUpdateAntecedentMereChirurgicauxForm.value.id!=null){
       let grossesseId =this.addOrUpdateAntecedentMereChirurgicauxForm.value.id;
-      this.patientService.updateForm(patientId,localStorage.getItem("dossierId"),grossesseId,this.addOrUpdateAntecedentMereChirurgicauxForm.getRawValue(),7).subscribe((data) => {
+      this.patientService.updateForm(patientId,this.dossier.id,grossesseId,this.addOrUpdateAntecedentMereChirurgicauxForm.getRawValue(),7).subscribe((data) => {
         if (data.code === 200) {
           this.submitted = false;
           this.rMessage = " bUpdateAntecedentMereChirurgie";
@@ -678,7 +680,7 @@ export class PrenataldetailsComponent implements OnInit {
     
     if (this.addOrUpdateAntecedentMedMereForm.value.id!=null){
       let grossesseId =this.addOrUpdateAntecedentMedMereForm.value.id;
-      this.patientService.updateForm(patientId,localStorage.getItem("dossierId"),grossesseId,this.addOrUpdateAntecedentMedMereForm.getRawValue(),6).subscribe((data) => {
+      this.patientService.updateForm(patientId,this.dossier.id,grossesseId,this.addOrUpdateAntecedentMedMereForm.getRawValue(),6).subscribe((data) => {
         if (data.code === 200) {
           this.submitted = false;
           this.rMessage = " bUpdateAntecedentMedicauxMere";
@@ -692,7 +694,7 @@ export class PrenataldetailsComponent implements OnInit {
       this.addOrUpdateAntecedentMedMereForm.patchValue({
         maladies:aMaladie
       });
-      this.patientService.createForm(patientId,localStorage.getItem("dossierId"),this.addOrUpdateAntecedentMedMereForm.getRawValue(),6).subscribe((data) => {
+      this.patientService.createForm(patientId,this.dossier.id,this.addOrUpdateAntecedentMedMereForm.getRawValue(),6).subscribe((data) => {
         if (data.code === 200) {
           this.submitted = false;
           this.rMessage = "bSaveAntecedentMedicauxMere";
@@ -709,8 +711,8 @@ export class PrenataldetailsComponent implements OnInit {
   onSubmitAntecedentFamiliaux()
   {
 
-    let patientId =localStorage.getItem("patientId");
-    let dossierId = localStorage.getItem("dossierId");
+    let patientId =this.getPatientId();;
+    let dossierId = this.dossier.id;
 
     this.rMessage="";
 
@@ -724,7 +726,7 @@ export class PrenataldetailsComponent implements OnInit {
 
     if (this.addOrUpdateAntecedentFamiliauxForm.value.id!=null){
       let grossesseId =this.addOrUpdateAntecedentFamiliauxForm.value.id;
-      this.patientService.updateForm(patientId,localStorage.getItem("dossierId"),grossesseId,this.addOrUpdateAntecedentFamiliauxForm.getRawValue(),5).subscribe((data) => {
+      this.patientService.updateForm(patientId,this.dossier.id,grossesseId,this.addOrUpdateAntecedentFamiliauxForm.getRawValue(),5).subscribe((data) => {
         if (data.code === 200) {
           this.submitted = false;
           this.rMessage = " bUpdateAntecedentFamiliaux";
@@ -750,8 +752,8 @@ export class PrenataldetailsComponent implements OnInit {
 
   onSubmitAntecedentConjoint()
   {
-    let patientId =localStorage.getItem("patientId");
-    let dossierId = localStorage.getItem("dossierId");
+    let patientId =this.getPatientId();;
+    let dossierId = this.dossier.id;
     this.rMessage="";
 
     if (this.addOrUpdateAntecedentConjointForm.invalid) {
@@ -760,7 +762,7 @@ export class PrenataldetailsComponent implements OnInit {
 
     if (this.addOrUpdateAntecedentConjointForm.value.id!=null){
       let grossesseId =this.addOrUpdateAntecedentConjointForm.value.id;
-      this.patientService.updateForm(patientId,localStorage.getItem("dossierId"),grossesseId,this.addOrUpdateAntecedentConjointForm.getRawValue(),4).subscribe((data) => {
+      this.patientService.updateForm(patientId,this.dossier.id,grossesseId,this.addOrUpdateAntecedentConjointForm.getRawValue(),4).subscribe((data) => {
         if (data.code === 200) {
           this.submitted = false;
           this.rMessage = " bUpdateAntecedent";
@@ -771,7 +773,7 @@ export class PrenataldetailsComponent implements OnInit {
       });
     }
     else{
-      this.patientService.createForm(patientId,localStorage.getItem("dossierId"),this.addOrUpdateAntecedentConjointForm.getRawValue(),4).subscribe((data) => {
+      this.patientService.createForm(patientId,this.dossier.id,this.addOrUpdateAntecedentConjointForm.getRawValue(),4).subscribe((data) => {
         if (data.code === 201) {
           this.submitted = false;
           this.rMessage = "bSaveAntecedent";
@@ -788,20 +790,24 @@ export class PrenataldetailsComponent implements OnInit {
   onSubmitGrossesse()
   {
     this.rMessage="";
-    let ddr=new Date(this.addOrUpdateGrossesseForm.value.dateDerniereRegle).getTime() / 1000;
+    let dateDerniereRegle=new Date(this.addOrUpdateGrossesseForm.value.dateDerniereRegle).getTime() / 1000;
     let le=new Date(this.addOrUpdateGrossesseForm.value.le).getTime() / 1000;
     let tp=new Date(this.addOrUpdateGrossesseForm.value.tp).getTime() / 1000;
     this.addOrUpdateGrossesseForm.patchValue({
-      dateDerniereRegle:ddr,
+      dateDerniereRegle:dateDerniereRegle,
       le:le,
       tp:tp
     });
-
+    
+    this.dossier.g=this.addOrUpdateGrossesseForm.value.g;
+    this.dossier.p=this.addOrUpdateGrossesseForm.value.p;
+    
     if (this.addOrUpdateGrossesseForm.invalid) {
       return;
     }
     if (this.addOrUpdateGrossesseForm.value.id!=null){
       let grossesseId =this.addOrUpdateGrossesseForm.value.id;
+
       this.patientService.updateGrossesse(this.getPatientId(),this.dossier.id,grossesseId,this.addOrUpdateGrossesseForm.getRawValue()).subscribe((data) => {
         if (data.code === 200) {
           this.submitted = false;
@@ -825,76 +831,26 @@ export class PrenataldetailsComponent implements OnInit {
     }
   }
 
-  onSubmitSuiviMedical()
-  {
-    let patientId =localStorage.getItem("patientId");
-    let dossierId = localStorage.getItem("dossierId");
-    this.rMessage="";
-    if (this.addorUpdateSuiviMedical.invalid) {
-      return;
-    }
-
-    if (this.addorUpdateSuiviMedical.value.id>0){
-      let suiviId =this.addorUpdateSuiviMedical.value.id;
-      this.patientService.updateSuiviMedical(patientId,dossierId,suiviId,this.addorUpdateSuiviMedical.getRawValue()).subscribe((data) => {
-        if (data.code === 200) {
-          this.submitted = false;
-          this.rMessage = "bUpdateSuivi";
-          this.addorUpdateSuiviMedical.disable();
-        } else {
-          this.rMessage = "bErrorSuivi";
-        }
-      });
-    }
-    else{
-      let suiviId =this.addorUpdateSuiviMedical.value.id;
-      this.patientService.createSuiviMedical(patientId,dossierId,this.addorUpdateSuiviMedical.getRawValue()).subscribe((data) => {
-        if (data.code === 201) {
-          this.submitted = false;
-          this.rMessage = "bSaveSuivi";
-          this.addorUpdateSuiviMedical.patchValue({
-            anesthesiste: data.result.anesthesiste,
-            dossierPrenatalId: data.result.dossierPrenatalId,
-            id: data.result.id,
-            obstGyneco: data.result.obstGyneco,
-            patientIdSuivi: data.result.patientId,
-            pediatre: data.result.pediatre,
-            sageFemme: data.result.sageFemme
-          });
-          this.addorUpdateSuiviMedical.disable();
-        } else {
-          this.rMessage = "bErrorSuivi";
-        }
-      });
-    }
-  }
   onUpdatePrenatal(){
 
     if (this.updateFormPrenatal.invalid) {
       return;
     }
 
-   
     this.patientService.updateDossierPrenatal(this.updateFormPrenatal.value.patientId,this.updateFormPrenatal.value.id,this.updateFormPrenatal.getRawValue()).subscribe((data) => {
       if (data.code === 200) {
         this.submitted = false;
         this.rMessage = "bUpdate";
-        let dossier = Object.assign(new DossierPrenatal(), data.result);
+        this.dossier = Object.assign(new DossierPrenatal(), data.result);
         this.updateFormPrenatal.patchValue({
-          age:                   dossier.age,
-          ageConjoint:           dossier.ageConjoint,
-          dateDerniereRegle:     dossier.dateDerniereRegle,
-          g:                     dossier.g,
-          groupSanguin:          dossier.groupSanguin,
-          id:                    dossier.id,
-          nationaliteConjoint:   dossier.nationaliteConjoint,
-          nombreEpousesConjoint: dossier.nombreEpousesConjoint,
-          p:                     dossier.p,
-          praticien:             dossier.praticien,
-          profession:            dossier.profession,
-          professionConjoint:    dossier.professionConjoint,
-          rhesus:                dossier.rhesus,
-          situationMatrimoniale: dossier.situationMatrimoniale
+          age:                   this.dossier.age,
+          ageConjoint:           this.dossier.ageConjoint,
+          id:                    this.dossier.id,
+          nationaliteConjoint:   this.dossier.nationaliteConjoint,
+          nombreEpousesConjoint: this.dossier.nombreEpousesConjoint,
+          profession:            this.dossier.profession,
+          professionConjoint:    this.dossier.professionConjoint,
+          situationMatrimoniale: this.dossier.situationMatrimoniale
         });
         this.updateFormPrenatal.disable();
       } else {
