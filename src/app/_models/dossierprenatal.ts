@@ -1,15 +1,16 @@
 export class DossierPrenatal {
-  id:                    number;
-  datePrevuAccoucchment: number;
-  groupSanguin:          string;
-  rhesus:                string;
-  rhophylac:             string;
-  numeroAccouchement:    number;
-  nomMarital:            string;
   age:                   number;
+  ageConjoint:           number;
+  dateDerniereRegle:     number;
+  g:                     number;
+  groupSanguin:          string;
+  id:                    number;
+  nationaliteConjoint:   number;
+  nombreEpousesConjoint: number;
+  p:                     number;
+  praticien:             string;
   profession:            string;
-  congeMaternite:        number;
+  professionConjoint:    string;
+  rhesus:                string;
   situationMatrimoniale: string;
-  rhophylacDate:         number;
-  patientId:             string;
 }

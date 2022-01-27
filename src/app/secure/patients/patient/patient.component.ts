@@ -224,18 +224,13 @@ export class PatientComponent implements OnInit {
     });
 
     this.addFormPrenatal = new FormGroup({
-      age: new FormControl(),
-      congeMaternite: new FormControl(),
-      datePrevuAccoucchment: new FormControl(),
-      groupSanguin: new FormControl(),
       id: new FormControl(),
-      nomMarital: new FormControl(),
-      numeroAccouchement: new FormControl(),
-      patientId: new FormControl(),
-      profession: new FormControl,
+      dateDerniereRegle: new FormControl(),
+      groupSanguin: new FormControl(),
       rhesus: new FormControl(),
-      rhophylac: new FormControl(),
-      situationMatrimoniale: new FormControl()
+      praticien: new FormControl(),
+      g: new FormControl(),
+      p: new FormControl()
     });
 
 
@@ -376,13 +371,9 @@ export class PatientComponent implements OnInit {
       return;
     }
 
-    let datePrevuAccouchement=new Date(this.addFormPrenatal.value.datePrevuAccoucchment).getTime() / 1000;
-    let rhophylacDate=new Date(this.addFormPrenatal.value.rhophylacDate).getTime() / 1000;
-    let congeMaternite=new Date(this.addFormPrenatal.value.congeMaternite).getTime() / 1000;
+    let dateDerniereRegle=new Date(this.addFormPrenatal.value.dateDerniereRegle).getTime() / 1000;
     this.addFormPrenatal.patchValue({
-      datePrevuAccoucchment:datePrevuAccouchement,
-      rhophylacDate:rhophylacDate,
-      congeMaternite:congeMaternite
+      dateDerniereRegle:dateDerniereRegle
     });
 
     this.patientService.createPrenatalFolder(this.addFormPrenatal.getRawValue(),this.addFormPrenatal.value.patientId).subscribe((res) => {

@@ -8,6 +8,64 @@
   <br />
   <div class="iq-card">
     <div class="iq-card-header d-flex justify-content-between">
+       <div class="iq-header-title">
+          <h4 class="card-title">Informations patients</h4>
+       </div>
+    </div>
+    <div class="iq-card-body">
+     
+        <div class="form-row">
+             
+             <div class="col">
+               <label><b>Prénom</b> : {{patientInfos.firstName}}</label>
+             </div>
+             <div class="col">
+               <label><b>Nom</b> : {{patientInfos.lastName}}</label>
+  
+             </div>
+             <div class="col">
+              <label><b>Date de naissane</b> : {{patientInfos.doB * 1000 | date: 'dd/MM/yyyy'}}</label>
+             </div>
+            
+  
+        </div>
+          <br>
+        <div class="form-row">
+         
+            <div class="col">
+             <label><b>Téléphone</b> : <span *ngIf="patientInfos.phones[0]?.phone!=null">{{patientInfos.phones[0]?.phone}}</span><span *ngIf="patientInfos.phones[1]?.phone!=null">/{{patientInfos.phones[0]?.phone}}</span></label>
+           </div>
+           <div class="col">
+             <label><b>Adresse</b> : {{patientInfos.addresses[0]?.address}} {{patientInfos.addresses[0]?.street}}</label>
+
+           </div>
+           <div class="col">
+            <label><b>Sexe</b> : <span *ngIf="patientInfos.sex==1">Féminin</span> <span *ngIf="patientInfos.sex==2">Masculin</span></label>
+           </div>
+        </div>
+        <br>
+        <div class="form-row">
+         
+          <div class="col">
+           <label><b>Date dernière règle</b> : {{dossier.dateDerniereRegle * 1000 | date: 'dd/MM/yyyy'}}</label>
+         </div>
+         <div class="col">
+           <label><b>Grouge sanguin</b> : {{dossier.groupSanguin}} </label>
+
+         </div>
+         <div class="col">
+          <label><b>Rhésus</b> :{{dossier.rhesus}} </label>
+         </div>
+      </div>
+      <br>
+      <div class="form-row">
+        <div class="col"><label><b>G</b> : {{dossier.g}}</label></div>
+          <div class="col"><label><b>P</b> : {{dossier.p}}</label></div>
+      </div> 
+    </div>
+  </div>
+  <div class="iq-card">
+    <div class="iq-card-header d-flex justify-content-between">
       <div class="iq-header-title">
         <h4 class="card-title">Voir détails du patient</h4>
       </div>
@@ -15,11 +73,9 @@
     <div class="iq-card-body">
       <ul class="nav nav-pills mb-3 nav-fill" id="pills-tab-1" role="tablist">
         <li class="nav-item" style="background-color:#f4f0ec;border-radius: 10%;border-color: black;">
-          <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">Dossier Prénatal</a>
+          <a class="nav-link active" id="pills-home-tab-fill" data-toggle="pill" href="#pills-home-fill" role="tab" aria-controls="pills-home" aria-selected="true">Renseignements généraux</a>
         </li>&nbsp;
-        <li class="nav-item" style="background-color:#f4f0ec;border-radius: 10%;border-color: black;">
-          <a class="nav-link" id="pills-suivi-tab-fill" data-toggle="pill" href="#pills-suivi-fill" role="tab" aria-controls="pills-suivi" aria-selected="false" (click)="SuiviLoad()">Suivi médical</a>
-        </li>&nbsp;
+      
         <li class="nav-item" style="background-color:#f4f0ec;border-radius: 10%;">
           <a class="nav-link" id="pills-convention-tab-fill" data-toggle="pill" href="#pills-convention-fill" role="tab" aria-controls="pills-convention" aria-selected="false" (click)="GrossesseLoad()">Grossesse</a>
         </li>&nbsp;
@@ -67,63 +123,45 @@
                           <input type="hidden" formControlName="patientId" id="patientId" name="patientId">
                           <input type="hidden" formControlName="id" id="id" name="id">
                            <div class="col-md-6 mb-3">
-                              <label for="validationDefault01">Numéro d'accouchement</label>
-                              <input type="text" class="form-control" formControlName="numeroAccouchement" id="numeroAccouchement" name="numeroAccouchement">
+                              <label for="validationDefault01">Age patiente</label>
+                              <input type="text" class="form-control" formControlName="age" id="age" name="age">
                            </div>
                            <div class="col-md-6 mb-3">
-                            <label for="validationDefault01">Date d'accouchement prévue <span style="color: red;">*</span></label>
-                            <input type="date" class="form-control" formControlName="datePrevuAccoucchment" id='datePrevuAccoucchment' name="datePrevuAccoucchment">
+                            <label for="validationDefault01">Profession <span style="color: red;">*</span></label>
+                            <input type="text" class="form-control" formControlName="profession" id='profession' name="profession">
                           </div>
-                           <div class="col-md-6 mb-3">
-                              <label for="validationDefault01">Groupe sanguin<span style="color: red;">*</span></label>
-                              <select class="form-control" id="groupSanguin" name="groupSanguin" formControlName="groupSanguin" >
-                                <option disabled>Choisir le groupe sanguin</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="AB">AB</option>
-                                <option value="O">O</option>
-                              </select>
-                           </div>
-                           <div class="col-md-6 mb-3">
-                              <label for="validationDefault01">Rhésius</label>
-                              <select class="form-control" id="rhesus" name="rhesus" formControlName="rhesus" >
-                                <option disabled>Choisir le rhésius</option>
-                                <option value="POSITIF">POSITIF</option>
-                                <option value="NEGATIF">NEGATIF</option>
-                              </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                              <label for="validationDefault01">RHOPHYLAC DATE:</label>
-                              <input type="date" class="form-control" formControlName="rhophylacDate" id='rhophylacDate' name="rhophylacDate">
-                            </div>
-                           <div class="col-md-6 mb-3">
-                              <label for="validationDefault01">RHOPHYLAC DOSE:</label>
-                              <input type="text" class="form-control" formControlName='rhophylac' id='rhophylac'  name="rhophylac">
-                            </div>
-                           <div class="col-md-6 mb-3">
-                              <label for="validationDefault02">Profession </label>
-                              <input type="text" class="form-control" formControlName='profession' id='profession'  name="profession">
-
-                            </div>
-
-
-                           <div class="col-md-6 mb-3">
-                              <label for="validationDefault02">Congés maternité </label>
-                              <input type="date" class="form-control" formControlName="congeMaternite" id='congeMaternite' name='congeMaternite'>
-                           </div>
-                           <div class="col-md-6 mb-3">
-                              <label for="validationDefault02">Situation matrimoniale </label>
-                              <select class="form-control" id="situationMatrimoniale" name="situationMatrimoniale" formControlName="situationMatrimoniale" >
-                                <option disabled>Choisir la situation matrimoniale</option>
-                                <option value="1">Célibataire</option>
-                                <option value="2">Marié</option>
-                              </select>
-                           </div>
-                           <div class="col-md-6 mb-3">
-                            <label for="validationDefault02">Age </label>
-                            <input type="text" class="form-control" formControlName="age" id='age' name='age'>
+                          <div class="col-md-6 mb-3">
+                            <label for="validationDefault02">Situation matrimoniale </label>
+                            <select class="form-control" id="situationMatrimoniale" name="situationMatrimoniale" formControlName="situationMatrimoniale" >
+                              <option disabled>Choisir la situation matrimoniale</option>
+                              <option value="1">Célibataire</option>
+                              <option value="2">Marié</option>
+                            </select>
                          </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Age conjoint:</label>
+                          <input type="text" class="form-control" formControlName="ageConjoint" id='ageConjoint' name="ageConjoint">
+                        </div>
 
+                          <div class="col-md-6 mb-3">
+                            <label for="validationDefault01">Nationalité<span style="color: red;">*</span></label>
+                            <select class="form-control" id="nationaliteConjoint" name="nationaliteConjoint" formControlName="nationaliteConjoint" >
+                              <option disabled>Choisir la nationalité</option>
+                              <option value="1">Sénégalaise</option>
+                              <option value="2">Ivoirienne</option>
+                              <option value="3">Guinéenne</option>
+                            </select>
+                          </div>
+                          <div class="col-md-6 mb-3">
+                            <label for="validationDefault01">Profession conjoint:</label>
+                            <input type="text" class="form-control" formControlName="professionConjoint" id='professionConjoint' name="professionConjoint">
+                          </div>
+                          
+                          <div class="col-md-6 mb-3">
+                            <label for="validationDefault01">Nombre d'épouse :</label>
+                            <input type="text" class="form-control" formControlName="nombreEpousesConjoint" id='nombreEpousesConjoint' name="nombreEpousesConjoint">
+                          </div>
+                          
                         </div>
                   </div>
                   <div class="modal-footer">
@@ -138,77 +176,7 @@
           </div>
           </form>
         </div>
-        <div class="tab-pane fade" id="pills-suivi-fill" role="tabpanel" aria-labelledby="pills-suivi-tab-fill">
-          <br />
-          <br />
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="iq-card">
-                <div class="iq-card-body">
-                  <div class="float-right mb-3" style="margin-right: 50px;">
-                    <button  class="btn btn-primary" (click)="activateForm(2)" >Activer le formulaire</button>
-                  </div>
-
-                    <form [formGroup]="addorUpdateSuiviMedical" (ngSubmit)="onSubmitSuiviMedical()">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title">Suivi Médical</h5>
-                          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-
-                        <div class="modal-body">
-                          <div *ngIf="rMessage==='bSaveSuivi'" class="alert alert-success">
-                            Le suivi médical a été ajouté avec succès
-                          </div>
-                          <div *ngIf="rMessage==='bUpdateSuivi'" class="alert alert-success">
-                            Le suivi médical a été mis à jour avec succès
-                          </div>
-                          <div *ngIf="rMessage==='bErrorSuivi'" class="alert alert-danger">
-                            Erreur lors de la mise à jour lors du suivi médical
-                          </div>
-                          <div class="form-row">
-                            <div class="col-md-6 mb-3">
-                              <input type="hidden" id="id" name="id" formControlName="id">
-                              <input type="hidden" id="patientId" name="patientId" formControlName="patientId">
-                              <input type="hidden" id="dossierPrenatalId" name="dossierPrenatalId" formControlName="dossierPrenatalId">
-                              <label for="validationDefault01">Gynécologue-obstétricien :</label>
-                              <input type="text" class="form-control" formControlName="obstGyneco" id='obstGyneco' name='obstGyneco'>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                              <label for="validationDefault01">Sage-Femme :</label>
-                              <input type="text" class="form-control" formControlName="sageFemme" id='sageFemme' name='sageFemme'>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                              <label for="validationDefault01">Pédiatre :</label>
-                              <input type="text" class="form-control" formControlName="pediatre" id='pediatre' name='pediatre'>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                              <label for="validationDefault01">Anesthésiste :</label>
-                              <input type="text" class="form-control" formControlName="anesthesiste" id='anesthesiste' name='anesthesiste'>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button class="btn btn-primary" *ngIf="this.addorUpdateSuiviMedical.value.id==null" disabled="{{disabled}}"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                          </button>
-                          <button class="btn btn-primary" *ngIf="this.addorUpdateSuiviMedical.value.id!=null" disabled="{{disabled}}"> Modifier <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-
-                  <!-- <pagination-controls
-                     previousLabel="Précédent"
-                     nextLabel="Suivant"
-                     (pageChange)="pageChanged($event)"
-                        ></pagination-controls> -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+     
         <div class="tab-pane fade" id="pills-convention-fill" role="tabpanel" aria-labelledby="pills-convention-tab-fill">
           <div class="iq-card">
             <div class="iq-card-body">
@@ -233,8 +201,6 @@
                       </div>
                       <div class="form-row">
                         <input type="hidden" id="id" name="id" formControlName="id">
-                        <input type="hidden" id="patientId" name="patientId" formControlName="patientId">
-                        <input type="hidden" id="dossierPrenatalId" name="dossierPrenatalId" formControlName="dossierPrenatalId">
                         <div class="col-md-6 mb-3">
                           <label for="validationDefault01">Choisir le type :</label>
                           <select class="form-control" id="typeGrossesse" name="typeGrossesse" formControlName="typeGrossesse" (change)="onChange($event.target.value)">
@@ -246,15 +212,15 @@
                         </div>
                         <div class="col-md-6 mb-3">
                           <label for="validationDefault01">Précisions:</label>
-                          <input type="text" class="form-control" width="20px" [readonly]="this.isEditable" formControlName="precisionGrossesse" id="precisionGrossesse" name="precisionGrossesse" />
+                          <input type="text" class="form-control" width="20px" formControlName="precisionGrossesse" id="precisionGrossesse" name="precisionGrossesse" />
                         </div>
-                        <div class="col-md-6 mb-3"> P : <input type="text" class="form-control" width="20px" formControlName="p" id="p" name="p" />
+                        <div class="col-md-6 mb-3"> P : <input type="text" class="form-control" width="20px" formControlName="p" id="p" name="p"/>
                         </div>
                         <div class="col-md-6 mb-3"> G : <input type="text" class="form-control" width="20px" formControlName="g" id="g" name="g" />
                         </div>
                         <div class="col-md-6 mb-3">
                           <label for="validationDefault01">Type utérus :</label>
-                          <select class="form-control" id="caractereCicatriciel" name="caractereCicatriciel" formControlName="scaractereCicatricielex">
+                          <select class="form-control" id="typeUterus" name="typeUterus" formControlName="typeUterus">
                             <option disabled>Choisir le type d'utérus</option>
                             <option value="Utérus cicatriciel">Utérus cicatriciel</option>
                             <option value="Utérus non cicatriciel">Utérus non cicatriciel</option>
@@ -262,17 +228,17 @@
                         </div>
                         <div class="col-md-6 mb-3">
                           <label for="validationDefault01">Date des Dernières Règles :</label>
-                          <input type="date" class="form-control" width="20px" formControlName="ddr" id="ddr" name="ddr" />
+                          <input type="date" class="form-control" width="20px" formControlName="dateDerniereRegle" id="dateDerniereRegle" name="dateDerniereRegle" />
                         </div>
                         <div class="col-md-6 mb-3">
                           <label for="validationDefault01">TP :</label>
-                          <input type="text" class="form-control" width="20px" formControlName="tp" id="tp" name="tp" />
+                          <input type="date" class="form-control" width="20px" formControlName="tp" id="tp" name="tp" />
                         </div>
                         <div class="col-md-6 mb-3">
-                          <label for="validationDefault01">Grossesse :</label>
-                          <input type="text" class="form-control" width="20px" formControlName="grossesse" id="grossesse" name="grossesse" />
+                          <label for="validationDefault01">Caractère cicatriciel :</label>
+                          <input type="text" class="form-control" width="20px" formControlName="caractereCicatriciel" id="caractereCicatriciel" name="caractereCicatriciel" />
                         </div>
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-6 mb-3">
                           <label for="validationDefault01">Voie d'accouchement :</label>
                           <select class="form-control" id="pronosticVoieAccouchement" name="pronosticVoieAccouchement" formControlName="pronosticVoieAccouchement">
                             <option disabled>Choisir l'anesthésiste</option>
@@ -294,6 +260,7 @@
                           <label for="validationDefault01">Pronostic le :</label>
                           <input type="date" class="form-control" width="20px" formControlName="le" id="le" name="le" />
                         </div>
+                       
                         <div class="col-md-12 mb-3">
                           <label for="validationDefault01">Observations :</label>
                           <input type="text" class="form-control" width="20px" formControlName="observations" id="observations" name="observations" />
@@ -479,7 +446,7 @@
                   <div class="card-header" id="headingThree">
                     <h2 class="mb-0">
                       <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        <h3>Antécédent  Mère</h3>
+                        <h3>Antécédent  Maternel</h3>
                       </button>
                     </h2>
                   </div>
@@ -506,13 +473,13 @@
                               </div>
                               <div class="col-md-6 mb-3">
                                 <label for="validationDefault01">Tailes:</label>
-                                <input type="text" class="form-control" formControlName="taille" id="taille" name="taille" />
+                                <input type="text" class="form-control" formControlName="taille" id="taille" name="taille" (focusout)="onFocusOutEvent($event)"/> taille en m (1.70)
                               </div>
                             </div>
 
                             <div class="col-md-12 mb-3">
                               <label for="validationDefault01">IMC:</label>
-                              <input type="text" class="form-control" width="20px" value="{{poids/taille*taille}}"formControlName="imc" id="imc" name="imc" />
+                              <input type="text" class="form-control" width="20px" disabled="disabled" formControlName="imc" id="imc" name="imc" />
                             </div>
                             <div class="col-md-6 mb-3">
                               <label class="form-check-label" for="defaultCheck1">

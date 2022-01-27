@@ -825,13 +825,11 @@
                   <div class="form-row">
                     <input type="hidden" formControlName="patientId" id="patientId" name="patientId">
                     <input type="hidden" formControlName="id" id="id" name="id">
+                   
+                    
                      <div class="col-md-6 mb-3">
-                        <label for="validationDefault01">Numéro d'accouchement</label>
-                        <input type="text" class="form-control" formControlName="numeroAccouchement" id="numeroAccouchement" name="numeroAccouchement">
-                     </div>
-                     <div class="col-md-6 mb-3">
-                      <label for="validationDefault01">Date d'accouchement prévue <span style="color: red;">*</span></label>
-                      <input type="date" class="form-control" formControlName="datePrevuAccoucchment" id='datePrevuAccoucchment' name="datePrevuAccoucchment">
+                      <label for="validationDefault01">Date dernières règles <span style="color: red;">*</span></label>
+                      <input type="date" class="form-control" formControlName="dateDerniereRegle" id='dateDerniereRegle' name="dateDerniereRegle">
                     </div>
                      <div class="col-md-6 mb-3">
                         <label for="validationDefault01">Groupe sanguin<span style="color: red;">*</span></label>
@@ -852,36 +850,22 @@
                         </select>
                       </div>
                       <div class="col-md-6 mb-3">
-                        <label for="validationDefault01">RHOPHYLAC DATE:</label>
-                        <input type="date" class="form-control" formControlName="rhophylacDate" id='rhophylacDate' name="rhophylacDate">
-                      </div>
-                     <div class="col-md-6 mb-3">
-                        <label for="validationDefault01">RHOPHYLAC DOSE:</label>
-                        <input type="text" class="form-control" formControlName='rhophylac' id='rhophylac'  name="rhophylac">
-                      </div>
-                     <div class="col-md-6 mb-3">
-                        <label for="validationDefault02">Profession </label>
-                        <input type="text" class="form-control" formControlName='profession' id='profession'  name="profession">
-
-                      </div>
-
-
-                     <div class="col-md-6 mb-3">
-                        <label for="validationDefault02">Congés maternité </label>
-                        <input type="date" class="form-control" formControlName="congeMaternite" id='congeMaternite' name='congeMaternite'>
-                     </div>
-                     <div class="col-md-6 mb-3">
-                        <label for="validationDefault02">Situation matrimoniale </label>
-                        <select class="form-control" id="situationMatrimoniale" name="situationMatrimoniale" formControlName="situationMatrimoniale" >
-                          <option disabled>Choisir la situation matrimoniale</option>
-                          <option value="1">Célibataire</option>
-                          <option value="2">Marié</option>
+                        <label for="validationDefault01">Praticien</label>
+                        <select class="form-control" id="praticien" name="praticien" formControlName="praticien" >
+                          <option disabled>Choisir le praticien</option>
+                          <option value="1">Eric</option>
+                          <option value="2">KABORÉ</option>
                         </select>
-                     </div>
+                      </div>
                      <div class="col-md-6 mb-3">
-                      <label for="validationDefault02">Age </label>
-                      <input type="text" class="form-control" formControlName="age" id='age' name='age'>
-                   </div>
+                        <label for="validationDefault02">G :</label>
+                        <input type="text" class="form-control" formControlName='g' id='g'  name="g">
+                      </div>
+
+                      <div class="col-md-6 mb-3">
+                        <label for="validationDefault02">P : </label>
+                        <input type="text" class="form-control" formControlName='p' id='p'  name="p">
+                      </div>
 
                   </div>
             </div>

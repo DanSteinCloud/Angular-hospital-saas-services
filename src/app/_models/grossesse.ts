@@ -1,17 +1,16 @@
 export class Grossesse {
   id:                        number;
   typeGrossesse:             string;
-  precisionGrossesse:        null;
-  caractereCicatriciel:      null;
+  precisionGrossesse:        string;
+  caractereCicatriciel:      string;
   grossesse:                 string;
   medecin:                   string;
   le:                        number;
   pronosticVoieAccouchement: string;
   observations:              string;
-  patientId:                 string;
-  dossierPrenatalId:         number;
-  ddr:                       number;
+  dateDerniereRegle:         number;
   g:                         number;
   p:                         number;
   tp:                        string;
+  typeUterus:                string;
 }
