@@ -230,7 +230,8 @@ export class PatientComponent implements OnInit {
       rhesus: new FormControl(),
       praticien: new FormControl(),
       g: new FormControl(),
-      p: new FormControl()
+      p: new FormControl(),
+      patientId: new FormControl()
     });
 
 
