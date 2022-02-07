@@ -829,41 +829,56 @@
                     
                      <div class="col-md-6 mb-3">
                       <label for="validationDefault01">Date dernières règles <span style="color: red;">*</span></label>
-                      <input type="date" class="form-control" formControlName="dateDerniereRegle" id='dateDerniereRegle' name="dateDerniereRegle">
+                      <input type="date" class="form-control" formControlName="dateDerniereRegle" id='dateDerniereRegle' name="dateDerniereRegle" 
+                      [ngClass]="{ 'is-invalid': submitted && pre['dateDerniereRegle'].errors }">
+                      <div *ngIf="submitted && pre['dateDerniereRegle'].errors" class="invalid-feedback">
+                        <div *ngIf="pre['dateDerniereRegle'].errors['required']">La date des dernières règles est obligatoire</div>
+                      </div>
                     </div>
                      <div class="col-md-6 mb-3">
                         <label for="validationDefault01">Groupe sanguin<span style="color: red;">*</span></label>
-                        <select class="form-control" id="groupSanguin" name="groupSanguin" formControlName="groupSanguin" >
+                        <select class="form-control" id="groupSanguin" name="groupSanguin" formControlName="groupSanguin" [ngClass]="{ 'is-invalid': submitted && pre['groupSanguin'].errors }">
                           <option disabled>Choisir le groupe sanguin</option>
                           <option value="A">A</option>
                           <option value="B">B</option>
                           <option value="AB">AB</option>
                           <option value="O">O</option>
+                          <option value="NE SAIT PAS">NE SAIT PAS</option>
                         </select>
+                        <div *ngIf="submitted && pre['groupSanguin'].errors" class="invalid-feedback">
+                           <div *ngIf="pre['groupSanguin'].errors['required']">Le rhésus est obligatoire</div>
+                         </div>
                      </div>
                      <div class="col-md-6 mb-3">
-                        <label for="validationDefault01">Rhésius</label>
-                        <select class="form-control" id="rhesus" name="rhesus" formControlName="rhesus" >
+                        <label for="validationDefault01">Rhésus</label>
+                        <select class="form-control" id="rhesus" name="rhesus" formControlName="rhesus" [ngClass]="{ 'is-invalid': submitted && pre['rhesus'].errors }">
                           <option disabled>Choisir le rhésius</option>
                           <option value="POSITIF">POSITIF</option>
                           <option value="NEGATIF">NEGATIF</option>
+                          <option value="NE SAIT PAS">NE SAIT PAS</option>
                         </select>
+                        <div *ngIf="submitted && pre['rhesus'].errors" class="invalid-feedback">
+                           <div *ngIf="pre['rhesus'].errors['required']">Le rhésus est obligatoire</div>
+                         </div>
                       </div>
                       <div class="col-md-6 mb-3">
                         <label for="validationDefault01">Praticien</label>
-                        <select class="form-control" id="praticien" name="praticien" formControlName="praticien" >
+                        <select class="form-control" id="praticien" name="praticien" formControlName="praticien" [ngClass]="{ 'is-invalid': submitted && pre['praticien'].errors }">
                           <option disabled>Choisir le praticien</option>
                           <option value="1">Eric</option>
                           <option value="2">KABORÉ</option>
                         </select>
+                        <div *ngIf="submitted && pre['praticien'].errors" class="invalid-feedback">
+                           <div *ngIf="pre['praticien'].errors['required']">Le patricien est obligatoire</div>
+                         </div>
                       </div>
                      <div class="col-md-6 mb-3">
-                        <label for="validationDefault02">G :</label>
+                        <label for="validationDefault02">G </label>
                         <input type="text" class="form-control" formControlName='g' id='g'  name="g">
                       </div>
 
                       <div class="col-md-6 mb-3">
-                        <label for="validationDefault02">P : </label>
+                        <label for="validationDefault02">P </label>
                         <input type="text" class="form-control" formControlName='p' id='p'  name="p">
                       </div>
 

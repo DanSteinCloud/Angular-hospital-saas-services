@@ -90,16 +90,19 @@ export class PrenataldetailsComponent implements OnInit {
     this.patient = false;
 
     this.addOrUpdateAntecedentObstetricals = new FormGroup({
-      accouchement: new FormControl(),
+      accouchement_delivrance: new FormControl(),
       allaitement: new FormControl(),
       annee: new FormControl(),
       deroulementGrossesse: new FormControl(),
-      evolution: new FormControl(),
+      evolution_commentaire: new FormControl(),
       id: new FormControl(),
       issue: new FormControl(),
-      poidsNne: new FormControl(),
-      sexeNne: new FormControl(),
-      terme: new FormControl()
+      poidsNne1: new FormControl(),
+      poidsNne2: new FormControl(),
+      sexeNne1: new FormControl(),
+      sexeNne2: new FormControl(),
+      terme: new FormControl(),
+      typeGrossesse: new FormControl()
     });
 
 
@@ -248,12 +251,12 @@ export class PrenataldetailsComponent implements OnInit {
 
   AntecedentLoad(){
     this.dossierId=this.dossier.id.toString();
-    const detailsAntecedentConjoint = this.patientService.findGeneric(this.patientId, this.dossierId, 4);
-    const detailsAntecedentFamiliaux = this.patientService.findGeneric(this.patientId, this.dossierId, 5);
-    const detailsAntecedentsMedicauxMere = this.patientService.findGeneric(this.patientId,this.dossierId,6);
-    const detailsAntecedentsChirurgicauxMere = this.patientService.findGeneric(this.patientId,this.dossierId,7);
-    const detailsAntecedentsGyneco = this.patientService.findGeneric(this.patientId,this.dossierId,8);
-    const detailsAntecedentsObstetricaux = this.patientService.findGeneric(this.patientId,this.dossierId,9);
+    const detailsAntecedentConjoint = this.patientService.findGeneric(this.getPatientId(), this.dossierId, 4);
+    const detailsAntecedentFamiliaux = this.patientService.findGeneric(this.getPatientId(), this.dossierId, 5);
+    const detailsAntecedentsMedicauxMere = this.patientService.findGeneric(this.getPatientId(),this.dossierId,6);
+    const detailsAntecedentsChirurgicauxMere = this.patientService.findGeneric(this.getPatientId(),this.dossierId,7);
+    const detailsAntecedentsGyneco = this.patientService.findGeneric(this.getPatientId(),this.dossierId,8);
+    const detailsAntecedentsObstetricaux = this.patientService.findGeneric(this.getPatientId(),this.dossierId,9);
   
 
 
@@ -278,7 +281,7 @@ export class PrenataldetailsComponent implements OnInit {
           patientId: data.patientId,
           poids: data.poids,
           profession: data.profession!=null?data.profession:this.dossier.professionConjoint,
-          rhesus: data.rhesus!=null?data.rhesus:this.dossier.rhesus,
+          rhesus: this.dossier.rhesus,
           taille: data.taille
         });
       }
@@ -376,8 +379,8 @@ export class PrenataldetailsComponent implements OnInit {
             observations: data.observations,
             dateDerniereRegle:(data.dateDerniereRegle>0)?new Date(data.dateDerniereRegle * 1000)
               .toISOString().substring(0, 10):new Date().toISOString().substring(0, 10),
-            g:data.g>0?data.g:this.dossier.g,
-            p: data.g>0?data.p:this.dossier.p,
+            g:this.dossier.g,
+            p: this.dossier.p,
             tp: dpFInal,
             typeUterus: data.typeUterus
           });
@@ -536,6 +539,7 @@ export class PrenataldetailsComponent implements OnInit {
         if (data.code === 200) {
           this.submitted = false;
           this.rMessage = " bUpdateAntecedentMereChirurgie";
+          this.loadObstetricalsData(patientId, dossierId);
           this.populateFormAntecedentObstetricaux(this.addOrUpdateAntecedentObstetricals,data.result);
         } else {
           this.rMessage = "bErrorAntecedentMereChirurgie";
@@ -547,13 +551,25 @@ export class PrenataldetailsComponent implements OnInit {
         if (data.code === 201) {
           this.submitted = false;
           this.rMessage = "bSaveAntecedentObstetricaux";
-          $("FormAntecedentObstetricaux").modal('hide');
+          $("#formObstetrical").modal('hide');
+          this.loadObstetricalsData(patientId, dossierId);
         } else {
           this.rMessage = "bErrorAntecedentObstetricaux";
         }
       });
+
     }
-    this.addOrUpdateAntecedentObstetricals.disable();
+    
+   
+    //this.addOrUpdateAntecedentObstetricals.disable();
+  }
+
+  private loadObstetricalsData(patientId: number, dossierId: number) {
+    this.patientService.findGeneric(patientId, dossierId, 9).subscribe((data) => {
+      if (data.code == 200) {
+        this.lstObstetricaux = data.result;
+      }
+    });
   }
 
   onSubmitAntecedentGynecologique(){
@@ -793,10 +809,13 @@ export class PrenataldetailsComponent implements OnInit {
     let dateDerniereRegle=new Date(this.addOrUpdateGrossesseForm.value.dateDerniereRegle).getTime() / 1000;
     let le=new Date(this.addOrUpdateGrossesseForm.value.le).getTime() / 1000;
     let tp=new Date(this.addOrUpdateGrossesseForm.value.tp).getTime() / 1000;
+    let datTp =new Date(this.addOrUpdateGrossesseForm.value.dateDerniereRegle);
+          let dateTp =(datTp!=null)?datTp.setDate(datTp.getDate()+280): new Date().setDate(new Date().getDate()+280);
+          let dpFInal =new Date(dateTp).toISOString().substring(0, 10);
     this.addOrUpdateGrossesseForm.patchValue({
       dateDerniereRegle:dateDerniereRegle,
       le:le,
-      tp:tp
+      tp:dpFInal
     });
     
     this.dossier.g=this.addOrUpdateGrossesseForm.value.g;
@@ -811,6 +830,7 @@ export class PrenataldetailsComponent implements OnInit {
       this.patientService.updateGrossesse(this.getPatientId(),this.dossier.id,grossesseId,this.addOrUpdateGrossesseForm.getRawValue()).subscribe((data) => {
         if (data.code === 200) {
           this.submitted = false;
+          this.setFormGrossesse(data, dpFInal);
           this.rMessage = "bUpdateGrossesse";
 
         } else {
@@ -821,14 +841,38 @@ export class PrenataldetailsComponent implements OnInit {
     else{
       this.patientService.createGrossesse(this.getPatientId(),this.dossier.id,this.addOrUpdateGrossesseForm.getRawValue()).subscribe((data) => {
         if (data.code === 201) {
+          this.setFormGrossesse(data, dpFInal);
+          
           this.submitted = false;
           this.rMessage = "bSaveGrossesse";
-          this.addorUpdateSuiviMedical.disable();
+          
         } else {
           this.rMessage = "bErrorGrossesse";
         }
       });
     }
+    //this.GrossesseLoad();
+    this.addOrUpdateGrossesseForm.disable();
+  }
+
+  private setFormGrossesse(data: any, dpFInal: string) {
+    this.addOrUpdateGrossesseForm.setValue({
+      id: data.id,
+      typeGrossesse: data.typeGrossesse,
+      precisionGrossesse: data.precisionGrossesse,
+      caractereCicatriciel: data.caractereCicatriciel,
+      medecin: data.medecin,
+      le: (data.le > 0) ? new Date(data.le * 1000)
+        .toISOString().substring(0, 10) : new Date().toISOString().substring(0, 10),
+      pronosticVoieAccouchement: data.pronosticVoieAccouchement,
+      observations: data.observations,
+      dateDerniereRegle: (data.dateDerniereRegle > 0) ? new Date(data.dateDerniereRegle * 1000)
+        .toISOString().substring(0, 10) : new Date().toISOString().substring(0, 10),
+      g: this.dossier.g,
+      p: this.dossier.p,
+      tp: dpFInal,
+      typeUterus: data.typeUterus
+    });
   }
 
   onUpdatePrenatal(){

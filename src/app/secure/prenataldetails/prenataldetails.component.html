@@ -9,7 +9,7 @@
   <div class="iq-card">
     <div class="iq-card-header d-flex justify-content-between">
        <div class="iq-header-title">
-          <h4 class="card-title">Informations patients</h4>
+          <h4 class="card-title">Résumé de dossier</h4>
        </div>
     </div>
     <div class="iq-card-body">
@@ -61,6 +61,13 @@
       <div class="form-row">
         <div class="col"><label><b>G</b> : {{dossier.g}}</label></div>
           <div class="col"><label><b>P</b> : {{dossier.p}}</label></div>
+          <div class="col"><label><b>Patricien :</b> : {{dossier.p}}</label></div>
+      </div> 
+      <br>
+      <div class="form-row">
+        <div class="col"></div>
+          <div class="col"></div>
+          <div class="col"><button type="button" class="btn btn-primary">Modifier dossier</button></div>
       </div> 
     </div>
   </div>
@@ -141,7 +148,7 @@
                             </select>
                          </div>
                         <div class="col-md-6 mb-3">
-                          <label for="validationDefault01">Age conjoint:</label>
+                          <label for="validationDefault01">Age conjoint</label>
                           <input type="text" class="form-control" formControlName="ageConjoint" id='ageConjoint' name="ageConjoint">
                         </div>
 
@@ -155,12 +162,12 @@
                             </select>
                           </div>
                           <div class="col-md-6 mb-3">
-                            <label for="validationDefault01">Profession conjoint:</label>
+                            <label for="validationDefault01">Profession conjoint</label>
                             <input type="text" class="form-control" formControlName="professionConjoint" id='professionConjoint' name="professionConjoint">
                           </div>
                           
                           <div class="col-md-6 mb-3">
-                            <label for="validationDefault01">Nombre d'épouse :</label>
+                            <label for="validationDefault01">Nombre d'épouse </label>
                             <input type="text" class="form-control" formControlName="nombreEpousesConjoint" id='nombreEpousesConjoint' name="nombreEpousesConjoint">
                           </div>
                           
@@ -168,7 +175,7 @@
                   </div>
                   <div class="modal-footer">
 
-                    <button  class="btn btn-primary" disabled="{{disabled}}">Modifdier
+                    <button  class="btn btn-primary" disabled="{{disabled}}">Enregistrer
                      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     </button>
                  </div>
@@ -216,10 +223,11 @@
                           <label for="validationDefault01">Précisions:</label>
                           <input type="text" class="form-control" width="20px" formControlName="precisionGrossesse" id="precisionGrossesse" name="precisionGrossesse" />
                         </div>
-                        <div class="col-md-6 mb-3"> P : <input type="text" class="form-control" width="20px" formControlName="p" id="p" name="p"/>
-                        </div>
                         <div class="col-md-6 mb-3"> G : <input type="text" class="form-control" width="20px" formControlName="g" id="g" name="g" />
                         </div>
+                        <div class="col-md-6 mb-3"> P : <input type="text" class="form-control" width="20px" formControlName="p" id="p" name="p"/>
+                        </div>
+                       
                         <div class="col-md-6 mb-3">
                           <label for="validationDefault01">Type utérus :</label>
                           <select class="form-control" id="typeUterus" name="typeUterus" formControlName="typeUterus">
@@ -236,12 +244,9 @@
                           <label for="validationDefault01">TP :</label>
                           <input type="date" class="form-control" width="20px" formControlName="tp" id="tp" name="tp" />
                         </div>
+                        
                         <div class="col-md-6 mb-3">
-                          <label for="validationDefault01">Caractère cicatriciel :</label>
-                          <input type="text" class="form-control" width="20px" formControlName="caractereCicatriciel" id="caractereCicatriciel" name="caractereCicatriciel" />
-                        </div>
-                        <div class="col-md-6 mb-3">
-                          <label for="validationDefault01">Voie d'accouchement :</label>
+                          <label for="validationDefault01">Pronostic Voie d’Accouchement:</label>
                           <select class="form-control" id="pronosticVoieAccouchement" name="pronosticVoieAccouchement" formControlName="pronosticVoieAccouchement">
                             <option disabled>Choisir l'anesthésiste</option>
                             <option value="1">AVB</option>
@@ -327,14 +332,7 @@
                                 <label for="validationDefault01">Age :</label>
                                 <input type="text" class="form-control" width="20px" formControlName="age" id="age" name="age" />
                               </div>
-                              <div class="col-md-6 mb-3">
-                                <label for="validationDefault01">Poids :</label>
-                                <input type="text" class="form-control" width="20px" formControlName="poids" id="poids" name="poids" />
-                              </div>
-                              <div class="col-md-6 mb-3">
-                                <label for="validationDefault01">Taille :</label>
-                                <input type="text" class="form-control" width="20px" formControlName="taille" id="taille" name="taille" />
-                              </div>
+                             
                               <div class="col-md-6 mb-3">
                                 <label for="validationDefault01">Nationalité :</label>
                                 <select class="form-control" id="nationalite" name="nationalite" formControlName="nationalite">
@@ -366,8 +364,8 @@
                                 <label for="validationDefault01">Rhésus :</label>
                                 <select class="form-control" id="rhesus" name="rhesus" formControlName="rhesus">
                                   <option disabled>Choisir le rhésus</option>
-                                  <option value="Positif">Positif</option>
-                                  <option value="Négatif">Négatif</option>
+                                  <option value="POSITIF">Positif</option>
+                                  <option value="NEGATIF">Négatif</option>
                                 </select>
                               </div>
                               <div class="col-md-6 mb-3">
@@ -618,11 +616,7 @@
                             <div *ngIf="rMessage==='bErrorAntecedentGynécologiques'" class="alert alert-danger">
                               Erreur lors de la mise des antécédents gynécologiques ont
                             </div>
-                            <div class="col-md-6 mb-3">
-                              <label class="form-check-label" for="defaultCheck1">
-                                <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="autreGyneco" value="Autres" formArrayName="maladies" (change)="onCheckboxChangeGyneco($event)" /> Autres: </label>
-                              <input type="text" style="display: inline-table !important; width: 80%" class="form-control" formControlName="gynecoAutres" id="gynecoAutres" name="gynecoAutres" />
-                            </div>
+                           
                             <div class="col-md-6 mb-3">
                               <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="infertilite" value="Infertilité" formArrayName="maladies" (change)="onCheckboxChangeGyneco($event)" />
                               <label class="form-check-label" for="defaultCheck1"> Infertilité </label>
@@ -630,6 +624,11 @@
                             <div class="col-md-6 mb-3">
                               <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="contraception" value="Contraception" formArrayName="maladies" (change)="onCheckboxChangeGyneco($event)" />
                               <label class="form-check-label" for="defaultCheck1"> Contraception </label>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                              <label class="form-check-label" for="defaultCheck1">
+                                <input class="form-check-input" type="checkbox" [disabled]="checkbox==true" [checked]="autreGyneco" value="Autres" formArrayName="maladies" (change)="onCheckboxChangeGyneco($event)" /> Autres: </label>
+                              <input type="text" style="display: inline-table !important; width: 80%" class="form-control" formControlName="gynecoAutres" id="gynecoAutres" name="gynecoAutres" />
                             </div>
                           </div>
                           <div class="modal-footer">
@@ -681,11 +680,11 @@
                                   <td>{{item.issue}}</td>
                                   <td>{{item.terme}}</td>
                                   <td>{{item.deroulementGrossesse}}</td>
-                                  <td>{{item.accouchement}}</td>
+                                  <td>{{item.accouchement_delivrance}}</td>
                                   <td>{{item.allaitement}}</td>
-                                  <td>{{item.sexeNne}}</td>
-                                  <td>{{item.poidsNne}}</td>
-                                  <td>{{item.evolution}}</td>
+                                  <td>{{item.sexeNne1}}</td>
+                                  <td>{{item.poidsNne1}}</td>
+                                  <td>{{item.evolution_commentaire}}</td>
                                   <td>
                                     <div class="btn-group">
                                       <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -1062,6 +1061,15 @@
                       <input type="text" class="form-control" formControlName="annee" id="annee" name="annee">
                    </div>
                    <div class="col-md-6 mb-3">
+                    <label for="validationDefault01">Choisir le type :</label>
+                    <select class="form-control" id="typeGrossesse" name="typeGrossesse" formControlName="typeGrossesse">
+                      <option disabled>Choisir le type</option>
+                      <option value="1">Simple</option>
+                      <option value="2">Gémellaire</option>
+                      <option value="3">Autres</option>
+                    </select>
+                  </div>
+                   <div class="col-md-6 mb-3">
                     <label for="validationDefault01">Issue :<span style="color: red;">*</span></label>
                     <input type="text" class="form-control" formControlName="issue" id='issue' name="issue">
                   </div>
@@ -1075,15 +1083,19 @@
                     </div>
                     <div class="col-md-6 mb-3">
                       <label for="validationDefault01">Délivrance :</label>
-                      <input type="text" class="form-control" formControlName="accouchement" id='accouchement' name="accouchement">
+                      <input type="text" class="form-control" formControlName="accouchement_delivrance" id='accouchement_delivrance' name="accouchement_delivrance">
                     </div>
                    <div class="col-md-6 mb-3">
                       <label for="validationDefault01">Allaitement :</label>
                       <input type="text" class="form-control" formControlName='allaitement' id='allaitement'  name="allaitement">
                     </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="validationDefault02">Evolution :</label>
+                      <input type="text" class="form-control" formControlName="evolution_commentaire" id='evolution_commentaire' name='evolution_commentaire'>
+                   </div>
                    <div class="col-md-6 mb-3">
-                      <label for="validationDefault02">Sexe :</label>
-                      <select class="form-control" id="sexeNne" name="sexeNne" formControlName="sexeNne">
+                      <label for="validationDefault02">Sexe 1:</label>
+                      <select class="form-control" id="sexeNne1" name="sexeNne1" formControlName="sexeNne1">
                         <option disabled>Choisir le sexe</option>
                         <option value="Féminin">Féminin</option>
                         <option value="Masculin">Masculin</option>
@@ -1093,14 +1105,26 @@
 
 
                    <div class="col-md-6 mb-3">
-                      <label for="validationDefault02">Poids :</label>
-                      <input type="text" class="form-control" formControlName="poidsNne" id='poidsNne' name='poidsNne'>
+                      <label for="validationDefault02">Poids 1:</label>
+                      <input type="text" class="form-control" formControlName="poidsNne1" id='poidsNne1' name='poidsNne1'>
                    </div>
-
                    <div class="col-md-6 mb-3">
-                    <label for="validationDefault02">Evolution :</label>
-                    <input type="text" class="form-control" formControlName="evolution" id='evolution' name='evolution'>
+                    <label for="validationDefault02">Sexe 2:</label>
+                    <select class="form-control" id="sexeNne2" name="sexeNne2" formControlName="sexeNne2">
+                      <option disabled>Choisir le sexe</option>
+                      <option value="Féminin">Féminin</option>
+                      <option value="Masculin">Masculin</option>
+                    </select>
+
+                  </div>
+
+
+                 <div class="col-md-6 mb-3">
+                    <label for="validationDefault02">Poids 2:</label>
+                    <input type="text" class="form-control" formControlName="poidsNne2" id='poidsNne2' name='poidsNne2'>
                  </div>
+
+                 
 
                 </div>
           </div>

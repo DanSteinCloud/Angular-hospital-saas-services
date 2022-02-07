@@ -4,6 +4,7 @@ import {
   FormBuilder,
   Validators,
   FormControl,
+  AbstractControl,
 } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { PatientService } from "../../../_services/patient.service";
@@ -224,13 +225,13 @@ export class PatientComponent implements OnInit {
     });
 
     this.addFormPrenatal = new FormGroup({
-      id: new FormControl(),
-      dateDerniereRegle: new FormControl(),
-      groupSanguin: new FormControl(),
-      rhesus: new FormControl(),
-      praticien: new FormControl(),
-      g: new FormControl(),
-      p: new FormControl(),
+      id: new FormControl(""),
+      dateDerniereRegle: new FormControl("", Validators.required),
+      groupSanguin: new FormControl("", Validators.required),
+      rhesus: new FormControl("", Validators.required),
+      praticien: new FormControl("", Validators.required),
+      g: new FormControl(""),
+      p: new FormControl(""),
       patientId: new FormControl()
     });
 
@@ -238,6 +239,11 @@ export class PatientComponent implements OnInit {
     this.lstPrivileges = this.GetPriviligesPatient("PATIENT");
     this.loadPriviliges(this.lstPrivileges);
   }
+
+  // onReset(): void {
+  //   this.submitted = false;
+  //   //this.addFormPrenatal.reset();
+  // }
 
   pageChanged(event) {
     this.config.currentPage = event;
@@ -369,6 +375,7 @@ export class PatientComponent implements OnInit {
 
 
     if (this.addFormPrenatal.invalid) {
+      this.loading =false;
       return;
     }
 
@@ -388,6 +395,7 @@ export class PatientComponent implements OnInit {
         this.addFormPrenatal.reset();
       } else {
         this.rMessage = "bError";
+        this.loading =false;
       }
     });
   }
@@ -455,6 +463,10 @@ export class PatientComponent implements OnInit {
 
   get f() {
     return this.addForm.controls;
+  }
+
+  get pre(): { [key: string]: AbstractControl } {
+    return this.addFormPrenatal.controls;
   }
 
   get frm() {
@@ -606,28 +618,7 @@ export class PatientComponent implements OnInit {
     this.SendDetailsId = id;
   }
 
-  dislayDetailsPatient(event) {
-    console.log("event==" + event);
-  }
 
-  open(content) {
-    this.createPrenatal =true;
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title',size:'lg'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
 
 
 }
