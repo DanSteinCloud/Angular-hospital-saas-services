@@ -33,7 +33,7 @@
         <div class="form-row">
          
             <div class="col">
-             <label><b>Téléphone</b> : <span *ngIf="patientInfos.phones[0]?.phone!=null">{{patientInfos.phones[0]?.phone}}</span><span *ngIf="patientInfos.phones[1]?.phone!=null">/{{patientInfos.phones[0]?.phone}}</span></label>
+             <label><b>Téléphone</b> : <span *ngIf="patientInfos.phones[0]?.phone!=null">{{patientInfos.phones[0]?.phone}}</span><span *ngIf="patientInfos.phones[1]?.phone!=null">/{{patientInfos.phones[1]?.phone}}</span></label>
            </div>
            <div class="col">
              <label><b>Adresse</b> : {{patientInfos.addresses[0]?.address}} {{patientInfos.addresses[0]?.street}}</label>
@@ -139,7 +139,7 @@
                             <label for="validationDefault01">Profession <span style="color: red;">*</span></label>
                             <input type="text" class="form-control" formControlName="profession" id='profession' name="profession">
                           </div>
-                          <div class="col-md-6 mb-6">
+                          <div class="col-md-6 mb-3">
                             <label for="validationDefault02">Situation matrimoniale </label>
                             <select class="form-control" id="situationMatrimoniale" name="situationMatrimoniale" formControlName="situationMatrimoniale" >
                               <option disabled>Choisir la situation matrimoniale</option>
@@ -147,13 +147,15 @@
                               <option value="2">Marié</option>
                             </select>
                          </div>
+                         <div class="col-md-6 mb-3">
+                       </div>
                         <div class="col-md-6 mb-3">
                           <label for="validationDefault01">Age conjoint</label>
                           <input type="text" class="form-control" formControlName="ageConjoint" id='ageConjoint' name="ageConjoint">
                         </div>
 
                           <div class="col-md-6 mb-3">
-                            <label for="validationDefault01">Nationalité<span style="color: red;">*</span></label>
+                            <label for="validationDefault01">Nationalité Conjoint<span style="color: red;">*</span></label>
                             <select class="form-control" id="nationaliteConjoint" name="nationaliteConjoint" formControlName="nationaliteConjoint" >
                               <option disabled>Choisir la nationalité</option>
                               <option value="1">Sénégalaise</option>
@@ -338,8 +340,8 @@
                                 <select class="form-control" id="nationalite" name="nationalite" formControlName="nationalite">
                                   <option [ngValue]="null" selected>Choisir la nationalité</option>
                                   <option value="1">Sénégalaise</option>
-                                  <option value="2">Burkinabé</option>
-                                  <option value="3">Ivoirienne</option>
+                                  <option value="2">Ivoirienne</option>
+                                  <option value="3">Guinéenne</option>
                               </select>
                               </div>
                               <div class="col-md-6 mb-3">
@@ -658,7 +660,7 @@
                                   <th>Issue</th>
                                   <th>Terme</th>
                                   <th>Déroulement</th>
-                                  <th>Délivrance</th>
+                                  <th>Accouchement / Délivrance</th>
                                   <th>Allaitement</th>
                                   <th>Sexe</th>
                                   <th>Poids</th>
@@ -1131,8 +1133,8 @@
           <div class="modal-footer">
             <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentObstetricals.value.id==null"> Enregistrer <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             </button>
-            <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentObstetricals.value.id!=null"> Modifier <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            </button>
+            <!-- <button class="btn btn-primary" *ngIf="this.addOrUpdateAntecedentObstetricals.value.id!=null"> Modifier <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            </button> -->
          </div>
       </div>
 
