@@ -144,6 +144,178 @@ createForm (patientId, dossierId, p,typeId){
    catchError(this.handleError)
  );
  }
+ // PARTIE TETANOS
+ createTetanos (patientId,dossierPrenatalId,p): Observable<any> {
+  return this._http.post<any>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/vaccinTetan', JSON.stringify(p),cudOptions)
+     .pipe(
+      retry(2),
+      catchError(this.handleError)
+    );
+  }
+
+  getAllTetanos(patientId,dossierPrenatalId): Observable<any[]> {
+    return this._http.get<any[]>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/vaccinTetans',cudOptions)
+    .pipe(
+      retry(2),
+      catchError(this.errorHandler)
+    );
+  }
+  updateTetanos(patientId,dossierPrenatalId,vaccinTetanId,p): Observable<any> {
+  return this._http.put<any>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/vaccinTetan/'+vaccinTetanId, JSON.stringify(p),cudOptions)
+    .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+}
+
+deleteTetanos(patientId,dossierPrenatalId,vaccinTetanId): Observable<any> {
+  return this._http.delete<any>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/vaccinTetan/'+vaccinTetanId)
+    .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+}
+// PARTIE Rhophylac
+createRhophylac (patientId,dossierPrenatalId,p): Observable<any> {
+  return this._http.post<any>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/rhophylac', JSON.stringify(p),cudOptions)
+     .pipe(
+      retry(2),
+      catchError(this.handleError)
+    );
+  }
+
+  getAllRhophylac(patientId,dossierPrenatalId): Observable<any[]> {
+    return this._http.get<any[]>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/rhophylacs',cudOptions)
+    .pipe(
+      retry(2),
+      catchError(this.errorHandler)
+    );
+  }
+  updateRhophylac(patientId,dossierPrenatalId,rhophylacId,p): Observable<any> {
+  return this._http.put<any>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/rhophylac/'+rhophylacId, JSON.stringify(p),cudOptions)
+    .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+}
+
+deleteRhophylac(patientId,dossierPrenatalId,rhophylacId): Observable<any> {
+  return this._http.delete<any>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/rhophylac/'+rhophylacId)
+    .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+}
+
+
+// PARTIE Tpi
+createTpi (patientId,dossierPrenatalId,p): Observable<any> {
+  return this._http.post<any>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/tpi', JSON.stringify(p),cudOptions)
+     .pipe(
+      retry(2),
+      catchError(this.handleError)
+    );
+  }
+
+  getAllTpi(patientId,dossierPrenatalId): Observable<any[]> {
+    return this._http.get<any[]>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/tpis',cudOptions)
+    .pipe(
+      retry(2),
+      catchError(this.errorHandler)
+    );
+  }
+  updateTpi(patientId,dossierPrenatalId,tpiId,p): Observable<any> {
+  return this._http.put<any>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/tpi/'+tpiId, JSON.stringify(p),cudOptions)
+    .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+}
+deleteTpi(patientId,dossierPrenatalId,tpiId): Observable<any> {
+  return this._http.delete<any>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/tpi/'+tpiId)
+    .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+}
+
+// PARTIE Bilan
+createBilan (patientId,dossierPrenatalId,p): Observable<any> {
+  return this._http.post<any>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/bilanPrenatal', JSON.stringify(p),cudOptions)
+     .pipe(
+      retry(2),
+      catchError(this.handleError)
+    );
+  }
+
+  getAllBilan(patientId,dossierPrenatalId): Observable<any[]> {
+    return this._http.get<any[]>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/bilanPrenatals',cudOptions)
+    .pipe(
+      retry(2),
+      catchError(this.errorHandler)
+    );
+  }
+  updateBilan(patientId,dossierPrenatalId,bilanPrenatalId,p): Observable<any> {
+  return this._http.put<any>(environment.baseUrl + "/patients/" +patientId + '/dossierPrenatal/'+dossierPrenatalId+'/bilanPrenatal/'+bilanPrenatalId, JSON.stringify(p),cudOptions)
+    .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+}
+
+
+
+
+//CREATE ECHOGRAPHIE
+createEchographie(p,idPatient,idDossierPrenatal): Observable<any> {
+  return this._http.post<any>(environment.baseUrl+"/patients/"+idPatient+ '/dossierPrenatal/'+idDossierPrenatal+'/echographie', JSON.stringify(p),cudOptions)
+     .pipe(
+      retry(2),
+      catchError(this.handleError)
+    );
+  }
+
+updateEchographie(p,idPatient,idDossierPrenatal,echographieId): Observable<any> {
+    return this._http.put<any>(environment.baseUrl+"/patients/"+idPatient+ '/dossierPrenatal/'+idDossierPrenatal+'/echographie/'+echographieId, JSON.stringify(p),cudOptions)
+       .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+}
+
+//CREATE CONSULTATION
+createConsultation(p,idPatient,idDossierPrenatal): Observable<any> {
+  return this._http.post<any>(environment.baseUrl+"/patients/"+idPatient+ '/dossierPrenatal/'+idDossierPrenatal+'/consultation', JSON.stringify(p),cudOptions)
+     .pipe(
+      retry(2),
+      catchError(this.handleError)
+    );
+  }
+
+updateConsultation(p,idPatient,idDossierPrenatal,consultationId): Observable<any> {
+    return this._http.put<any>(environment.baseUrl+"/patients/"+idPatient+ '/dossierPrenatal/'+idDossierPrenatal+'/consultation/'+consultationId, JSON.stringify(p),cudOptions)
+       .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+}
+getAllConsultationsByIdPatientAndIdDossierPrenatal(idPatient,idDossierPrenatal): Observable<any> {
+  return this._http.get<any[]>(environment.baseUrl+"/patients/"+idPatient+ '/dossierPrenatal/'+idDossierPrenatal+'/consultations')
+     .pipe(
+      retry(2),
+      catchError(this.handleError)
+    );
+  }
+
+  getAllEchographiesByIdPatientAndIdDossierPrenatal(idPatient,idDossierPrenatal): Observable<any> {
+    return this._http.get<any[]>(environment.baseUrl+"/patients/"+idPatient+ '/dossierPrenatal/'+idDossierPrenatal+'/echographies')
+       .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+    }
+
+
 
 createPrenatalFolder (p,id):Observable<any>{
   return this._http.post<any>(environment.baseUrl+"/patients/"+id+ '/dossierPrenatal', JSON.stringify(p),cudOptions);

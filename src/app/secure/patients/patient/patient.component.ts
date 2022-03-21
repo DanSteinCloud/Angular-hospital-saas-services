@@ -20,6 +20,9 @@ import { AssuranceService } from "src/app/_services/assurance.service";
 import { RefdataService } from "src/app/_services/refdata.service";
 import { Insurer } from "src/app/_models/prisencharge";
 import { environment } from "src/environments/environment";
+import { CareGivers } from 'src/app/_models/caregivers';
+import { CareGiversService } from 'src/app/_services/caregivers.service';
+
 import { forkJoin } from 'rxjs';
 import { refData, aRefData } from 'src/app/_models/refdata';
 import { Insurance, aInsurance } from 'src/app/_models/insurance';
@@ -87,6 +90,7 @@ export class PatientComponent implements OnInit {
   config: any;
 
   cityRefData:aRefData;
+  dataCareGiversDetails: CareGivers[] = [];
 
   lstPrivileges: any = [];
 
@@ -105,6 +109,7 @@ export class PatientComponent implements OnInit {
     private assurance: AssuranceService,
     private refdata: RefdataService,
     private modalService: NgbModal,
+    private caregivers: CareGiversService,
     private route: ActivatedRoute
   ) {}
 
@@ -128,9 +133,10 @@ export class PatientComponent implements OnInit {
     const linkTypePromise = this.refdata.get(this.constLinkType);
     const nationalityPromise = this.refdata.get(this.constNationality);
     const assurancePromise = this.assurance.get();
-    const patientPromise = this.patientService.getPatients();
+    const patientPromise = this.patientService.getPatients();    
+    const caregiversPromise =this.caregivers.getCareGivers(); 
 
-    forkJoin([cityPromise,sexPromise,countryPromise,statePromise,linkTypePromise,nationalityPromise,assurancePromise,patientPromise]).subscribe(responses => {
+    forkJoin([cityPromise,sexPromise,countryPromise,statePromise,linkTypePromise,nationalityPromise,assurancePromise,patientPromise,caregiversPromise]).subscribe(responses => {
       this.AllCity = Object.assign(new aRefData(), responses[0][0]).refDatas;
       this.AllSexe = Object.assign(new aRefData(), responses[1][0]).refDatas;
       this.AllCountry = Object.assign(new aRefData(), responses[2][0]).refDatas;
@@ -139,6 +145,9 @@ export class PatientComponent implements OnInit {
       this.AllNationality = Object.assign(new aRefData(), responses[5][0]).refDatas;
       this.dataAssurance= Object.assign(new aInsurance(),responses[6]);
       this.filteredPatients = responses[7];
+      if (responses[8]['code']==200){
+        this.dataCareGiversDetails=responses[8]["result"];
+      }
       if (this.filteredPatients!=null)
       {
         this.filteredPatients?.forEach(patient =>
@@ -230,8 +239,8 @@ export class PatientComponent implements OnInit {
       groupSanguin: new FormControl("", Validators.required),
       rhesus: new FormControl("", Validators.required),
       praticien: new FormControl("", Validators.required),
-      g: new FormControl(""),
-      p: new FormControl(""),
+      g: new FormControl(),
+      p: new FormControl(),
       patientId: new FormControl()
     });
 

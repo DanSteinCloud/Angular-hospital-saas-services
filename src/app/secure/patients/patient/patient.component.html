@@ -865,8 +865,9 @@
                         <label for="validationDefault01">Praticien</label>
                         <select class="form-control" id="praticien" name="praticien" formControlName="praticien" [ngClass]="{ 'is-invalid': submitted && pre['praticien'].errors }">
                           <option disabled>Choisir le praticien</option>
-                          <option value="1">Eric</option>
-                          <option value="2">KABORÉ</option>
+                          <option *ngFor="let c of dataCareGiversDetails" [value]="c.id">
+                           {{ c.lastName }} {{ c.firstName }}
+                         </option>
                         </select>
                         <div *ngIf="submitted && pre['praticien'].errors" class="invalid-feedback">
                            <div *ngIf="pre['praticien'].errors['required']">Le patricien est obligatoire</div>
@@ -874,12 +875,12 @@
                       </div>
                      <div class="col-md-6 mb-3">
                         <label for="validationDefault02">G </label>
-                        <input type="text" class="form-control" formControlName='g' id='g'  name="g">
+                        <input type="text" class="form-control" formControlName="g" id="g"  name="g">
                       </div>
 
                       <div class="col-md-6 mb-3">
                         <label for="validationDefault02">P </label>
-                        <input type="text" class="form-control" formControlName='p' id='p'  name="p">
+                        <input type="text" class="form-control" formControlName="p" id="p"  name="p">
                       </div>
 
                   </div>

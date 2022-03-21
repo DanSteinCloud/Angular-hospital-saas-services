@@ -4,16 +4,16 @@
 
 export const environment = {
   production: false,
-  baseUrlPrsnl:'https://icare-nestlabs-test.net:8181/nid-api/v1',
-    baseUrlModule:'https://icare-nestlabs-test.net:8282/nid-api/v1',
-    baseUrlRolePrivilege:'https://icare-nestlabs-test.net:8383/nid-api/v1',
-    baseUrlUserSecurity:'https://icare-nestlabs-test.net:8484/nid-api/v1',
-    baseUrlPatient:'https://icare-nestlabs-test.net:8080/nid-api/v1',
-    baseUrlRefDatas:'https://icare-nestlabs-test.net:9090/nid-api/v1',
-    baseUrlInsurance:'https://icare-nestlabs-test.net:9292/nid-api/v1',
-    baseUrl: 'https://icare-nestlabs-test.net:8080/nid-api/v1',
-    baseUrlAssurance: 'https://icare-nestlabs-test.net:9292/nid-api/v1',
-    baseUrlRefData: 'https://icare-nestlabs-test.net:9090/nid-api/v1',
+  baseUrlPrsnl:'https://192.168.1.14:8181/nid-api/v1',
+    baseUrlModule:'https://192.168.1.14:8282/nid-api/v1',
+    baseUrlRolePrivilege:'https://192.168.1.14:8383/nid-api/v1',
+    baseUrlUserSecurity:'https://192.168.1.14:8484/nid-api/v1',
+    baseUrlPatient:'https://192.168.1.14:8080/nid-api/v1',
+    baseUrlRefDatas:'https://192.168.1.14:9090/nid-api/v1',
+    baseUrlInsurance:'https://192.168.1.14:9292/nid-api/v1',
+    baseUrl: 'https://192.168.1.14:8080/nid-api/v1',
+    baseUrlAssurance: 'https://192.168.1.14:9292/nid-api/v1',
+    baseUrlRefData: 'https://192.168.1.14:9090/nid-api/v1',
     rows_per_table:'20'
 
 };
