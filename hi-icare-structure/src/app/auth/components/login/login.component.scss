@@ -1,0 +1,120 @@
+
+.registerContainer {
+    background-color: #eff7f8;
+    display: flex;
+    height: auto !important;
+    flex: 1;
+    flex-direction: row;
+}
+
+.first-box{
+    flex: 2;
+}
+
+.second-box{
+    flex: 3;
+    background-color: #17a2b8;
+    height: 960px;
+    border-radius: 50px;
+    border: 20px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.third-box{
+    flex: 2;
+    margin-top: 50px;
+    background-color: #FFFFFF;
+    border-radius: 50px;
+    height: 600px;
+    padding: 2rem 3.6rem;
+    transform: translate(-40%);
+}
+
+.first-division{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.5rem;
+}
+.first-item{
+  flex: 2;
+}
+.second-item{
+  flex: 1;
+  justify-content: flex-start;
+  align-items: center;
+  transform: translateY(-70%);
+}
+.third-item{
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+    transform: translateY(40%);
+  }
+
+img{
+    border-radius: 10px;
+}
+
+.second-division{
+    flex: 1;
+}
+.sign-in-from{
+    margin: 30px;
+    padding: 1rem 2.5rem;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+.last{
+    display: flex;
+    align-items: flex-end;
+}
+.mb-0.title{
+    font-size: 25px;
+    font-weight: 500;
+}
+label{
+    font-weight: 400;
+}
+.form-group{
+    margin-top: 10px;
+}
+ input {
+    writing-mode: horizontal-tb !important;
+    font-weight: 500;
+    font-size: 12px;
+    font-family: inherit;
+    text-rendering: auto;
+    color: -internal-light-dark(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    border-radius: 10px;
+    height: 40px;
+    margin-right: 20px;
+ }
+ .float-right{
+     align-self: flex-end;
+     margin-top: 10px;
+     border-radius: 5px;
+     width: 100px;
+     height: 40px;
+     font-size: 16px;
+     background-color: #17a2b8;
+     border: none;
+ }
+ #logo path{
+     stroke-dasharray: 30px;
+ }

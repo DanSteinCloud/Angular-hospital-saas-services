@@ -1,0 +1,24 @@
+<mat-dialog-content>
+    <h1 mat-dialog-title>
+      Ramatoulaye Mboup</h1>
+    <p>Les détails de l'utilisateur
+      Ramatoulaye Mboup créée le 15/03/22</p>
+    <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="fields">
+        <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="feature-cell" width="1000px">{{element.ID}}</mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="values">
+        <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="version-cell" width="1000px">{{element.Name}}</mat-cell>
+      </ng-container>
+    
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()" class="btn btn-cancel">Fermer</button>
+    </div>
+    </mat-dialog-content>

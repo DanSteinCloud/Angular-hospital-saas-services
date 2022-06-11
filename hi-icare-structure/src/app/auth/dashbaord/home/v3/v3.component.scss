@@ -1,0 +1,11 @@
+:host ::ng-deep mat-dialog-container {
+    background-color: transparent !important;
+  }
+:host ::ng-deep mat-table{
+    width: 500px;
+}
+::ng-deep .btn.btn-cancel{
+  background: #eee;
+  border: none;
+  border-radius: 5px;
+}

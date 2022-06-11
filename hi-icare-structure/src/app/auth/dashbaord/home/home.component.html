@@ -1,0 +1,422 @@
+<div class="container-fluid page">
+    <div class="page__box p-3 mt-2">Gestion du personel</div>
+    <div class="page__content shadow p-3 position-relative">
+      <div class="persnl-menu">  
+        <div class="row rowMenu">
+          <div class="aboveLine">
+            <div class="used">
+              <div class="menu">
+                <button class="mat-button mat1" (click)="displayPersonnel()">Personnels</button>
+              </div>
+              <div class="menu">
+                <button class="mat-button mat2" (click)="displayUsr()">Utilisateurs</button>
+              </div>
+              <div class="menu">
+                <button class="mat-button mat3" (click)="displayRole()">Roles</button>
+              </div>
+              
+              <div class="menu">
+                <button class="mat-button mat4" (click)="displayPrivilege()">Privileges</button>
+              </div>
+    
+              <div class="menu">
+                <button class="mat-button mat5" (click)="displayOther()">Autres</button>
+              </div>
+
+            </div>
+
+
+            <div class="unused">
+
+            </div>
+          </div>
+        <div *ngIf="usr">
+          <div class="forLine1" >
+            <hr />
+          </div>
+        </div>
+        <div *ngIf="prsl">
+          <div class="forLine2" >
+            <hr />
+          </div>
+        </div>
+        <div *ngIf="rol">
+          <div class="forLine3" >
+            <hr />
+          </div>
+        </div>
+        <div *ngIf="privilege">
+          <div class="forLine4" >
+            <hr />
+          </div>
+        </div>
+        <div *ngIf="other">
+          <div class="forLine5" >
+            <hr />
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Users management Start -->
+      <div id="usr" *ngIf="usr">
+        <div class="first"> 
+          <div class="divided-one">
+            <p class="showTitle mt-4 text-center">
+              Liste de tous les utilisateurs
+           </p>
+          </div>
+          <div class="divided-two">
+         
+          </div>
+          
+        </div>
+        <div class="second">
+  
+          <div class="main">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Recherchez par nom">
+              <div class="input-group-append">
+                <button class="btn btn-secondary" type="button">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>  
+          </div>
+  
+        </div>
+        <div class="third">
+          <div class="onTable">
+            <button type="button" class="btn btn-info" (click)="openDialog44()">Ajouter</button>
+            <div class="dropdown pull-right">
+              <a class="dropdown-toggle text-muted" data-toggle="dropdown" href="#" id="dropdown-sortmode" title="Sort">
+              <small><span class="glyphicon glyphicon-sort"></span>&nbsp;Trier par :</small>
+              </a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-sortmode">
+                <li role="menuitem"><a href="#"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span>Profession</a></li>
+                <li role="menuitem"><a href="#"><span class="glyphicon glyphicon-sort-by-order-alt"></span>Date</a></li>
+                <li role="menuitem"><a href="#"><span class="glyphicon glyphicon-sort-by-alphabet"></span>Status</a></li>
+                <li role="menuitem"><a href="#"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span>Nom</a></li>
+              </ul>
+            </div>
+          </div>
+        <div class="inTable">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nom d'utilisateur</th>
+              <th scope="col">Profession</th>
+              <th scope="col">Role</th>
+              <th scope="col">Status</th>
+              <th scope="col">Date de début</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+   
+            <tbody>
+              <tr *ngIf="activated">
+                <th scope="row">223</th>
+                <td>Ramatoulaye Mboup</td>
+                <td><span>Infirmière</span></td>
+                <td>Secretaire</td>
+                <td><span class="label label-success">Activé</span></td>
+                <td>15/03/22</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog33()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog22()" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" title="Voulez-vous le desactiver ?" (click)="activated=false">spellcheck</mat-icon></td>
+              </tr>
+              <tr *ngIf="!activated">
+                <th scope="row">223</th>
+                <td>Adji Sarr</td>
+                <td><span>Infirmière</span></td>
+                <td>Secretaire</td>
+                <td><span class="label label-danger">Désactivé</span></td>
+                <td>15/03/22</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog33()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog22()" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#5AE989', 'margin-right':'5px'}" title="Voulez-vous l'activer ?" (click)="activated=true">spellcheck</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">224</th>
+                <td>Samba Diallo</td>
+                <td><span>Medecin</span></td>
+                <td>Admin</td>
+                <td><span class="label label-success">Activé</span></td>
+                <td>04/02/22</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" title="Voulez-vous le desactiver ?">spellcheck</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">225</th>
+                <td>Aminata Faye</td>
+                <td><span>Medecin</span></td>
+                <td>Cashier</td>
+                <td><span class="label label-danger">Désactivé</span></td>
+                <td>24/12/20</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#5AE989', 'margin-right':'5px'}" title="Voulez-vous l'activer ?">spellcheck</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">226</th>
+                <td>karl Boubane</td>
+                <td><span>Medecin</span></td>
+                <td>Secretaire</td>
+                <td><span class="label label-success">Activé</span></td>
+                <td>12/03/21</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" title="Voulez-vous le desactiver ?">spellcheck</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">227</th>
+                <td>Nadeye Fatou</td>
+                <td><span>Cashier</span></td>
+                <td>Secretaire</td>
+                <td><span class="label label-success">Activé</span></td>
+                <td>20/09/21</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" title="Voulez-vous le desactiver ?">spellcheck</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">228</th>
+                <td>Jacques Silcapou</td>
+                <td><span>Infirmier</span></td>
+                <td>Secretaire</td>
+                <td><span class="label label-danger">Désactivé</span></td>
+                <td>04/02/19</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#5AE989', 'margin-right':'5px'}" title="Voulez-vous l'activer ?">spellcheck</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">229</th>
+                <td>Aissatou Ndoye</td>
+                <td><span>Billing recovery officer</span></td>
+                <td>Secretaire</td>
+                <td><span class="label label-danger">Désactivé</span></td>
+                <td>02/06/20</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#5AE989', 'margin-right':'5px'}" title="Voulez-vous l'activer ?">spellcheck</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">230</th>
+                <td>Binta Fall</td>
+                <td><span>Medecin</span></td>
+                <td>Secretaire</td>
+                <td><span class="label label-success">Activé</span></td>
+                <td>04/05/22</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" title="Voulez-vous le desactiver ?">spellcheck</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">231</th>
+                <td>Eric Kaboré</td>
+                <td><span>Medecin</span></td>
+                <td>Secretaire</td>
+                <td><span class="label label-success">Activé</span></td>
+                <td>04/02/22</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" title="Voulez-vous le desactiver ?">spellcheck</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">232</th>
+                <td>Aziz Diakité</td>
+                <td><span>Secretaire Medical</span></td>
+                <td>Secretaire</td>
+                <td><span class="label label-danger">Désactivé</span></td>
+                <td>22/02/20</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#5AE989', 'margin-right':'5px'}" title="Voulez-vous l'activer ?">spellcheck</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+              
+            </tbody>
+  
+        </table>
+      
+        <div class="page__content-data position-absolute"></div>
+      </div>
+      </div>
+     
+    </div>
+    <!-- Users management End -->
+
+      <!-- Prsnls management Start -->
+      <div id="prsnl" *ngIf="prsl" class="first">
+        <div class="first"> 
+          <div class="divided-one">
+            <p class="showTitle mt-4 text-center">
+              Liste de tout le personel
+           </p>
+          </div>
+          <div class="divided-two">
+         
+          </div>
+          
+        </div>
+        <div class="second">
+
+          <div class="main">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Recherchez par nom">
+              <div class="input-group-append">
+                <button class="btn btn-secondary" type="button">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>  
+          </div>
+
+        </div>
+        <div class="third">
+          <div class="onTable">
+            <button type="button" class="btn btn-info" (click)="openDialog4()">Ajouter</button>
+            <div class="dropdown pull-right">
+              <a class="dropdown-toggle text-muted" data-toggle="dropdown" href="#" id="dropdown-sortmode" title="Sort">
+              <small><span class="glyphicon glyphicon-sort"></span>&nbsp;Trier par :</small>
+              </a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-sortmode">
+                <li role="menuitem"><a href="#"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span>Profession</a></li>
+                <li role="menuitem"><a href="#"><span class="glyphicon glyphicon-sort-by-order-alt"></span>Date</a></li>
+                <li role="menuitem"><a href="#"><span class="glyphicon glyphicon-sort-by-alphabet"></span>Status</a></li>
+                <li role="menuitem"><a href="#"><span class="glyphicon glyphicon-sort-by-alphabet-alt"></span>Nom</a></li>
+              </ul>
+            </div>
+          </div>
+        <div class="inTable">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nom complet</th>
+              <th scope="col">Distinction</th>
+              <th scope="col">Profession</th>
+              <th scope="col">Utilisateur</th>
+              <th scope="col">Nationalité</th>
+              <th scope="col">Téléphone</th>
+              <th scope="col">Date de début</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+   
+            <tbody>
+              <tr>
+                <th scope="row">214</th>
+                <td>Ramatoulaye Mboup</td>
+                <td><span>Mme</span></td>
+                <td>Infirmière</td>
+                <td>Oui</td>
+                <td><span>Senegal</span>
+                <td>773215234</td>
+                <td>21/30/2021</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog3()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog2()" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">215</th>
+                <td>Samba Diallo</td>
+                <td><span>Mme</span></td>
+                <td>Medecin</td>
+                <td>Oui</td>
+                <td><span>Senegal</span>
+                <td>784215244</td>
+                <td>02/23/2021</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog3()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog2()" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">216</th>
+                <td>Bamba Fall</td>
+                <td><span>Mme</span></td>
+                <td>Medecin</td>
+                <td>Non</td>
+                <td><span>Senegal</span>
+                <td>784215244</td>
+                <td>07/10/2021</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog3()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog2()" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">217</th>
+                <td>Aminata Faye</td>
+                <td><span>Mme</span></td>
+                <td>Medecin</td>
+                <td>Oui</td>
+                <td><span>Senegal</span>
+                <td>784215244</td>
+                <td>16/03/2021</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog3()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog2()" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">218</th>
+                <td>karl Boubane</td>
+                <td><span>Mr</span></td>
+                <td>Medecin</td>
+                <td>Oui</td>
+                <td><span>Senegal</span>
+                <td>7742452244</td>
+                <td>05/12/2021</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog3()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog2()" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">219</th>
+                <td>Eric Douroure</td>
+                <td><span>Mr</span></td>
+                <td>Medecin</td>
+                <td>Non</td>
+                <td><span>Senegal</span>
+                <td>7041215244</td>
+                <td>11/14/2020</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog3()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog2()" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">220</th>
+                <td>Nadeye Fatou</td>
+                <td><span>Mme</span></td>
+                <td>Cashier</td>
+                <td>Oui</td>
+                <td><span>Senegal</span>
+                <td>704248244</td>
+                <td>15/13/2021</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog3()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog2()" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">221</th>
+                <td>Jacques Silcapou</td>
+                <td><span>Mr</span></td>
+                <td>Infirmier</td>
+                <td>Oui</td>
+                <td><span>Senegal</span>
+                <td>784215244</td>
+                <td>14/03/2020</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog3()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog2()" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+              <tr>
+                <th scope="row">222</th>
+                <td>Aissatou Ndoye</td>
+                <td><span>Mme</span></td>
+                <td>Billing recovery officer</td>
+                <td>Oui</td>
+                <td><span>Senegal</span>
+                <td>784215244</td>
+                <td>11/25/2021</td>
+                <td><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog3()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon><mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="openDialog2()" title="Voulez-vous l'editer ?">edit</mat-icon><mat-icon [ngStyle]="{'color':'#E24017', 'margin-right':'5px'}" (click)="openDialog()" title="Voulez-vous le supprimer ?">delete_outline</mat-icon></td>
+              </tr>
+            </tbody>
+  
+        </table>
+      
+        <div class="page__content-data position-absolute"></div>
+      </div>
+      </div>
+     
+    </div>
+    <!-- Prsnls management End -->
+    
+
+
+
+  </div>
+</div>

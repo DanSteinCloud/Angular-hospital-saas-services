@@ -1,0 +1,62 @@
+<div mat-dialog-content class="dialogSize">
+  <form class="vertical">
+      <ng-container *ngIf="first">
+        <p class="header">MODIFICATION DE L'UTILISATEUR</p>
+      <mat-form-field appearance="fill">
+          <mat-label>Ramatoulaye Mboup</mat-label>
+          <input matInput type="text" placeholder="Nom d'utilisateur">
+          <mat-select>
+               <mat-option value="AM">Ramatoulaye Mboup</mat-option>
+               <mat-option value="PM">Samba Diallo</mat-option>
+               <mat-option value="AM">Aminata Faye</mat-option>
+               <mat-option value="PM">karl Boubane</mat-option>
+               <mat-option value="PM">Nadeye Fatou</mat-option>
+               <mat-option value="PM">Jacques Silcapou</mat-option>
+               <mat-option value="PM">Binta Fall</mat-option>
+               <mat-option value="PM">Eric Kaboré</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Admin</mat-label>
+          <input matInput type="text" placeholder="Rôles">
+          <mat-select>
+               <mat-option value="AM">Admin</mat-option>
+               <mat-option value="PM">Secretaire</mat-option>
+               <mat-option value="AM">Medecin</mat-option>
+               <mat-option value="PM">Cashier</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Tous les privilèges</mat-label>
+          <input matInput type="text" placeholder="Privilèges">
+          <mat-select>
+               <mat-option value="AM">Tous les privilèges</mat-option>
+               <mat-option value="AM">Ajouter un patients</mat-option>
+               <mat-option value="AM">Supprimer un patient</mat-option>
+               <mat-option value="PM">Ajouter dossier prenatal</mat-option>
+               <mat-option value="AM">Cloturer dossier prenatal</mat-option>
+               <mat-option value="PM">Desactiver un utilisateur</mat-option>
+               <mat-option value="PM">Supprimer un personnel</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Activé</mat-label>
+          <input matInput type="text" placeholder="Descativé">
+          <mat-select>
+               <mat-option value="AM">Activé</mat-option>
+               <mat-option value="PM">Descativé</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <input matInput placeholder="Mot de passe">
+        </mat-form-field>      
+        <div mat-dialog-actions class="action-space">
+          <button mat-button (click)="onNoClick()" class="btn btn-cancel">Annuler</button>
+          <button mat-button  cdkFocusInitial class="btn btn-send">Enregistrer</button>
+        </div>
+      </ng-container>
+      
+  </form>
+  </div>
+      
+    

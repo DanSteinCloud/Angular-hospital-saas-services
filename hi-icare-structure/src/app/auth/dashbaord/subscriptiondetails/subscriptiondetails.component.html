@@ -1,0 +1,167 @@
+<div class="container-fluid page">
+    <div class="page__box p-3 mt-2">Subscription details</div>
+    <div class="page__subscription shadow p-3 position-relative">
+
+      <div class="part1">
+        <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+          {{!isLinear ? "Votre abonnement est Medium" : "Votre Type d'abonnement"}}
+        </button>
+        <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+          <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+              <ng-template matStepLabel>Vos services</ng-template>
+              <mat-card>Prénatal<mat-icon class="done_color">done</mat-icon></mat-card>
+              <mat-card>Soins généraux<mat-icon class="done_color">done</mat-icon></mat-card>
+              <div>
+                <button mat-button matStepperNext>Suivant</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Vos privilèges</ng-template>
+              <mat-card>10 utilisateurs maximum</mat-card>
+              <mat-card>12 mois de validité </mat-card>
+              <div>
+                <button mat-button matStepperPrevious>Prec</button>
+                <button mat-button matStepperNext>Suiv</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Découvrir plus d'option avec Premium</ng-template>
+            <mat-card>Nombre d'utilisateurs illimité<mat-icon class="done_color">lock_open</mat-icon></mat-card>
+            <mat-card>Validité illimitée<mat-icon class="done_color">lock_open</mat-icon></mat-card>
+            <div>
+              <button mat-button matStepperPrevious>Prec</button>
+              <button mat-button (click)="stepper.reset()">Suiv</button>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </div>
+      <div class="part2"></div>
+
+      <div class="part3">
+        <mat-drawer-container class="example-container" autosize>
+          <mat-drawer #drawer class="example-sidenav" mode="side">
+            
+            <div class="newUser">
+              <h4>Nouvel utilisateur</h4>
+              
+              <mat-form-field appearance="fill">
+                <mat-label>Utilisateur</mat-label>
+                <mat-select>
+                  <mat-option value="one">Fatou Ndeye</mat-option>
+                  <mat-option value="two">Aminata Bangoura</mat-option>
+                  <mat-option value="two">Olivier Morel</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Role</mat-label>
+                <mat-select>
+                  <mat-option value="one">Medecin</mat-option>
+                  <mat-option value="two">Infirmier</mat-option>
+                  <mat-option value="two">Caissier</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Mot de passe</mat-label>
+                <input matInput>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Status</mat-label>
+                <mat-select>
+                  <mat-option value="one">actif</mat-option>
+                  <mat-option value="two">inactif</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+            <button (click)="showFiller = !showFiller" mat-raised-button>
+              Enregistrer
+            </button>
+          </mat-drawer>
+        
+          <div class="example-sidenav-content">
+            <div class="first">
+              <h2>Listes de vos utilisateurs</h2>
+              <button type="button" mat-button (click)="drawer.toggle()">
+                Ajouter un utilisateur
+              </button>
+            </div>
+            <div class="second">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nom complet</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">status</th>
+                    <th scope="col">Actions</th>        
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Astou Dieng</td>
+                    <td>Admin</td>
+                    <td>actif</td>
+                    <td>éditer</td>     
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Aida Diop</td>
+                    <td>Sécretaire</td>
+                    <td>actif</td>
+                    <td>éditer</td>     
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Mamour Sanke</td>
+                    <td>Médecin</td>
+                    <td>actif</td>
+                    <td>éditer</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td>Olivier Morel</td>
+                    <td>cashier</td>
+                    <td>inactif</td>
+                    <td>éditer</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td>Olivier Morel</td>
+                    <td>cashier</td>
+                    <td>inactif</td>
+                    <td>éditer</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">6</th>
+                    <td>Olivier Morel</td>
+                    <td>cashier</td>
+                    <td>inactif</td>
+                    <td>éditer</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">7</th>
+                    <td>Olivier Morel</td>
+                    <td>cashier</td>
+                    <td>inactif</td>
+                    <td>éditer</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            
+          </div>
+        
+        </mat-drawer-container>
+      </div>
+
+     
+
+      
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div mat-dialog-content class="dialogSize">
+<form class="vertical">
+    <ng-container *ngIf="first">
+    <p class="header">AJOUT D'UN NOUVEAU PERSONNEL</p>
+      <mat-form-field>
+        <input matInput placeholder="Nom">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Prenom">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Surnom">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput  placeholder="Profession">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput  placeholder="Telephone 1">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput  placeholder="Telephone 2">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="adresse 1">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Adresse 2">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput  placeholder="Date de Naissance">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Nationalité</mat-label>
+        <input matInput type="text" placeholder="Date de Naissance">
+        <mat-select>
+             <mat-option value="AM">Senegal</mat-option>
+             <mat-option value="PM">Mali</mat-option>
+             <mat-option value="AM">Guinée</mat-option>
+             <mat-option value="PM">Burkina faso</mat-option>
+             <mat-option value="PM">Niger</mat-option>
+             <mat-option value="PM">Cote d'ivoire</mat-option>
+             <mat-option value="PM">Togo</mat-option>
+             <mat-option value="PM">Benin</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Sexe</mat-label>
+        <input matInput type="text" placeholder="Sexe">
+        <mat-select>
+             <mat-option value="AM">Masculin</mat-option>
+             <mat-option value="PM">Féminin</mat-option>
+             <mat-option value="AM">Hybride</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Genre</mat-label>
+        <input matInput type="text" placeholder="Genre">
+        <mat-select>
+             <mat-option value="AM">Homme</mat-option>
+             <mat-option value="PM">Femme</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Enregistrer comme utilisateur ?</mat-label>
+            <input matInput type="text" placeholder="Non">
+            <mat-select>
+                 <mat-option value="AM">OUI</mat-option>
+                 <mat-option value="PM">NON</mat-option>
+            </mat-select>
+          </mat-form-field>
+      <mat-form-field>
+        <input matInput  placeholder="Nom dutilisateur">
+      </mat-form-field>
+    
+      
+      <div mat-dialog-actions class="action-space">
+        <button mat-button (click)="onNoClick()" class="btn btn-cancel">Annuler</button>
+        <button mat-button  cdkFocusInitial class="btn btn-send">Envoyer</button>
+      </div>
+    </ng-container>
+</form>
+</div>
+    
+  

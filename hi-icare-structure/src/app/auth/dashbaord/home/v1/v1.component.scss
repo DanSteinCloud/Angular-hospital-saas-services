@@ -1,0 +1,19 @@
+table {
+    width: 100%;
+  }
+  ::ng-deep .action-space{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  ::ng-deep .btn.btn-send{
+    background: #17a2b8;
+    border: none;
+    border-radius: 5px;
+    color: #FFF
+  }
+  ::ng-deep .btn.btn-cancel{
+    background: #eee;
+    border: none;
+    border-radius: 5px;
+  }

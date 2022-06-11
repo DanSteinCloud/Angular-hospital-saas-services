@@ -1,0 +1,224 @@
+<div class="container-fluid page">
+    <div class="page__box p-3 mt-2">Notifications</div>
+    <div class="page__content shadow p-3 position-relative">
+        <div class="notif-content">
+          <div class="firstNotif">
+            <h2>Toutes les notifications</h2>
+            <div class="messageContainer">
+              <div class="messageData">
+                <span class="sender">
+                  Awa Faye
+                </span>
+                <span class="timestamp">
+                  7/5/2022 à 14hr32
+                </span>
+              </div>
+              <div class="messageContent">
+                  Demande de reinitialisation de mot de passe par l'utilisateur Ramatou Faye, Secretaire medical
+                  <mat-icon [ngStyle]="{'color':'#00788D', 'margin-top':'20px'}" (click)="displayInfo1()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon>
+              </div>
+            </div>
+            <div class="messageContainer" (click)="displayInfo2()">
+              <div class="messageData">
+                <span class="sender">
+                  Ndeye Fatou
+                </span>
+                <span class="timestamp">
+                  5/5/2022 à 17hr12
+                </span>
+              </div>
+              <div class="messageContent">
+                  Ndeye Fatou, medecin specialiste enregistré le 2/1/18, a ajouté un nouveau patient, traitement ambulatoire Nest
+                  <mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="displayInfo2()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon>
+              </div>
+            </div>
+            <div class="messageContainer" (click)="displayInfo3()">
+              <div class="messageData">
+                <span class="sender">
+                  Digui Mbaye
+                </span>
+                <span class="timestamp">
+                  6/4/2022 à 11hr30
+                </span>
+              </div>
+              <div class="messageContent">
+                  Une action de Digui Mbaye, cashier officer, attend votre validation pour la poursuite du decaissement en arrêt
+                  <mat-icon [ngStyle]="{'color':'#00788D', 'margin-right':'5px'}" (click)="displayInfo3()"
+                  title="Voulez-vous voir les détails ?">more_horiz</mat-icon>
+              </div>
+            </div>
+            <div class="messageContainer">
+              <div class="messageData">
+                <span class="sender">
+                  Daniel Tessi
+                </span>
+                <span class="timestamp">
+                  7/5/2022 à 14hr32
+                </span>
+              </div>
+              <div class="messageContent">
+                  Demande de reinitialisation de mot de passe par l'utilisateur Daniel Tessi, Secretaire medical.
+              </div>
+            </div>
+            <div class="messageContainer">
+              <div class="messageData">
+                <span class="sender">
+                  Sika Ndour
+                </span>
+                <span class="timestamp">
+                  10/3/2022 à 10hr42
+                </span>
+              </div>
+              <div class="messageContent">
+                  L'utilisateur Sika Ndour, medecin pediatre, a cloturé le dossier prenatal enregistré le 5/6/21 pour motif...
+              </div>
+            </div>
+            <div class="messageContainer">
+              <div class="messageData">
+                <span class="sender">
+                  Dorote Mall
+                </span>
+                <span class="timestamp">
+                  7/5/2022 à 14hr32
+                </span>
+              </div>
+              <div class="messageContent">
+                  Demande de reinitialisation de mot de passe par l'utilisateur Dorote Mall, Secretaire medical.
+              </div>
+            </div>
+          </div>
+
+          <div class="secondNotif">
+            <mat-drawer-container *ngIf="info1" class="example-container" autosize>
+              <div class="example-sidenav-content">
+                <div class="first">
+                  <h2 class="notif-title">Message de gestion de vos paramètres de sécurité </h2><span class="first-timestamp">
+                    7/5/2022, 14:32
+                  </span>
+                </div>
+                <div class="second">
+                  <h5 class="subject">Mot de passe</h5>
+                  <div class="box">
+                    <p>La Secretaire Médical Awa Faye demande la rénitiallisation de son mot de passe</p>
+                    <div class="action-space">
+                      <button class="btn btn-cancel">Refuser</button>
+                      <button class="btn btn-send">Reinitialiser</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="third">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nom complet</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Privilèges</th>
+                        <th scope="col">Status</th>        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Awa Faye</td>
+                        <td>Secretaire</td>
+                        <td>Basic</td>
+                        <td>Activé</td>     
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>  
+              </div>
+            
+            </mat-drawer-container>
+
+
+            <mat-drawer-container *ngIf="info2" class="example-container" autosize>
+              <div class="example-sidenav-content">
+                <div class="first">
+                  <h2 class="notif-title">Message provenant de vos utilisateurs internes</h2><span class="first-timestamp">
+                    7/5/2022, 14:32
+                  </span>
+                </div>
+                <div class="second">
+                  <h5 class="subject">Patient</h5>
+                  <div class="box">
+                    <p>Ndeye Fatou, medecin specialiste enregistré le 2/1/18, a ajouté un nouveau patient, traitement ambulatoire Nest 
+                    </p>
+                  </div>
+                </div>
+                <div class="third">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nom complet</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Privilèges</th>
+                        <th scope="col">Status</th>        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Ndeye Fatou</td>
+                        <td>Médecin</td>
+                        <td>tout privilège patient</td>
+                        <td>Activé</td>     
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>  
+              </div>
+            
+            </mat-drawer-container>
+
+
+
+            <mat-drawer-container *ngIf="info3" class="example-container" autosize>
+              <div class="example-sidenav-content">
+                <div class="first">
+                  <h2 class="notif-title">Message provenant de votre tresorie</h2><span class="first-timestamp">
+                    7/5/2022, 14:32
+                  </span>
+                </div>
+                <div class="second">
+                  <h5 class="subject">Cashier</h5>
+                  <div class="box">
+                    <p>Une action de Digui Mbaye, cashier officer, attend votre validation pour la poursuite du decaissement en arrêt</p>
+                    <div class="action-space">
+                      <button class="btn btn-send">Accepter</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="third">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nom complet</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Privilèges</th>
+                        <th scope="col">Status</th>        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Awa Faye</td>
+                        <td>Secretaire</td>
+                        <td>Basic</td>
+                        <td>Activé</td>     
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>  
+              </div>
+            
+            </mat-drawer-container>
+          </div>
+      
+    </div>
+</div>

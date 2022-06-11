@@ -1,0 +1,133 @@
+@import "../home/home.component.scss";
+.page {
+  color: white;
+  background: #f1f5f9;
+  &__box{
+      min-height: 40px;
+      background: #1e293b;
+      margin: 0 -1rem;
+      font-size: 20px;
+  }
+  &__subscription{
+     min-height: calc(100vh - 178px);
+     display: flex;
+     flex-direction: row ;
+     justify-content: space-between;
+     border-radius: 10px;
+     margin-top: -2rem;
+     background: white;
+     color: black;
+     font-size: 2rem;
+     &-data{
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+     }
+ }
+}
+
+.example-container {
+    margin-top: 27px;
+    width: 100%;
+    height: auto;
+    border: 1px solid;
+    background-color: rgb(182, 243, 222);
+  }
+.example-sidenav-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0 1.5rem;
+    align-items: center;
+    justify-content: center;
+    background: #17a2b8 !important;
+  }
+.example-sidenav {
+    padding: 20px;
+    background-color: #0eb3cc;
+  }
+.part1{
+    flex:4;
+  }
+.part2{
+    flex:1;
+  }
+.part3{
+    flex:4;
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+.first{
+    flex: 1; 
+    align-items: center;
+    justify-content: center;
+  }
+.second{ 
+    flex: 2;
+    width: 100%;
+  }
+
+button{
+    font-size: 14px;
+    border: none;
+  }
+
+  .mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  .mat-form-field {
+    margin-top: 16px;
+  }
+
+  .example-box {
+    width: 200px;
+    height: 200px;
+    border: solid 1px #ccc;
+    color: rgba(0, 0, 0, 0.87);
+    cursor: move;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+    border-radius: 4px;
+    position: relative;
+    z-index: 1;
+    transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+                0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  }
+  
+  .example-box:active {
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  mat-card{
+    font-size: 12px;
+  }
+  .done_color{
+    color: green;
+  }
+
+  :host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .newUser{
+    display: flex;
+    flex-direction: column;
+  }
+
+  ::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding: 0.4em 0px !important;}
+  ::ng-deep .mat-form-field-label-wrapper { top: -1.5em; }
+  
+  ::ng-deep .mat-form-field-appearance-fill.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+      transform: translateY(-1.1em) scale(.75);
+      height: 10px;
+  }

@@ -1,0 +1,135 @@
+@import "../home/home.component.scss";
+.notif-content{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.firstNotif{
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+.secondNotif{
+  margin-top: 5%;
+  flex: 1;
+  border: 0.5rem solid #eee;
+  transform: translateX(-40%);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+}
+.messageContainer {
+  display: flex;
+  height: auto;
+  width: 70%;
+  min-width: 400px;
+  border-radius: 5px;
+  align-items: stretch;
+  background-color: #eee;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.23);
+  margin-bottom: 5px;
+}
+.isOwnMessageContainer{
+  background-color: #01579B;
+}
+.messageData{
+  flex: 1;
+  padding: 10px;
+  font-size: 0.7em;
+}
+.sender{
+  display: 	block;
+  color: #222;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+.isOwnSender{
+  color: #E1F5FE;
+}
+.timestamp{
+  color: #555;
+  font-style: italic;
+  font-size: 14px;
+}
+.first-timestamp{
+  color: #555;
+  font-style: italic;
+  font-size: 14px;
+  align-items: flex-end;
+}
+.isOwnTimestamp{
+  color: #4FC3F7;
+}
+.messageContent{
+  height: auto;
+  flex:9;
+  font-size: 16px;
+  background-color: #FFF;
+  padding: 2rem 2rem;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.isOwnMessageContent{
+  background-color: #E3F2FD;
+  color: #01579B;
+}
+::ng-deep mat-drawer-container.example-container{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 5px;
+  padding: 1rem 1.5rem;
+}
+.example-sidenav-content{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  justify-content: space-between;
+}
+.first{
+flex: 1;
+display: flex;
+flex-direction: column;
+}
+.second{
+flex: 5;
+display: flex;
+flex-direction: column;
+}
+.notif-title{
+  font-size: 22px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.subject{
+  font-size: 18px;
+  font-weight: bold;
+}
+.box{
+  font-size: 16px;
+}
+::ng-deep .action-space{
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+::ng-deep .btn.btn-send{
+  background: #17a2b8;
+  border: none;
+  border-radius: 5px;
+  color: #FFF;
+  margin-left: 10px;
+}
+::ng-deep .btn.btn-cancel{
+  background: #eee;
+  border: none;
+  border-radius: 5px;
+}
+.third{
+flex: 3;
+margin-top: 20px;
+}

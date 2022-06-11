@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Administrateur Nest</h1>
+<div mat-dialog-content>
+  <p>Voulez-vous vraiment supprimer ce personnel ?</p>
+</div>
+<div mat-dialog-actions class="action-space">
+  <button mat-button (click)="onNoClick()" class="btn btn-cancel">Non</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial class="btn btn-cancel">Oui</button>
+</div>

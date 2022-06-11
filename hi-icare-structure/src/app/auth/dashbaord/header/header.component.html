@@ -1,0 +1,39 @@
+<mat-toolbar>
+    <mat-toolbar-row class="justify-content-between">
+        <button mat-icon-btn (click)="toggleSidebar()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <div class="options">
+            <mat-icon class="material-icons color_green" matBadge="3" matBadgeColor="warn" [matMenuTriggerFor]="afterMenu">notifications_active</mat-icon>
+            <mat-menu backdropClass="customize" class="main-menu" #afterMenu="matMenu" >
+                <button mat-menu-item routerLink='notifications'><mat-icon [ngStyle]="{'color':'#17a2b8'}">fiber_manual_record</mat-icon>Demande de réinitialisation de mot de passe</button>
+                <button mat-menu-item><mat-icon [ngStyle]="{'color':'#17a2b8'}">fiber_manual_record</mat-icon>Enregistrement de nouveau patient</button>
+                <button mat-menu-item><mat-icon [ngStyle]="{'color':'#17a2b8'}">fiber_manual_record</mat-icon>Cloture d'un dossier prenatal</button>
+                <button mat-menu-item><mat-icon [ngStyle]="{'color':'#17a2b8'}">fiber_manual_record</mat-icon>Rapport de facturation</button>
+                <button mat-menu-item><mat-icon [ngStyle]="{'color':'#17a2b8'}">fiber_manual_record</mat-icon>Service NID</button>
+              </mat-menu>
+            <mat-icon class="material-icons color_green">language</mat-icon>
+            <mat-icon class="material-icons color_green">help</mat-icon>
+        </div>
+
+        <div class="row mr-2 ml-auto">
+            <ul>
+                <li>
+                    <button mat-btn [matMenuTriggerFor]="menu" class="user mt-2 d-flex align-items-center">
+                        <img src="../../assets/05.jpg" alt="nest-admin" class="user-image mr-1 p-2" />
+                        NEST Hospital,
+                        Admin
+                        <mat-icon class="user-image-icon ml-1">keyboard_arrow_down</mat-icon>
+                    </button>
+                    
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>exit_to_app</mat-icon>
+                            Se Deconnecter
+                        </button>
+                    </mat-menu>
+                </li>
+            </ul>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

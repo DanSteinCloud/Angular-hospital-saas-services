@@ -1,0 +1,235 @@
+.page {
+     color: white;
+     padding: 0 1rem;
+     background: #f1f5f9;
+     &__box{
+         min-height: 50px;
+         background: #1e293b;
+         margin: 0 -1rem;
+         font-size: 16px;
+     }
+     &__content{
+        min-height: calc(100vh - 178px);
+        display: flex;
+        flex-direction: column ;
+        justify-content: space-around;
+        border-radius: 10px;
+        margin-top: -2rem;
+        background: white;
+        color: black;
+        font-size: 2rem;
+        &-data{
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0 1.5rem;
+        }
+    }
+}
+
+.page__box.p-3.mt-2{
+    background:#0eb3cc !important;
+    transform: translateY(-20px);
+}
+
+table, tbody {
+    font-size: 13px;
+  }
+.persnl-menu{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex: 1;
+}
+.first{
+    flex: 1;
+    display: flex;
+}
+.divide-one{ flex: 1; align-self: flex-start;}
+.divide-two{ flex: 2;}
+.second{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.btn-secondary{
+background-color: #0eb3cc;
+}
+
+/* Styles for wrapping the search box */
+
+.main {
+    width: 50%;
+    margin: 50px auto;
+}
+
+/* Bootstrap 4 text input with search icon */
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.third{
+    flex: 12;
+    display: flex;
+    flex-direction: column;
+}
+.onTable{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+.text-muted{
+    font-size: 18px;
+}
+a{
+  color: black;
+  font-size: 16px;
+  margin-left: 10px;
+}
+.dropdown{
+    margin-top: 20px;
+}
+.inTable{
+    flex: 15;
+}
+p {
+    align-self: flex-start;
+}
+.showTitle{
+  align-self: flex-start;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.btn-info{
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    background-color: #0eb3cc;
+}
+
+.card{
+    background-color: rgb(144, 238, 207);
+    border-radius: 10px;
+}
+
+.card-link{
+    color: #17a2b8;
+}
+
+.row{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu{
+    flex: 1;
+}
+.mat-button{
+    border-radius: 5px;
+    padding: 0 1.5rem;
+    border: none;
+    color: #FFFFFF;
+}
+.mat1{
+    background-color: #17a2b8;
+}
+.mat2{
+    background-color: #E24017;
+}
+.mat3{
+    background-color: #00788D;
+}
+.mat4{
+    background-color: #6E0B14;
+}
+.mat5{
+    background-color: #c6d8e3  ;
+}
+.rowMenu{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.aboveLine{
+    display: flex;
+    flex: 3;
+}
+.forLine1{
+    flex: 1;
+}
+.forLine1 hr {
+    border-top: 5px solid red;
+  }
+.forLine2{
+    flex: 1;
+}
+.forLine2 hr {
+    border-top: 5px solid #17a2b8;
+  }
+  .forLine3{
+    flex: 1;
+}
+.forLine3 hr {
+    border-top: 5px solid #00788D;
+  }
+  .forLine4{
+    flex: 1;
+}
+.forLine4 hr {
+    border-top: 5px solid #6E0B14;
+  }
+.forLine5{
+    flex: 1;
+}
+.forLine5 hr {
+    border-top: 5px solid #c6d8e3 ;
+  }
+.used{
+    flex: 2;
+    display: flex;
+}
+.unused{
+    flex: 1;
+}
+#prsnl{
+   flex: 7; 
+   display: flex;
+   flex-direction: column;
+}
+.mat-icon {
+    font-size: 18px;
+  }
+
+ .label{
+    display:block;
+    width: 70px;
+    height: 20px;
+ }
+ .label-success{
+ padding: 0 5px;
+ background-color: #5AE989;
+ color: #FFFFFF;
+ border-radius: 5px;
+}
+.label-danger{
+ padding: 0 5px;
+ background-color: #E24017;
+ color: #FFFFFF;
+ border-radius: 5px;
+}
