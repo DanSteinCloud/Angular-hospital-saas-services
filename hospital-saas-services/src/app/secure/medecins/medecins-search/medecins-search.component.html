@@ -1,0 +1,59 @@
+<div class="iq-card">
+  <div class="iq-card-header d-flex justify-content-between">
+     <div class="iq-header-title">
+        <h4 class="card-title">Formulaire de recherche</h4>
+     </div>
+  </div>
+  <div class="iq-card-body">
+     <form novalidate
+     [formGroup]="form">
+        <div class="form-row">
+
+           <div class="col">
+            <input type="text" class="form-control" formControlName="firstName" placeholder="Saisir le prénom">
+           </div>
+           <div class="col">
+            <input type="text" class="form-control" formControlName="lastName" placeholder="Saisir le nom">
+           </div>
+
+
+
+        </div>
+        <br>
+        <div class="form-row">
+          <div class="col">
+           <input type="text" class="form-control" placeholder="Saisir la date de naissance">
+          </div>
+          <div class="col">
+           <input type="text" class="form-control"  placeholder="Saisir le téléphone">
+          </div>
+
+       </div>
+        <br>
+       <div class="form-row">
+        <div class="col">
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option selected="" disabled="">Choisir un statut</option>
+            <option>Interne</option>
+            <option>Externe</option>
+         </select>
+        </div>
+        <div class="col">
+         <!-- <input type="text" class="form-control"  placeholder="Saisir l'assurance"> -->
+         <select class="form-control">
+          <option selected="" disabled="">Choisir une spécialité</option>
+          <option>Chirurgie</option>
+          <option>Pédiatrie</option>
+          <option>Généraliste</option>
+         </select>
+        </div>
+
+
+     </div>
+     <br>
+     <div class="form-row">
+      <button class="btn btn-primary btn-lg">  Rechercher  </button>
+     </div>
+     </form>
+  </div>
+</div>

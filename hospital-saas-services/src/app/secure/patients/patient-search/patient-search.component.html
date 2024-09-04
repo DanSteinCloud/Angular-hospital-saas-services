@@ -1,0 +1,79 @@
+<div class="iq-card">
+  <div class="iq-card-header d-flex justify-content-between">
+     <div class="iq-header-title">
+        <h4 class="card-title">Formulaire de recherche</h4>
+     </div>
+  </div>
+  <div class="iq-card-body">
+     <form novalidate method="GET"
+     [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+           <div class="col">
+            <input type="text" class="form-control" name="rpatientIdentifier" formControlName="rpatientIdentifier"
+            [ngClass]="{ 'is-invalid': submitted && f.rpatientIdentifier.errors }" placeholder="Saisir le numéro dossier">
+            <div *ngIf="submitted && f.rpatientIdentifier.errors" class="invalid-feedback">
+              <div *ngIf="f.rpatientIdentifier.errors.required">Numéro dossier obligatoire</div>
+          </div>
+          </div>
+           <div class="col">
+            <input type="text" class="form-control" name="rfirstName" formControlName="rfirstName"
+            [ngClass]="{ 'is-invalid': submitted && f.rfirstName.errors }" placeholder="Saisir le prénom">
+            <div *ngIf="submitted && f.rfirstName.errors" class="invalid-feedback">
+              <div *ngIf="f.rfirstName.errors.required">Le prénom est obligatoire</div>
+          </div>
+           </div>
+           <div class="col">
+            <input type="text" class="form-control" name="rlastName" formControlName="rlastName"
+            [ngClass]="{ 'is-invalid': submitted && f.rlastName.errors }" placeholder="Saisir le nom">
+            <div *ngIf="submitted && f.rlastName.errors" class="invalid-feedback">
+              <div *ngIf="f.rlastName.errors.required">Le prénom est obligatoire</div>
+          </div>
+           </div>
+
+
+
+
+        </div>
+        <br>
+        <div class="form-row">
+          <div class="col">
+           <input type="text" class="form-control" formControlName='rdoB' name='rdoB' placeholder="Saisir la date de naissance" onfocus=" (this.type='date')" onchange="this.blur();">
+          </div>
+          <div class="col">
+           <input type="text" class="form-control" formControlName='rTelephone1' name='rTelephone1'  placeholder="Saisir le téléphone">
+          </div>
+          <div class="col">
+           <input type="text" class="form-control" formControlName='raddress' name='raddress'  placeholder="Saisir l'adresse ">
+          </div>
+       </div>
+        <br>
+       <div class="form-row">
+        <div class="col">
+          <select class="form-control" formControlName="rsex" name="rsex" formControlName="rsex">
+            <option value="">Choisir le sexe</option>
+            <option value="1">Féminin</option>
+            <option value="2">Masculin</option>
+           </select>
+        </div>
+        <div class="col">
+         <!-- <input type="text" class="form-control"  placeholder="Saisir l'assurance"> -->
+         <select class="form-control" formControlName='rassurance' name="rassurance">
+          <option selected disabled>Choisir une assurance</option>
+          <option value="1">AXXA</option>
+          <option value="2">Ascoma</option>
+          <option value="3">Suniu Assurance</option>
+         </select>
+        </div>
+        <div class="col">
+         <input type="text" class="form-control" formControlName="rdateCreated" name="rdateCreated"  placeholder="Saisir la date de création" onfocus=" (this.type='date')" onchange="this.blur();">
+        </div>
+
+     </div>
+     <br>
+     <div class="form-row">
+      <button class="btn btn-primary btn-lg" (click)="onSubmit()">  Rechercher  </button> &nbsp;&nbsp;
+      <button (click)="annuler()" class="btn btn-secondary btn-lg">&nbsp;&nbsp;&nbsp;  Annuler &nbsp;&nbsp;&nbsp; </button>
+     </div>
+     </form>
+  </div>
+</div>

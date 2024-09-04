@@ -1,0 +1,120 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="iq-card">
+      <div class="iq-card-header d-flex justify-content-between">
+        <div class="iq-header-title">
+          <h4 class="card-title">Liste des suivis </h4>
+        </div>
+      </div>
+      <div class="iq-card-body">
+        <div id="table" class="table-editable">
+          <span class="table-add float-right mb-3 mr-2">
+            <button class="btn btn-sm btn-primary" data-toggle="modal"
+              data-target=".bd-example-modal-lg"><i class="ri-add-fill"><span class="pl-1">Créer un suivi</span></i>
+            </button>
+          </span>
+          <table class="table table-bordered table-responsive-md table-striped text-center">
+            <thead>
+              <tr>
+
+                <th>Gynécologue</th>
+                <th>Sage femme</th>
+                <th>Pédiatre</th>
+                <th>Anesthésiste</th>
+                <th></th>
+              </tr>
+            </thead>
+
+
+            <tbody>
+              <tr>
+
+                <td><span>Docteur Alioune SY</span></td>
+                <td>Binta SAKHO</td>
+                <td>Dr Rassoul THIAM</td>
+                <td>Dr Eric Kaboré</td>
+
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                      Action
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" routerLink="['/suivi',1]">Détails</a>
+                      <a class="dropdown-item" routerLink="['/grossesse',1]">Modifier</a>
+                      <a class="dropdown-item" href="#" data-toggle="modal"
+                        data-target=".bd-personne-delete">Supprimer</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <!-- <pagination-controls
+           previousLabel="Précédent"
+           nextLabel="Suivant"
+           (pageChange)="pageChanged($event)"
+              ></pagination-controls> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id='formPatient' aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ajouter un suivi</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <div class="form-row">
+
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault01">Gynécologue</label>
+              <select class="form-control" id="sanguin" name="sanguin" formControlName="sanguin">
+                <option ngValue="null" disabled>Choisir le gynécologue</option>
+                <option value="1">Abdou SY</option>
+                <option value="2">Birame DIOP</option>
+                <option value="3">Jules SAGNA</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault01">Sage femme</label>
+              <select class="form-control" id="sage" name="sage" formControlName="sage"
+                ngClass="{ 'is-invalid': submitted && f.sex.errors }">
+                <option ngValue="null" disabled>Choisir la sage femme</option>
+                <option value="1">Binta DABO</option>
+                <option value="2">Généviève DIEDHIOU</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault01">Pédiatre</label>
+              <select class="form-control" id="sage" name="sage" formControlName="sage"
+                ngClass="{ 'is-invalid': submitted && f.sex.errors }">
+                <option ngValue="null" disabled>Choisir le pédiatre</option>
+                <option value="1">Binta DABO</option>
+                <option value="2">Généviève DIEDHIOU</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationDefault01">Anesthésiste</label>
+              <select class="form-control" id="sage" name="sage" formControlName="sage"
+                ngClass="{ 'is-invalid': submitted && f.sex.errors }">
+                <option ngValue="null" disabled>Choisir l'anesthésiste</option>
+                <option value="1">Ibrahima DABO</option>
+                <option value="2">Ousseynou DIEDHIOU</option>
+              </select>
+            </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+

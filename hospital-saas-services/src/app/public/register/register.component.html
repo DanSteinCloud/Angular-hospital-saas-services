@@ -1,0 +1,19 @@
+
+  <form class="form-signin" [formGroup]="form" (submit)="submit()">
+    <h1 class="h3 mb-3 fw-normal">Please registers</h1>
+
+    <input type="text" formControlName="first_name" id="first_name"  class="form-control" placeholder="First name" required="" autofocus="">
+    <br>
+    <input type="text" formControlName="last_name" id="LastName" class="form-control" placeholder="LastName" required="" autofocus="">
+    <br>
+    <input type="email" formControlName="email" id="inputEmail"  class="form-control" placeholder="Email address" required="" autofocus="">
+    <br>
+    <input type="password" formControlName="password" id="inputPassword"  class="form-control" placeholder="Password" required="">
+
+    <br>
+    <input type="password" formControlName="password_confirm" id="PasswordConfirm"  class="form-control" placeholder="Password" required="">
+
+    <input type="hidden" formControlName="role_id" id="role_id"  class="form-control" [value]=1>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+  </form>
+

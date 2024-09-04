@@ -1,0 +1,53 @@
+<div class="iq-card">
+  <div class="iq-card-header d-flex justify-content-between">
+     <div class="iq-header-title">
+        <h4 class="card-title">Formulaire de recherche</h4>
+     </div>
+  </div>
+  <div class="iq-card-body">
+
+        <div class="form-row">
+          <div class="col">
+           Du :<input type="date" class="form-control" formControlName='rdoB' name='rdoB'>
+          </div>
+          <div class="col">
+           Au :<input type="date" class="form-control" formControlName='rTelephone1' name='rTelephone1'>
+          </div>
+        </div>
+        <br>
+        <div class="form-row">
+          <div class="col">
+           <input type="text" class="form-control" formControlName='rdoB' name='rdoB' placeholder="ID du versement">
+          </div>
+          <div class="col">
+            <select class="form-control">
+              <option value="0"> Choisir la caisse</option>
+              <option value="1"> Caisse A</option>
+              <option value="2"> Caisse B</option>
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="form-row">
+          <div class="col">
+            <select class="form-control" multiple="multiple">
+              <option value="0"> Choisir le mode de transaction</option>
+              <option value="1"> Espèces</option>
+              <option value="2"> Lettre de garantie</option>
+              <option value="3">Orange money</option>
+              <option value="4">Carte Bancaire</option>
+            </select>
+          </div>
+          <div class="col">
+          </div>
+
+        </div>
+     <br>
+     <div class="form-row">
+      <button class="btn btn-primary btn-lg" >  Rechercher  </button> &nbsp;&nbsp;
+      <button class="btn btn-secondary btn-lg">&nbsp;&nbsp;&nbsp;  Annuler &nbsp;&nbsp;&nbsp; </button>
+     </div>
+
+  </div>
+</div>
+

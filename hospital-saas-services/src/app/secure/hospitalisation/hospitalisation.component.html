@@ -1,0 +1,29 @@
+
+<div class="container-fluid p-0 m-0" *ngIf="afficherComponentNouvelleprestation || afficherComponentFacturer || afficherComponentPrestationAmbulatoire">
+  <div class="text-center">
+    <button (click)="clicRetour()" class=" float-right btn bleu">Retour</button>
+  </div>
+</div>
+
+<br><br>
+
+
+<app-search-hospitalisation *ngIf="afficherComponentSearch"></app-search-hospitalisation>
+
+<app-paiement-hospitalisation
+*ngIf="afficherComponentListePrestation"
+(SelectedPrestationAmbulatoire)="seletectedPrestationAmbulatoire($event)"
+(ClickBoutonNouvellePrestation)="nouvellePrestationrq($event)" ></app-paiement-hospitalisation>
+
+<app-nouvelle-hospitalisation
+*ngIf="afficherComponentNouvelleprestation"
+(facturationEvent)="afficheComponentFacturer($event)"></app-nouvelle-hospitalisation>
+
+<app-prestation-hospitalisation
+*ngIf="afficherComponentPrestationAmbulatoire"
+[selectedPrestationIndex]="selectedPrestAmbuIndex"
+(ajoutActeEvent)="ajoutActe($event)" ></app-prestation-hospitalisation>
+
+<app-factures
+*ngIf="afficherComponentFacturer"
+[selectedPrestationIndex]="selectedPrestFactureIndex"></app-factures>

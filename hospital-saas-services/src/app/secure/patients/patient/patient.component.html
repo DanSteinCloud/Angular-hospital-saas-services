@@ -1,0 +1,1111 @@
+<div class="" *ngIf="patient">
+ <!-- <app-patient-search (SearchFilter)='filterSearch($event)' (ResetFormSearch)='resetTable($event)'></app-patient-search> -->
+ <div class="iq-card">
+  <div class="iq-card-header d-flex justify-content-between">
+     <div class="iq-header-title">
+        <h4 class="card-title">Formulaire de recherche</h4>
+     </div>
+  </div>
+  <div class="iq-card-body">
+     <form novalidate method="POST"
+     [formGroup]="searchForm" (ngSubmit)="onRechercheSubmit()">
+        <div class="form-row">
+           <div class="col">
+             <label>Saisir le numéro dossier</label>
+            <input type="text" class="form-control" name="rpatientIdentifier" formControlName="rpatientIdentifier">
+
+          </div>
+           <div class="col">
+             <label>Saisir le prénom</label>
+            <input type="text" class="form-control" name="rfirstName" formControlName="rfirstName">
+
+           </div>
+           <div class="col">
+             <label>Saisir le nom</label>
+            <input type="text" class="form-control" name="rlastName" formControlName="rlastName">
+
+           </div>
+
+        </div>
+        <br>
+        <div class="form-row">
+          <div class="col">
+            <label>Saisir la date de naissance</label>
+           <input type="date" class="form-control" formControlName='rdoB' name='rdoB'>
+          </div>
+          <div class="col">
+            <label>Saisir le téléphone</label>
+           <input type="text" class="form-control" formControlName='rTelephone1' name='rTelephone1' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+          </div>
+          <div class="col">
+            <label>Choisir une ville</label>
+            <select class="form-control" formControlName='rcity' name="rcity">
+              <option [ngValue]="null" selected disabled></option>
+              <option *ngFor="let c of AllCity" [value]="c.code">
+                {{c.name}}
+              </option>
+             </select>
+           <!-- <input type="text" class="form-control" formControlName='raddress' name='raddress'  placeholder="Saisir l'adresse "> -->
+          </div>
+       </div>
+        <br>
+       <div class="form-row">
+        <div class="col">
+          <label>Choisir le sexe</label>
+          <select class="form-control" formControlName="rsex" name="rsex" formControlName="rsex">
+            <option [ngValue]="null" selected></option>
+              <option *ngFor="let c of AllSexe" [value]="c.code">
+                {{c.name}}
+              </option>
+           </select>
+        </div>
+        <div class="col">
+         <!-- <input type="text" class="form-control"  placeholder="Saisir l'assurance"> -->
+         <label>Choisir une assurance</label>
+         <select class="form-control" formControlName='rassurance' name="rassurance">
+          <option [ngValue]="null" selected></option>
+          <option *ngFor="let assur of dataAssurance | keyvalue" [value]="assur.value.id">
+            {{assur.value.name}}
+          </option>
+         </select>
+        </div>
+        <div class="col">
+          <label>Saisir la date de création</label>
+         <input type="date" class="form-control" formControlName="rdateCreated" name="rdateCreated">
+        </div>
+
+     </div>
+     <br>
+     <div class="form-row">
+      <button class="btn btn-primary btn-lg">  Rechercher  </button> &nbsp;&nbsp;
+      <button (click)="annuler()" type="reset" class="btn btn-secondary btn-lg">&nbsp;&nbsp;&nbsp;  Annuler &nbsp;&nbsp;&nbsp; </button>
+     </div>
+     </form>
+  </div>
+</div>
+
+  <div class="row">
+    <div class="col-sm-12">
+       <div class="iq-card">
+          <div class="iq-card-header d-flex justify-content-between">
+             <div class="iq-header-title">
+                <h4 class="card-title">Liste des patients </h4>
+             </div>
+          </div>
+          <div class="iq-card-body">
+             <div id="table" class="table-editable">
+                <span class="table-add float-right mb-3 mr-2">
+                <button *ngIf="readLocalStorageValue('ADD_PATIENT')=='1'" class="btn btn-sm btn-primary" data-toggle="modal" (click)="resetForm()" data-target=".bd-example-modal-lg"><i
+                   class="ri-add-fill"><span class="pl-1">Créer un nouveau patient</span></i>
+                </button>
+                </span>
+                <h1 *ngIf="testTailleDossierPrenatal == 0">DOSSIER TOUVER</h1>
+                <table class="table table-bordered table-responsive-md table-striped text-center" *ngIf="readLocalStorageValue('VIEW_PATIENT')=='1'">
+                   <thead>
+                      <tr>
+
+                        <th>N° Dossier </th>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Date de naissance</th>
+                        <th>Téléphone</th>
+                        <th>Ville</th>
+                        <th>Sexe</th>
+                        <th>Assurance</th>
+                        <th>Date de création</th>
+                        <th></th>
+                      </tr>
+                   </thead>
+
+                   <tbody *ngIf= "filteredPatients?.length==0">
+                     <tr>
+                       <td colspan="10">Aucun enregistrement</td>
+                     </tr>
+                   </tbody>
+                   <tbody *ngIf= "filteredPatients!=null">
+                    <tr *ngFor="let patient of filteredPatients | paginate: {
+                      itemsPerPage: config.itemsPerPage,
+                      currentPage: config.currentPage,
+                      totalItems: config.totalItems
+                    }">
+
+                      <td><span *ngIf="patient.identifiers!=null">{{patient.identifiers[0]?.identifier}}</span>
+                        <span *ngIf="patient.identifiers==null"></span>
+                      </td>
+                      <td>{{patient.firstName}}</td>
+                      <td>{{patient.lastName}}</td>
+                      <td>{{patient.doB * 1000 | date: 'dd/MM/yyyy'}}</td>
+
+                      <!-- <td>{{patient.date_naissance}}</td> -->
+                      <td>
+                        <span *ngIf="patient.tel!=null">{{patient.tel}}</span>
+                        <span *ngIf="patient.phones==null"></span>
+                      </td>
+                      <td> <span *ngFor="let lnk of AllCity"><span *ngIf="lnk?.code==patient.addresses[0]?.city">{{lnk?.name}}</span></span></td>
+                      <td><span *ngFor="let sx of AllSexe"><span *ngIf="sx.code==patient.sex">{{sx?.name}}</span></span></td>
+                      <td><span *ngIf="patient.insuranceList!=null">{{ patient.assurances}}</span></td>
+                      <td>{{patient.createdDate * 1000 | date: 'dd/MM/yyyy'}}</td>
+                      <td>
+                        <div class="btn-group" *ngIf="readLocalStorageValue('VIEW_PATIENT')=='1' || readLocalStorageValue('UPDATE_PATIENT')=='1' || readLocalStorageValue('ADD_PATIENT')=='1'">
+                          <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                             Action
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" [routerLink] ="['/detailPatient',patient.id]" >Voir</a>
+                            <a class="dropdown-item"  href="#" data-toggle="modal" *ngIf="patient.sex==1 && patient.currentDossierPrenatal==false && readLocalStorageValue('ADD_PREGNANCY')=='1'" (click)="DossierPrenatal(patient.id)" data-target=".bd-prenatal-modal-lg">Créer dossier prenatal</a>
+                            <a class="dropdown-item"  href="#" data-toggle="modal" *ngIf="patient.sex==1 && patient.currentDossierPrenatal==true && readLocalStorageValue('ARCHIEVE_PREGNANCY')=='1'"  (click)=" getDdr(patient.id)"data-target=".bd-archivage-modal-lg" >Archiver dossier prenatal</a>
+
+                            <a class="dropdown-item" [routerLink] ="['/prenataldetails',patient.id]" *ngIf="patient.sex==1  && patient.currentDossierPrenatal==true && readLocalStorageValue('VIEW_PREGNANCY')=='1'" >Details dossier prénatal</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" (click)="modifierPatient(patient.id)" data-target=".bd-personne-modifier" *ngIf="readLocalStorageValue('UPDATE_PATIENT')=='1'">Modifier</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" (click)="deletePost(patient.id,patient.fullName)" data-target=".bd-personne-delete" *ngIf="readLocalStorageValue('DELETE_PATIENT')=='1'">Supprimer</a>
+                          </div>
+                        </div>
+                        </td>
+                    </tr>
+                   </tbody>
+                </table>
+
+             </div>
+             <pagination-controls
+             previousLabel="Précédent"
+             nextLabel="Suivant"
+             (pageChange)="pageChanged($event)"
+                ></pagination-controls>
+          </div>
+       </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade bd-confirmation-search" tabindex="-1" role="dialog" id="formSearchNotCriteria" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title">Recherche</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+
+            <div  class="alert alert-danger">
+              Merci de saisir au moins un critère.
+            </div>
+          </div>
+          <div class="modal-footer">
+             <button  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+          </div>
+       </div>
+    </div>
+  <!-- </form> -->
+ </div>
+  <div class="modal fade bd-personne-delete" tabindex="-1" role="dialog" id="formSuppression" aria-hidden="true">
+    <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title">Suppression</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+                Etes-vous sur de vouloir supprimer ce patient : {{PatientName}} ?
+            </div>
+            <div class="modal-footer">
+               <button  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+               <button  class="btn btn-danger" (click)="DeletePatient(PatientId)">Supprimer</button>
+            </div>
+         </div>
+      </div>
+    <!-- </form> -->
+  </div>
+
+       <!-- form hospitalisation de patient -->
+       <div class="modal fade bd-personne-hospitalisation" tabindex="-1" role="dialog"  aria-hidden="true">
+        <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+          <div class="modal-dialog modal-lg">
+             <div class="modal-content">
+                <div class="modal-header">
+                   <h5 class="modal-title">Hospitalisation</h5>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                   </button>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sur de vouloir envoyer ce patient en hospitalisation ?
+                </div>
+                <div class="modal-footer">
+                   <button  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                   <button  class="btn btn-primary">Valider</button>
+                </div>
+             </div>
+          </div>
+        <!-- </form> -->
+       </div>
+       <!-- fin hospitalisation de patient -->
+      <!-- form soins ambulatoire de patient -->
+      <div class="modal fade bd-personne-ambulatoire" tabindex="-1" role="dialog"  aria-hidden="true">
+        <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+          <div class="modal-dialog modal-lg">
+             <div class="modal-content">
+                <div class="modal-header">
+                   <h5 class="modal-title">Soins ambulatoire</h5>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                   </button>
+                </div>
+                <div class="modal-body">
+                    Etes-vous sur de vouloir envoyer ce patient en soins ambulatoire ?
+                </div>
+                <div class="modal-footer">
+                   <button  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                   <button  class="btn btn-primary">Valider</button>
+                </div>
+             </div>
+          </div>
+        <!-- </form> -->
+       </div>
+       <!-- fin soins ambulatoire de patient -->
+
+      <!-- form supprimer de patient -->
+      <div class="modal fade bd-personne-supprimer" tabindex="-1" role="dialog"  aria-hidden="true">
+        <!-- <form [formGroup]="addForm" (ngSubmit)="onSubmit()"> -->
+          <div class="modal-dialog modal-lg">
+             <div class="modal-content">
+                <div class="modal-header">
+                   <h5 class="modal-title">Supprimer patient</h5>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                   </button>
+                </div>
+                <div class="modal-body">
+
+                    Etes-vous sur de vouloir supprimer ce patient ?
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                   <button  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                   <button  class="btn btn-primary">Supprimer</button>
+                </div>
+             </div>
+          </div>
+        <!-- </form> -->
+       </div>
+       <!-- fin form supprimer de patient -->
+     <!-- form update de patient -->
+     <div class="modal fade bd-personne-modifier" id="formUpdatePatient" tabindex="-1" role="dialog"  aria-hidden="true">
+      <form [formGroup]="form"  (ngSubmit)="onSubmit2()">
+        <div class="modal-dialog modal-lg">
+           <div class="modal-content">
+              <div class="modal-header">
+                 <h5 class="modal-title">Modifier patient</h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>
+              </div>
+              <div class="modal-body">
+                    <div class="form-row">
+                       <div class="col-md-6 mb-3">
+                        <!-- <input type="hidden" class="form-control"  id="mid" name="mid" [(ngModel)]="oPatient.id"> -->
+                          <label for="validationDefault01">Numéro dossier</label>
+                          <input type="text"
+                          class="form-control"  id="mpatientIdentifier" name="mpatientIdentifier"  formControlName="mpatientIdentifier">
+                       </div>
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Sexe</label>
+                          <select class="form-control" id="msex" name="msex" formControlName="msex">
+                            <option [ngValue]="null" disabled>Choisir le sexe</option>
+                            <option *ngFor="let c of AllSexe" [value]="c.code">
+                              {{c.name}}
+                            </option>
+                          </select>
+
+                       </div>
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Prénom <span style="color: red;">*</span></label>
+                          <input type="text" class="form-control"   formControlName="mfirstName" name="mfirstName"
+                          [ngClass]="{ 'is-invalid': submitted && frm.mfirstName.errors }">
+
+                         <div *ngIf="submitted && frm.mfirstName.errors" class="invalid-feedback">
+                           <div *ngIf="frm.mfirstName.errors.required">Le prénom est obligatoire</div>
+                       </div>
+                       </div>
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefault02">Nom <span style="color: red;">*</span></label>
+                          <input type="text" class="form-control"  id='mlastName'  name="mlastName" formControlName="mlastName" [ngClass]="{ 'is-invalid': submitted && frm.mlastName.errors }">
+
+                          <div *ngIf="submitted && frm.mfirstName.errors" class="invalid-feedback">
+                            <div *ngIf="frm.mfirstName.errors.required">Le nom est obligatoire</div>
+                        </div>
+                       </div>
+
+                       <div class="col-md-12 mb-3">
+                          <label for="validationDefault01">Date de naissance <span style="color: red;">*</span></label>
+                          <input type="date" class="form-control"  id='mdoB' name="mdoB" formControlName="mdoB" formControlName="mdoB"
+                          [ngClass]="{ 'is-invalid': submitted && frm.mdoB.errors }">
+
+                          <div *ngIf="submitted && frm.mdoB.errors" class="invalid-feedback">
+                            <div *ngIf="frm.mdoB.errors.required">La date de naissance est obligatoire</div>
+                        </div>
+                       </div>
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefault02">Téléphone 1 <span style="color: red;">*</span></label>
+                          <input type="tel" class="form-control"  id='mTelephone1' name='mTelephone1'  formControlName="mTelephone1"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                          [ngClass]="{ 'is-invalid': submitted && frm.mTelephone1.errors }">
+                          <div *ngIf="submitted && frm.mTelephone1.errors" class="invalid-feedback">
+                           <div *ngIf="frm.mTelephone1.errors.required">La téléphone de naissance est obligatoire</div>
+                       </div>
+                        </div>
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefault02">Téléphone 2</label>
+                          <input type="tel" class="form-control"  id='mTelephone2' name='mTelephone2'
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                          formControlName="mTelephone2">
+                       </div>
+
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefaultUsername">Quartier <span style="color: red;">*</span></label>
+                          <div class="input-group">
+                             <input type="text" class="form-control"  id="maddress" name="maddress" formControlName="maddress"
+                             [ngClass]="{ 'is-invalid': submitted && frm.maddress.errors }">
+                             <div *ngIf="submitted && frm.maddress.errors" class="invalid-feedback">
+                              <div *ngIf="frm.maddress.errors.required">Le quartier est obligatoire</div>
+                          </div>
+                          </div>
+                       </div>
+                       <div class="col-md-6 mb-3">
+                        <label for="validationDefaultUsername">Rue</label>
+                        <div class="input-group">
+                           <input type="text" class="form-control" id="mrue" name="mrue" formControlName="mrue">
+                        </div>
+                     </div>
+                     <div class="col-md-6 mb-3">
+                      <label for="validationDefaultUsername">Ville</label>
+                      <div class="input-group">
+                        <select class="form-control" id="mville" name="mville" formControlName="mville">
+                          <option [ngValue]="null" selected>Choisir la ville</option>
+                          <option *ngFor="let c of AllCity" [value]="c.code">
+                            {{c.name}}
+                          </option>
+                      </select>
+                      </div>
+                   </div>
+                   <div class="col-md-6 mb-3">
+                    <label for="validationDefaultUsername">Région</label>
+                    <div class="input-group">
+
+                       <select class="form-control" id="mregion" name="mregion" formControlName="mregion">
+                        <option [ngValue]="null" selected>Choisir la region</option>
+                        <option *ngFor="let c of AllState" [value]="c.code">
+                          {{c.name}}
+                        </option>
+                       </select>
+                    </div>
+                 </div>
+
+                  <div class="col-md-6 mb-3">
+                    <label for="validationDefaultUsername">Pays</label>
+                    <div class="input-group">
+
+                        <select class="form-control" id="mpays" name="mpays" formControlName="mpays" >
+                        <option [ngValue]="null" selected>Choisir le pays</option>
+                        <option *ngFor="let c of AllCountry" [value]="c.code">
+                          {{c.name}}
+                        </option>
+                        </select>
+                    </div>
+                  </div>
+
+
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefaultUsername">Nationalité</label>
+                          <div class="input-group">
+                              <select class="form-control" id="mnationalite" name="mnationalite" formControlName="mnationalite">
+                                <option [ngValue]="null" selected>Choisir la nationalité</option>
+                                <option *ngFor="let c of AllNationality" [value]="c.code">
+                                  {{c.name}}
+                                </option>
+                            </select>
+                          </div>
+                       </div>
+                    </div>
+              </div>
+              <div class="modal-footer">
+                 <button  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                 <button  class="btn btn-primary" type="submit">Modifier
+                 </button>
+              </div>
+           </div>
+        </div>
+      </form>
+     </div>
+
+     <div class="modal fade bd-confirmation" tabindex="-1" role="dialog" id="formModifPatientConfirm" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title">Information</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+              <div *ngIf="rMessage==='bUpdate'" class="alert alert-success">
+                Les informations du patient ont été mises à jour avec succès
+              </div>
+              <div *ngIf="rMessage==='bErrorUpdate'" class="alert alert-danger">
+                Erreur lors de la mise à jour des informations du patient
+              </div>
+            </div>
+            <div class="modal-footer">
+               <button  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+     <!-- fin form update de patient -->
+     <!-- form creation de patient -->
+     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id='formAddPatient' aria-hidden="true">
+      <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+        <div class="modal-dialog modal-lg">
+           <div class="modal-content">
+              <div class="modal-header">
+                 <h5 class="modal-title">Créer un nouveau patient</h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>
+              </div>
+              <div class="modal-body">
+
+                    <div *ngIf="rMessage==='bSave'" class="alert alert-success">
+                        Le patient a été bien enregistré
+                   </div>
+                   <div *ngIf="rMessage==='bError'" class="alert alert-danger">
+                    Erreur lors de l'enregistrement
+                  </div>
+                    <div class="form-row">
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Numéro dossier</label>
+                          <input type="text" class="form-control" formControlName="patientIdentifier" id="patientIdentifier" name="patientIdentifier">
+                       </div>
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Sexe<span style="color: red;">*</span></label>
+                          <select class="form-control" id="sex" name="sex" formControlName="sex" [ngClass]="{ 'is-invalid': submitted && f.sex.errors }">
+                            <option [ngValue]="null" disabled>Choisir le sexe</option>
+                            <option *ngFor="let c of AllSexe" [value]="c.code">
+                              {{c.name}}
+                            </option>
+                          </select>
+                          <div *ngIf="submitted && f.sex.errors" class="invalid-feedback">
+                            <div *ngIf="f.sex.errors.required">Le sexe est obligatoire</div>
+                        </div>
+
+                       </div>
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Prénom<span style="color: red;">*</span></label>
+                          <input type="text" class="form-control" formControlName='firstName' id='firstName'  name="firstName"
+                          [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+
+                         <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                           <div *ngIf="f.firstName.errors.required">Le prénom est obligatoire</div>
+                       </div>
+                        </div>
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefault02">Nom <span style="color: red;">*</span></label>
+                          <input type="text" class="form-control" formControlName='lastName' id='lastName'  name="lastName"
+                          [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+                          <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                           <div *ngIf="f.lastName.errors.required">Le nom est obligatoire</div>
+                         </div>
+                        </div>
+
+                       <div class="col-md-12 mb-3">
+                          <label for="validationDefault01">Date de naissance <span style="color: red;">*</span></label>
+                          <input type="date" class="form-control" formControlName="doB" id='doB' name="doB"
+                          [ngClass]="{ 'is-invalid': submitted && f.doB.errors }">
+                          <div *ngIf="submitted && f.doB.errors" class="invalid-feedback">
+                           <div *ngIf="f.doB.errors.required">La date est obligatoire</div>
+                         </div>
+                        </div>
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefault02">Téléphone 1 <span style="color: red;">*</span></label>
+                          <input type="tel" class="form-control" formControlName="Telephone1" id='Telephone1' name='Telephone1'
+                          [ngClass]="{ 'is-invalid': submitted && f.Telephone1.errors }"
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+                          <div *ngIf="submitted && f.Telephone1.errors" class="invalid-feedback">
+                           <div *ngIf="f.Telephone1.errors.required">Le téléphone est obligatoire</div>
+                         </div>
+                       </div>
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefault02">Téléphone 2</label>
+                          <input type="tel" class="form-control" formControlName="Telephone2" id='Telephone2'
+                          oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                          name='Telephone2'>
+                       </div>
+
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefaultUsername">Quartier <span style="color: red;">*</span></label>
+                          <input type="text" class="form-control" formControlName="address" id="address"   [ngClass]="{ 'is-invalid': submitted && f.address.errors }">
+                          <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                            <div *ngIf="f.address.errors.required">Le quartier est obligatoire</div>
+                          </div>
+                       </div>
+                       <div class="col-md-6 mb-3">
+                        <label for="validationDefaultUsername">Rue</label>
+                        <div class="input-group">
+                           <input type="text" class="form-control" id="rue" name="rue" formControlName="rue">
+                        </div>
+                     </div>
+                     <div class="col-md-6 mb-3">
+                      <label for="validationDefaultUsername">Ville</label>
+                      <div class="input-group">
+                        <select class="form-control" id="ville" name="ville" formControlName="ville">
+                          <option [ngValue]="null" selected>Choisir une ville</option>
+                          <option *ngFor="let c of AllCity" [value]="c.code">
+                            {{c.name}}
+                          </option>
+                      </select>
+                      </div>
+                   </div>
+                   <div class="col-md-6 mb-3">
+                    <label for="validationDefaultUsername">Région</label>
+                    <div class="input-group">
+
+                       <select class="form-control" id="region" name="region" formControlName="region">
+                        <option [ngValue]="null" selected>Choisir la region</option>
+                        <option *ngFor="let c of AllState" [value]="c.code">
+                          {{c.name}}
+                        </option>
+                       </select>
+                    </div>
+                 </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="validationDefaultUsername">Pays</label>
+                    <div class="input-group">
+
+                        <select class="form-control" id="pays" name="pays" formControlName="pays">
+                        <option [ngValue]="null" selected>Choisir le pays</option>
+                        <option *ngFor="let c of AllCountry" [value]="c.code">
+                          {{c.name}}
+                        </option>
+                        </select>
+                    </div>
+                  </div>
+
+
+                       <div class="col-md-6 mb-3">
+                          <label for="validationDefaultUsername">Nationalité</label>
+                          <div class="input-group">
+                            <select class="form-control" id="nationalite" name="nationalite" formControlName="nationalite">
+                              <option [ngValue]="null" selected>Choisir la nationalité</option>
+                              <option *ngFor="let c of AllNationality" [value]="c.code">
+                                {{c.name}}
+                              </option>
+                          </select>
+
+                          </div>
+                       </div>
+
+                    </div>
+              </div>
+              <div class="modal-footer">
+                 <button  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                 <button  class="btn btn-primary">Enregistrer
+                 </button>
+              </div>
+           </div>
+        </div>
+      </form>
+     </div>
+      <!-- fin form patient -->
+
+      <!-- form creation de personne à contacter -->
+      <div class="modal fade bd-personne-modal-xl" tabindex="-1" role="dialog"   aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+           <div class="modal-content">
+              <div class="modal-header">
+                 <h5 class="modal-title">Personne à contacter</h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>
+              </div>
+              <div class="modal-body">
+                <div class="modal-body">
+                  <!-- <form> -->
+
+                     <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">Lien</label>
+                        <select class="form-control" id="msexe">
+                          <option [ngValue]="null" disabled>Choisir le lien</option>
+                          <option *ngFor="let c of AllLinkType" [value]="c.code">
+                            {{c.name}}
+                          </option>
+                        </select>
+
+                        </div>
+                        <div class="col-md-6 mb-3">
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                           <label for="validationDefault01">Prénom</label>
+                           <input type="text" class="form-control" id='mfirstName'  required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                           <label for="validationDefault02">Nom</label>
+                           <input type="text" class="form-control"id='mlastName'  required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                           <label for="validationDefault01">Date de naissance</label>
+                           <input type="date" class="form-control" id='mfirstName' >
+                        </div>
+                        <div class="col-md-6 mb-3">
+                           <label for="validationDefault02">Téléphone </label>
+                           <input type="tel" class="form-control"id='mTelephone1'  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                          <label for="validationDefault01">Sexe</label>
+                          <select class="form-control" id="msexe">
+                            <option [ngValue]="null" disabled>Choisir le sexe</option>
+                            <option *ngFor="let c of AllSexe" [value]="c.code">
+                              {{c.name}}
+                            </option>
+                          </select>
+
+                       </div>
+
+                        <div class="col-md-6 mb-3">
+                          <label for="validationDefaultUsername">Adresse</label>
+                          <div class="input-group">
+
+                             <input type="text" class="form-control" id="maddress"  aria-describedby="inputGroupPrepend2">
+                          </div>
+                       </div>
+
+
+                     </div>
+
+
+
+                  <!-- </form> -->
+               </div>
+              </div>
+              <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                 <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+           </div>
+        </div>
+     </div>
+     <!-- fin form patient -->
+
+     <!-- form modifier personne à contacter -->
+     <div class="modal fade ct-update-modal-xl" tabindex="-1" role="dialog"   aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title">Modifier personnes à contacter</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+              <div class="modal-body">
+                <!-- <form> -->
+
+                   <div class="form-row">
+                      <div class="col-md-6 mb-3">
+                      <label for="validationDefault01">Lien</label>
+                      <select class="form-control" id="msexe">
+                        <option [ngValue]="null" disabled>Choisir le lien</option>
+                        <option *ngFor="let c of AllLinkType" [value]="c.code">
+                          {{c.name}}
+                        </option>
+                      </select>
+
+                      </div>
+                      <div class="col-md-6 mb-3">
+
+                      </div>
+
+                      <div class="col-md-6 mb-3">
+                         <label for="validationDefault01">Prénom</label>
+                         <input type="text" class="form-control" id='mfirstName'  required>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                         <label for="validationDefault02">Nom</label>
+                         <input type="text" class="form-control"id='mlastName'  required>
+                      </div>
+
+                      <div class="col-md-6 mb-3">
+                         <label for="validationDefault01">Date de naissance</label>
+                         <input type="date" class="form-control" id='mfirstName' disabled>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                         <label for="validationDefault02">Téléphone </label>
+                         <input type="tel" class="form-control"id='mTelephone1'  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                      </div>
+
+                      <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">Sexe</label>
+                        <select class="form-control" id="msexe">
+                          <option [ngValue]="null" disabled>Choisir le sexe</option>
+                          <option *ngFor="let c of AllSexe" [value]="c.code">
+                            {{c.name}}
+                          </option>
+                        </select>
+
+                     </div>
+
+                      <div class="col-md-6 mb-3">
+                        <label for="validationDefaultUsername">Adresse</label>
+                        <div class="input-group">
+
+                           <input type="text" class="form-control" id="maddress"  aria-describedby="inputGroupPrepend2">
+                        </div>
+                     </div>
+
+
+                   </div>
+
+
+
+                <!-- </form> -->
+             </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+               <button type="button" class="btn btn-primary">Modifier</button>
+            </div>
+         </div>
+      </div>
+   </div>
+     <!-- form modifier de personne à contacter -->
+
+      <!-- form ajouter exception -->
+
+      <!-- fin form à contacter -->
+      <br>
+      <br>
+
+  </div>
+
+
+<div class="modal fade bd-prenatal-modal-lg" id="formFormPrenatal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <form [formGroup]="addFormPrenatal" (ngSubmit)="onSubmitPrenatal()">
+
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h5 class="modal-title">Dossier prénatal</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body">
+
+                  <div *ngIf="rMessage==='bSave'" class="alert alert-success">
+                      Le patient a été bien enregistré
+                 </div>
+                 <div *ngIf="rMessage==='bError'" class="alert alert-danger">
+                  Erreur lors de l'enregistrement
+                </div>
+                  <div class="form-row">
+                    <input type="hidden" formControlName="patientId" id="patientId" name="patientId">
+                    <input type="hidden" formControlName="id" id="id" name="id">
+                   
+                    
+                     <div class="col-md-6 mb-3">
+                      <label for="validationDefault01">Date dernières règles <span style="color: red;">*</span></label>
+                      <input type="date" class="form-control" formControlName="dateDerniereRegle" id='dateDerniereRegle' name="dateDerniereRegle" 
+                      [ngClass]="{ 'is-invalid': submitted && pre['dateDerniereRegle'].errors }">
+                      <div *ngIf="submitted && pre['dateDerniereRegle'].errors" class="invalid-feedback">
+                        <div *ngIf="pre['dateDerniereRegle'].errors['required']">La date des dernières règles est obligatoire</div>
+                      </div>
+                    </div>
+                     <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">Groupe sanguin<span style="color: red;">*</span></label>
+                        <select class="form-control" id="groupSanguin" name="groupSanguin" formControlName="groupSanguin" [ngClass]="{ 'is-invalid': submitted && pre['groupSanguin'].errors }">
+                          <option disabled>Choisir le groupe sanguin</option>
+                          <option value="A">A</option>
+                          <option value="B">B</option>
+                          <option value="AB">AB</option>
+                          <option value="O">O</option>
+                          <option value="NE SAIT PAS">NE SAIT PAS</option>
+                        </select>
+                        <div *ngIf="submitted && pre['groupSanguin'].errors" class="invalid-feedback">
+                           <div *ngIf="pre['groupSanguin'].errors['required']">Le rhésus est obligatoire</div>
+                         </div>
+                     </div>
+     
+
+                     <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">Rhésus<span style="color: red">*</span></label>
+                        <select class="form-control" id="rhesus" name="rhesus" formControlName="rhesus" [ngClass]="{ 'is-invalid': submitted && pre['rhesus'].errors }">
+                          <option disabled>Choisir le rhésius</option>
+                          <option value="POSITIF">POSITIF</option>
+                          <option value="NEGATIF">NEGATIF</option>
+                          <option value="NE SAIT PAS">NE SAIT PAS</option>
+                        </select>
+                        <div *ngIf="submitted && pre['rhesus'].errors" class="invalid-feedback">
+                           <div *ngIf="pre['rhesus'].errors['required']">Le rhésus est obligatoire</div>
+                         </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <label for="validationDefault01">Praticien<span style="color: red">*</span></label>
+                        <select class="form-control" id="praticien" name="praticien" formControlName="praticien" [ngClass]="{ 'is-invalid': submitted && pre['praticien'].errors }">
+                          <option disabled>Choisir le praticien</option>
+                          <option *ngFor="let c of dataCareGiversDetails" [value]="c.id">
+                           {{ c.lastName }} {{ c.firstName }}
+                         </option>
+                        </select>
+                        <div *ngIf="submitted && pre['praticien'].errors" class="invalid-feedback">
+                           <div *ngIf="pre['praticien'].errors['required']">Le patricien est obligatoire</div>
+                         </div>
+                      </div>
+                     <div class="col-md-6 mb-3">
+                        <label for="validationDefault02">G </label>
+                        <input type="text" class="form-control" formControlName="g" id="g"  name="g">
+                      </div>
+
+                      <div class="col-md-6 mb-3">
+                        <label for="validationDefault02">P </label>
+                        <input type="text" class="form-control" formControlName="p" id="p"  name="p">
+                      </div>
+
+                  </div>
+            </div>
+            <div class="modal-footer">
+              <button  class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              <button  class="btn btn-primary">Enregistrer
+              </button>
+           </div>
+        </div>
+
+
+    </div>
+    </form>
+ </div>
+
+
+ <!-- form creation de AntecedentObstetricaux -->
+ <div class="modal fade bd-archivage-modal-lg" id="formArchivage" tabindex="-1" role="dialog" aria-hidden="true">
+   <form [formGroup]="addOrUpdateArchivage" id="FormArchivage"
+     (ngSubmit)="onSubmitArchivage()">
+     <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title">Archivage </h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <div class="modal-body">
+           <div *ngIf="rMessage === 'bSaveArchivage'" class="alert alert-success">
+             L'archivage a été bien enregistré
+           </div>
+           <div *ngIf="rMessage === 'bUpdateObstetrical'" class="alert alert-danger">
+             Erreur lors de l'enregistrement
+           </div>
+           <div *ngIf="rMessage === 'bErrorObstetrical'" class="alert alert-danger">
+             Erreur lors de l'enregistrement
+           </div>
+           <div class="form-row">
+             <input type="hidden" formControlName="patientId" id="patientId" name="patientId" />
+             <input type="hidden" formControlName="id" id="id" name="id" />
+             <div class="col-md-6 mb-3">
+               <label for="validationDefault01">Année </label>
+               <input type="text" class="form-control" formControlName="annee" id="annee" name="annee" />
+             </div>
+             <div class="col-md-6 mb-3">
+               <label for="validationDefault01">Choisir le type </label>
+               <select class="form-control" id="typeGrossesse" name="typeGrossesse" formControlName="typeGrossesse">
+                 <option disabled>Choisir le type</option>
+                 <option value="1">Simple</option>
+                 <option value="2">Gémellaire</option>
+                 <option value="3">Autres</option>
+               </select>
+             </div>
+             <div class="col-md-6 mb-3">
+               <label for="validationDefault01">Motif </label>
+               <select class="form-control" id="issue" name="issue" formControlName="issue">
+                 <option value=" Avortement T1"> Avortement T1</option>
+                 <option value="AVB">AVB</option>
+                 <option value="Césarienne">Césarienne</option>
+                 <option value="ROM">ROM</option>
+                 <option value="Autres">Autres</option>
+               </select>             
+              </div>
+              <div class="col-md-6 mb-3">
+               <label for="validationDefault01">Date de fin de grossesse</label>
+               <input type="date" (input)="getValue($event)" class="form-control" formControlName="dateFinGrossesse" id="dateFinGrossesse" name="dateFinGrossesse" />
+             </div>
+             <div class="col-md-6 mb-3">
+               <label for="validationDefault01">Terme(SA) </label>
+               <input type="text" class="form-control" formControlName="terme" id="terme" name="terme" />
+             </div>
+
+             <div class="col-md-12 mb-3 text-center text-dark">
+               <label for="validationDefault01 "> <h1>Déroulement</h1></label>
+             </div>
+
+               <div class="col-md-4 mb-3">
+                 Grossesse normale<br/>
+                  <input class="form-radio-input" type="radio" style="margin-left: 5px"
+                    name="grossesseNormale" value="oui" formControlName="grossesseNormale" id="defaultCheck1" />
+                  <label style="margin-left: 25px" class="form-check-label" for="defaultCheck1">
+                    Oui
+                  </label>
+                  <br />
+                  <input class="form-radio-input" type="radio" style="margin-left: 5px"
+                    name="grossesseNormale" value="non" formControlName="grossesseNormale" v id="defaultCheck2"
+                    checked />
+                  <label style="margin-left: 25px" class="form-check-label" for="defaultCheck2">
+                    Non
+                  </label>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                 HTA<br/>
+                  <input class="form-radio-input" type="radio" style="margin-left: 5px"
+                    name="hta" value="oui" formControlName="hta" id="defaultCheck1" />
+                  <label style="margin-left: 25px" class="form-check-label" for="defaultCheck1">
+                    Oui
+                  </label>
+                  <br />
+                  <input class="form-radio-input" type="radio" style="margin-left: 5px"
+                    name="hta" value="non" formControlName="hta" v id="defaultCheck2"
+                    checked />
+                  <label style="margin-left: 25px" class="form-check-label" for="defaultCheck2">
+                    Non
+                  </label>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                 Prééclampsie<br/>
+                  <input class="form-radio-input" type="radio" style="margin-left: 5px"
+                    name="preeclampsie" value="oui" formControlName="preeclampsie" id="defaultCheck1" />
+                  <label style="margin-left: 25px" class="form-check-label" for="defaultCheck1">
+                    Oui
+                  </label>
+                  <br />
+                  <input class="form-radio-input" type="radio" style="margin-left: 5px"
+                    name="preeclampsie" value="non" formControlName="preeclampsie" v id="defaultCheck2"
+                    checked />
+                  <label style="margin-left: 25px" class="form-check-label" for="defaultCheck2">
+                    Non
+                  </label>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  Diabète gestationnel<br/>
+                  <input class="form-radio-input" type="radio" style="margin-left: 5px"
+                    name="diabeteGestationnel" value="oui" formControlName="diabeteGestationnel" id="defaultCheck1" />
+                  <label style="margin-left: 25px" class="form-check-label" for="defaultCheck1">
+                    Oui
+                  </label>
+                  <br />
+                  <input class="form-radio-input" type="radio" style="margin-left: 5px"
+                    name="diabeteGestationnel" value="non" formControlName="diabeteGestationnel" v id="defaultCheck2"
+                    checked />
+                  <label style="margin-left: 25px" class="form-check-label" for="defaultCheck2">
+                    Non
+                  </label>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                 Autres<br/>
+                  <input class="form-radio-input" type="radio" style="margin-left: 5px"
+                    name="deroulementGrossesse" value="oui" formControlName="deroulementGrossesse" id="defaultCheck1" />
+                  <label style="margin-left: 25px" class="form-check-label" for="defaultCheck1">
+                    Oui
+                  </label>
+                  <br />
+                  <input class="form-radio-input" type="radio" style="margin-left: 5px"
+                    name="deroulementGrossesse" value="non" formControlName="deroulementGrossesse" v id="defaultCheck2"
+                    checked />
+                  <label style="margin-left: 25px" class="form-check-label" for="defaultCheck2">
+                    Non
+                  </label>
+                </div>
+              
+             <div class="col-md-3 mb-3">
+               <label for="validationDefault02">Sexe 1</label>
+               <select class="form-control" id="sexeNne1" name="sexeNne1" formControlName="sexeNne1">
+                 <option disabled>Choisir le sexe</option>
+                 <option value="Féminin">Féminin</option>
+                 <option value="Masculin">Masculin</option>
+               </select>
+             </div>
+ 
+             <div class="col-md-3 mb-3">
+               <label for="validationDefault02">Poids 1</label>
+               <input type="text" class="form-control" formControlName="poidsNne1" id="poidsNne1" name="poidsNne1" />
+             </div>
+             <div class="col-md-3 mb-3">
+               <label for="validationDefault02">Sexe 2</label>
+               <select class="form-control" id="sexeNne2" name="sexeNne2" formControlName="sexeNne2">
+                 <option disabled>Choisir le sexe</option>
+                 <option value="Féminin">Féminin</option>
+                 <option value="Masculin">Masculin</option>
+               </select>
+             </div>
+ 
+             <div class="col-md-3 mb-3">
+               <label for="validationDefault02">Poids 2</label>
+               <input type="text" class="form-control" formControlName="poidsNne2" id="poidsNne2" name="poidsNne2" />
+             </div>
+           </div>
+            
+           <div class="col-md-6 mb-3">
+             <label for="validationDefault01">Délivrance </label>
+             <select class="form-control" id="accouchement_delivrance" name="accouchement_delivrance" formControlName="accouchement_delivrance">
+               <option value="Normale">Normale</option>
+               <option value="Hémorragie">Hémorragie</option>
+               <option value="Rétention">Rétention</option>
+             </select>
+           </div>
+          
+             
+           <div class="col-md-6 mb-3">
+             <label for="validationDefault01">Allaitement </label>
+             <select class="form-control" id="allaitement" name="allaitement" formControlName="allaitement">
+               <option value="Artificiel">Artificiel</option>
+               <option value="Maternel">Maternel</option>
+               <option value="Mixte">Mixte</option>
+             </select>
+           </div>
+            
+           <div class="col-md-6 mb-3">
+             <label for="validationDefault02">Evolution </label>
+             <select class="form-control" id="evolution_commentaire" name="evolution_commentaire" formControlName="evolution_commentaire">
+               <option value="Bien portant">Bien portant</option>
+               <option value="Décédé">Décédé</option>
+             </select>
+           </div>
+
+         </div>
+         <div class="modal-footer">
+           <button class="btn btn-primary">
+             Enregistrer
+           </button>
+         </div>
+       </div>
+     </div>
+   </form>
+ </div>
+ <!-- fin form AntecedentObstetricaux -->
+
+
+
+

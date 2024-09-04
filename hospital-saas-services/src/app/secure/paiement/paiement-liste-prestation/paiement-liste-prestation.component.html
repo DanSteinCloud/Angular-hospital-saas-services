@@ -1,0 +1,53 @@
+<div class="col-sm-12">
+    <div class="iq-card">
+       <div class="iq-card-header d-flex justify-content-between">
+            <div class="iq-header-title">
+                <h4 class="card-title">Liste des prestations </h4>
+            </div>
+       </div>
+        <div class="iq-card-body">
+            <div id="table" class="table-editable">
+                <span class="table-add float-right mb-3 mr-2">   
+                    <button class="btn btn-sm btn-primary" data-toggle="modal" (click)="sendEvent()" data-target=".bd-example-modal-lg">
+                        <i class="ri-add-fill">
+                            <span class="pl-1">
+                                Créer une prestation ambulatoire
+                            </span>
+                        </i>
+                    </button>
+                </span>
+                <table class="table table-bordered table-responsive-md table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>Id de la prestation</th>
+                            <th>Date</th>
+                            <th>Heure</th>
+                            <th>Patient</th>
+                            <th>Medecin principal</th>
+                            <th>Assurance</th>
+                            <th>Type</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let prestation of Liste; let i=index" >
+
+                            <td>{{prestation.id}}</td>
+                            <td>{{prestation.Date}}</td>
+                            <td>{{prestation.Time}}</td>
+                            <td>{{prestation.patient.firstName}} {{prestation.patient.lastName}}</td>
+                            <td>{{prestation.doctor.firstName}}</td>
+                            <td>{{prestation.assurance}}</td>
+                            <td>{{prestation.type}}</td>
+                            <td>
+                                <button type="button" (click)="PrestationAmbulatoireSelected(i)" class="btn btn-primary btn-sm">
+                                    Voir
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

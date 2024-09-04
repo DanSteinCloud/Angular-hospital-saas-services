@@ -1,0 +1,83 @@
+<div class="iq-card">
+  <div class="iq-card-header d-flex justify-content-between">
+     <div class="iq-header-title">
+        <h4 class="card-title">Formulaire de recherche</h4>
+     </div>
+  </div>
+  <div class="iq-card-body">
+     <form novalidate method="POST"
+     [formGroup]="searchForm" (ngSubmit)="onRechercheSubmit()">
+        <div class="form-row">
+           <div class="col">
+             <label>Saisir le numéro dossier</label>
+            <input type="text" class="form-control" name="rpatientIdentifier" formControlName="rpatientIdentifier">
+
+          </div>
+           <div class="col">
+             <label>Saisir le prénom</label>
+            <input type="text" class="form-control" name="rfirstName" formControlName="rfirstName">
+
+           </div>
+           <div class="col">
+             <label>Saisir le nom</label>
+            <input type="text" class="form-control" name="rlastName" formControlName="rlastName">
+
+           </div>
+
+        </div>
+        <br>
+        <div class="form-row">
+          <div class="col">
+            <label>Saisir la date de naissance</label>
+           <input type="date" class="form-control" formControlName='rdoB' name='rdoB'>
+          </div>
+          <div class="col">
+            <label>Saisir le téléphone</label>
+           <input type="text" class="form-control" formControlName='rTelephone1' name='rTelephone1' oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+          </div>
+          <div class="col">
+            <label>Choisir une ville</label>
+            <select class="form-control" formControlName='rcity' name="rcity">
+              <option [ngValue]="null" selected disabled></option>
+              <option *ngFor="let c of AllCity" [value]="c.code">
+                {{c.name}}
+              </option>
+             </select>
+           <!-- <input type="text" class="form-control" formControlName='raddress' name='raddress'  placeholder="Saisir l'adresse "> -->
+          </div>
+       </div>
+        <br>
+       <div class="form-row">
+        <div class="col">
+          <label>Choisir le sexe</label>
+          <select class="form-control" formControlName="rsex" name="rsex" formControlName="rsex">
+            <option [ngValue]="null" selected></option>
+              <option *ngFor="let c of AllSexe" [value]="c.code">
+                {{c.name}}
+              </option>
+           </select>
+        </div>
+        <div class="col">
+         <!-- <input type="text" class="form-control"  placeholder="Saisir l'assurance"> -->
+         <label>Choisir une assurance</label>
+         <select class="form-control" formControlName='rassurance' name="rassurance">
+          <option [ngValue]="null" selected></option>
+          <option *ngFor="let assur of dataAssurance | keyvalue" [value]="assur.value.id">
+            {{assur.value.name}}
+          </option>
+         </select>
+        </div>
+        <div class="col">
+          <label>Saisir la date de création</label>
+         <input type="date" class="form-control" formControlName="rdateCreated" name="rdateCreated">
+        </div>
+
+     </div>
+     <br>
+     <div class="form-row">
+      <button class="btn btn-primary btn-lg">  Rechercher  </button> &nbsp;&nbsp;
+      <button (click)="annuler()" type="reset" class="btn btn-secondary btn-lg">&nbsp;&nbsp;&nbsp;  Annuler &nbsp;&nbsp;&nbsp; </button>
+     </div>
+     </form>
+  </div>
+</div>
